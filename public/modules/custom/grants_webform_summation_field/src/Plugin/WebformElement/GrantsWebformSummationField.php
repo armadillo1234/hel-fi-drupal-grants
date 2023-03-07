@@ -43,8 +43,15 @@ class GrantsWebformSummationField extends WebformElementBase {
       if ($field_detail['#type'] == 'grants_webform_summation_field') {
         continue;
       }
+      if ($field_detail['#type'] == 'grants_compensations') {
+        $collect_field[$field_key] = $field_detail['#title'];
+        $collect_column = [];
+        foreach ($field_detail['#webform_composite_elements'] as $column_key => $value) {
+          $collect_column[$field_key . '%%' . $column_key] = $field_detail['#title'] . ': ' . $column_key;
+        }
+      }
 
-      $collect_field[$field_key] = $field_detail['#title'];
+
     }
 
     $form['grants_webform_summation_field'] = [
@@ -55,7 +62,7 @@ class GrantsWebformSummationField extends WebformElementBase {
     $form['grants_webform_summation_field']['collect_field'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Collect Fields'),
-      '#options' => $collect_field,
+      '#options' => $collect_column,
       '#description' => $this->t('Which fields should be collected.'),
     ];
 

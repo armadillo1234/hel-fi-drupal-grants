@@ -37,7 +37,6 @@ class CommunityAddressComposite extends WebformCompositeBase {
 
     $elements['community_address_select'] = [
       '#type' => 'select',
-      '#required' => TRUE,
       '#title' => t('Select address'),
       '#after_build' => [[get_called_class(), 'buildAddressOptions']],
       '#options' => [],
@@ -79,14 +78,22 @@ class CommunityAddressComposite extends WebformCompositeBase {
    * @return array
    *   Updated element
    *
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   *
    * @see grants_handler.module
    */
   public static function buildAddressOptions(array $element, FormStateInterface $form_state): array {
 
+    $user = \Drupal::currentUser();
+    $roles = $user->getRoles();
+
+    if (!in_array('helsinkiprofiili', $roles)) {
+      return [];
+    }
     /** @var \Drupal\grants_profile\GrantsProfileService $grantsProfileService */
     $grantsProfileService = \Drupal::service('grants_profile.service');
 
-    $selectedCompany = $grantsProfileService->getSelectedCompany();
+    $selectedCompany = $grantsProfileService->getSelectedRoleData();
     $profileData = $grantsProfileService->getGrantsProfileContent($selectedCompany ?? '');
 
     $formValues = $form_state->getValues();

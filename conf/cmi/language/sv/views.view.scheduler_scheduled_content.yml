@@ -1,4 +1,5 @@
 label: 'Schemalagt innehåll'
+description: 'Find and manage scheduled content.'
 display:
   default:
     display_options:
@@ -63,6 +64,9 @@ display:
           expose:
             label: Språk
       title: 'Schemalagt innehåll'
+      empty:
+        area_text_custom:
+          content: 'No scheduled content.'
     display_title: Huvud
   overview:
     display_options:

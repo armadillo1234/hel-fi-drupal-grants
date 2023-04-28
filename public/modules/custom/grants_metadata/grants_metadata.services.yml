@@ -2,3 +2,6 @@ services:
   grants_metadata.atv_schema:
     class: Drupal\grants_metadata\AtvSchema
     arguments: ['@typed_data_manager', '@logger.factory']
+
+  grants_metadata.converter:
+    class: Drupal\grants_metadata\GrantsConverterService

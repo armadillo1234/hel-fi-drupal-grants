@@ -1,0 +1,6 @@
+name: Grants Applicant info
+type: module
+description: Module to collect automatically filled details for every type applicant
+package: Helfi
+core: 8.x
+core_version_requirement: ^8 || ^9

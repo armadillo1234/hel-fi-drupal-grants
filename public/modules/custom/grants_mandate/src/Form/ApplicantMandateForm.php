@@ -5,6 +5,7 @@ namespace Drupal\grants_mandate\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\TrustedRedirectResponse;
+use Drupal\Core\Url;
 use Drupal\grants_mandate\GrantsMandateService;
 use Drupal\grants_profile\GrantsProfileService;
 use Drupal\helfi_helsinki_profiili\HelsinkiProfiiliUserData;
@@ -72,41 +73,92 @@ class ApplicantMandateForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
 
-    // $form['applicant_type'] = [
-    // '#type' => 'radios',
-    // '#title' => $this
-    // ->t('Select applicant type'),
-    // '#options' => [
-    // 'registered_community' => $this
-    // ->t('Registered community'),
-    // 'unregistered_community' => $this
-    // ->t('Unregistered community'),
-    // 'private_person' => $this
-    // ->t('Private person'),
-    // ],
-    // '#required' => TRUE,
-    // ];
+    $userData = $this->helsinkiProfiiliUserData->getUserData();
+
+    $profileOptions = [
+      'new' => $this->t('Add new Unregistered community'),
+    ];
+    $profiles = [];
+    try {
+      $profiles = $this->grantsProfileService->getUsersGrantsProfiles($userData['sub'], 'unregistered_community');
+
+      /** @var \Drupal\helfi_atv\AtvDocument $profile */
+      foreach ($profiles as $profile) {
+        $meta = $profile->getMetadata();
+        $content = $profile->getContent();
+        $profileOptions[$meta["profile_id"]] = $content['companyName'];
+      }
+
+    }
+    catch (\Throwable $e) {
+    }
+
+    $form_state->setStorage([
+      'userCommunities' => $profiles,
+    ]);
+
     $form['info'] = [
       '#markup' => '<p>' . $this->t('Choose the applicant role you want to use for the application') . '</p>',
     ];
     $form['actions'] = [
       '#type' => 'actions',
     ];
-    $form['actions']['registered'] = [
+    $form['actions']['registered_community'] = [
       '#type' => 'container',
       '#attributes' => ['class' => ['hds-card__body']],
       '#prefix' => '<div class="hds-card hds-card--applicant-role">',
       '#suffix' => '</div>',
     ];
-    $form['actions']['registered']['info'] = [
+    $form['actions']['registered_community']['info'] = [
       '#theme' => 'select_applicant_role',
       '#icon' => 'group',
       '#role' => $this->t('Registered community'),
       '#role_description' => $this->t('This is a short description of the applicant role.'),
     ];
-    $form['actions']['registered']['submit'] = [
+    $form['actions']['registered_community']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Select role & authorize mandate'),
+      '#name' => 'registered_community',
+      '#value' => $this->t('Select Registered community role & authorize mandate'),
+    ];
+    $form['actions']['unregistered_community'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['hds-card__body']],
+      '#prefix' => '<div class="hds-card hds-card--applicant-role">',
+      '#suffix' => '</div>',
+    ];
+    $form['actions']['unregistered_community']['info'] = [
+      '#theme' => 'select_applicant_role',
+      '#icon' => 'group',
+      '#role' => $this->t('Unregistered community'),
+      '#role_description' => $this->t('This is a short description of the applicant role.'),
+    ];
+
+    $form['actions']['unregistered_community']['unregistered_community_selection'] = [
+      '#type' => 'select',
+      '#options' => $profileOptions,
+    ];
+
+    $form['actions']['unregistered_community']['submit'] = [
+      '#type' => 'submit',
+      '#name' => 'unregistered_community',
+      '#value' => $this->t('Select Unregistered community role'),
+    ];
+    $form['actions']['private_person'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['hds-card__body']],
+      '#prefix' => '<div class="hds-card hds-card--applicant-role">',
+      '#suffix' => '</div>',
+    ];
+    $form['actions']['private_person']['info'] = [
+      '#theme' => 'select_applicant_role',
+      '#icon' => 'group',
+      '#role' => $this->t('Private person'),
+      '#role_description' => $this->t('This is a short description of the applicant role.'),
+    ];
+    $form['actions']['private_person']['submit'] = [
+      '#name' => 'private_person',
+      '#type' => 'submit',
+      '#value' => $this->t('Select Private person role'),
     ];
 
     return $form;
@@ -121,33 +173,97 @@ class ApplicantMandateForm extends FormBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\helfi_helsinki_profiili\TokenExpiredException
+   * @throws \Drupal\grants_mandate\GrantsMandateException
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
-    // $selectedType = $form_state->getValue('applicant_type');
-    $selectedType = 'registered_community';
+    $triggeringElement = $form_state->getTriggeringElement();
 
+    $selectedType = $triggeringElement['#name'];
     $this->grantsProfileService->setApplicantType($selectedType);
 
-    if ($selectedType == 'registered_community' || $selectedType == 'private_person') {
-      $mandateMode = '';
+    $selectedProfileData = [
+      'type' => $selectedType,
+    ];
 
-      if ($selectedType == 'registered_community') {
+    switch ($selectedType) {
+      case 'unregistered_community':
+
+        $storage = $form_state->getStorage();
+        $userCommunities = $storage['userCommunities'];
+
+        $selectedCommunity = $form_state->getValue('unregistered_community_selection');
+
+        if ($selectedCommunity == 'new') {
+          $selectedProfileData['identifier'] = $this->grantsProfileService->getUuid();
+          $selectedProfileData['name'] = $this->t('New Unregistered Community')
+            ->render();
+          $selectedProfileData['complete'] = FALSE;
+
+          // Redirect user to grants profile page.
+          $redirectUrl = Url::fromRoute('grants_profile.edit');
+
+          $this->grantsProfileService->setSelectedRoleData($selectedProfileData);
+
+        }
+        else {
+
+          $selectedCommunityObject = array_filter(
+            $userCommunities,
+            function ($item) use ($selectedCommunity) {
+              $meta = $item->getMetadata();
+              if ($meta['profile_id'] == $selectedCommunity) {
+                return TRUE;
+              }
+              return FALSE;
+            }
+          );
+
+          $selectedCommunityObject = reset($selectedCommunityObject);
+          $selectedMetadata = $selectedCommunityObject->getMetadata();
+          $selectedContent = $selectedCommunityObject->getContent();
+
+          $selectedProfileData['identifier'] = $selectedMetadata['profile_id'];
+          $selectedProfileData['name'] = $selectedContent["companyName"];
+          $selectedProfileData['complete'] = TRUE;
+
+          $this->grantsProfileService->setSelectedRoleData($selectedProfileData);
+
+          // Redirect user to grants profile page.
+          $redirectUrl = Url::fromRoute('grants_profile.show');
+        }
+
+        $redirect = new TrustedRedirectResponse($redirectUrl->toString());
+        $form_state->setResponse($redirect);
+
+        break;
+
+      case 'private_person':
+        $userData = $this->helsinkiProfiiliUserData->getUserData();
+
+        $selectedProfileData['identifier'] = $userData["sub"];
+        $selectedProfileData['name'] = $userData["name"];
+        $selectedProfileData['complete'] = TRUE;
+
+        $this->grantsProfileService->setSelectedRoleData($selectedProfileData);
+
+        // Redirect user to grants profile page.
+        $redirectUrl = Url::fromRoute('grants_profile.show');
+        $redirect = new TrustedRedirectResponse($redirectUrl->toString());
+        $form_state->setResponse($redirect);
+
+        break;
+
+      default:
         $mandateMode = 'ypa';
-      }
+        $redirectUrl = Url::fromUri($this->grantsMandateService->getUserMandateRedirectUrl($mandateMode));
+        $redirect = new TrustedRedirectResponse($redirectUrl->toString());
+        $form_state->setResponse($redirect);
 
-      if ($selectedType == 'private_person') {
-        $mandateMode = 'hpa';
-      }
-
-      $redirectUrl = $this->grantsMandateService->getUserMandateRedirectUrl($mandateMode);
-      $redirect = new TrustedRedirectResponse($redirectUrl);
-      $form_state->setResponse($redirect);
+        break;
     }
-    else {
-      // @todo message user if no mandate is needed??
-    }
-
   }
 
 }

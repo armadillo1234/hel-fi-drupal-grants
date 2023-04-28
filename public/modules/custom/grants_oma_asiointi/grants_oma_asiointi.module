@@ -35,6 +35,7 @@ function grants_oma_asiointi_theme() {
     'render element' => 'build',
     'variables' => [
       'title' => NULL,
+      'roleType' => NULL,
     ],
   ];
   $theme['grants_oma_asiointi_asiointirooli_block'] = [

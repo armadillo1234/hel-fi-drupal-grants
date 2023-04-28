@@ -84,7 +84,7 @@ class AsiointirooliBlock extends BlockBase implements ContainerFactoryPluginInte
 
     $companyName = NULL;
 
-    $selectedCompany = $this->grantsProfileService->getSelectedCompany();
+    $selectedCompany = $this->grantsProfileService->getSelectedRoleData();
     if ($selectedCompany) {
       $companyName = $selectedCompany['name'];
     }

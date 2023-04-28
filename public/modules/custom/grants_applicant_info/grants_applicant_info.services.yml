@@ -1,0 +1,6 @@
+services:
+  grants_applicant_info.service:
+    class: Drupal\grants_applicant_info\ApplicantInfoService
+    arguments: [
+      '@grants_profile.service'
+    ]

@@ -3,6 +3,7 @@
 namespace Drupal\grants_handler\EventSubscriber;
 
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpKernel\KernelEvents;
  * Grants Handler event subscriber.
  */
 class CompanySelectExceptionSubscriber implements EventSubscriberInterface {
+
+  use StringTranslationTrait;
 
   /**
    * The messenger.
@@ -41,7 +44,9 @@ class CompanySelectExceptionSubscriber implements EventSubscriberInterface {
     $ex = $event->getThrowable();
     $exceptionClass = get_class($ex);
     if ($exceptionClass === 'Drupal\grants_mandate\CompanySelectException') {
-      $this->messenger->addError($this->t('You must have company & authorisation set before applying.'));
+      // @codingStandardsIgnoreStart
+      $this->messenger->addError($this->t($ex->getMessage()));
+      // @codingStandardsIgnoreEnd
 
       $url = Url::fromRoute('grants_mandate.mandateform');
       $response = new RedirectResponse($url->toString());

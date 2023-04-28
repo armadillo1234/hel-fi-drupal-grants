@@ -64,7 +64,7 @@ class GrantsHandlerSubmissionBreadcrumbsBuilder implements BreadcrumbBuilderInte
     $breadcrumb = new Breadcrumb();
 
     $applicationNumber = $route_match->getParameters()->get('submission_id');
-    $selectedCompany = $this->grantsProfileService->getSelectedCompany();
+    $selectedCompany = $this->grantsProfileService->getSelectedRoleData();
 
     $breadcrumb->addLink(Link::createFromRoute($this->t('Front page'), '<front>'));
     $breadcrumb->addLink(Link::createFromRoute($selectedCompany['name'], 'grants_oma_asiointi.front'));

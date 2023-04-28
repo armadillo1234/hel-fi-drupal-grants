@@ -6,7 +6,6 @@ use Drupal\Core\Entity\EntityHandlerInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\grants_metadata\AtvSchema;
-use Drupal\grants_metadata\TypedData\Definition\YleisavustusHakemusDefinition;
 use Drupal\helfi_atv\AtvService;
 use Drupal\helfi_helsinki_profiili\HelsinkiProfiiliUserData;
 use Drupal\webform\WebformSubmissionInterface;
@@ -115,13 +114,12 @@ class GrantsHandlerSubmissionStorage extends WebformSubmissionStorage {
     ) {
 
       $userAuthLevel = $this->helsinkiProfiiliUserData->getAuthenticationLevel();
-      $dataDefinition = YleisavustusHakemusDefinition::create('grants_metadata_yleisavustushakemus');
 
       if (
         // .user authentication level is strong, allow them to load things.
         $userAuthLevel == 'strong') {
         /** @var \Drupal\webform\Entity\WebformSubmission $submission */
-        foreach ($webform_submissions as $submission) {
+        foreach ($webform_submissions as $key => $submission) {
           if (!empty($this->data[$submission->id()])) {
             $submission->setData($this->data[$submission->id()]);
           }
@@ -140,6 +138,18 @@ class GrantsHandlerSubmissionStorage extends WebformSubmissionStorage {
               if (!$document) {
                 throw new \Exception('Submission data load failed.');
               }
+
+              $docArray = $document->toArray();
+              $id = AtvSchema::extractDataForWebForm(
+                $docArray['content'], ['applicationNumber']
+              );
+
+              if (!isset($id['applicationNumber']) || empty($id['applicationNumber'])) {
+                continue;
+              }
+
+              $dataDefinition = ApplicationHandler::getDataDefinition($document->getType());
+
               $appData = $this->atvSchema->documentContentToTypedData(
                 $document->getContent(),
                 $dataDefinition,
@@ -148,10 +158,6 @@ class GrantsHandlerSubmissionStorage extends WebformSubmissionStorage {
               $submission->setData($appData);
               $this->data[$submission->id()] = $appData;
 
-              // Try to invalidate caches for this submission so that data
-              // is updated in UI as well.
-              // \Drupal::cache()
-              // ->invalidate('webform_submission:' . $submission->id());
             }
             catch (\Exception $exception) {
               $this->loggerFactory->get('GrantsHandlerSubmissionStorage')

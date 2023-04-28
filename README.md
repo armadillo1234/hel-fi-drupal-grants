@@ -2,7 +2,7 @@
 
 ![CI pipeline](https://github.com/City-of-Helsinki/hel-fi-drupal-grants/actions/workflows/test.yml/badge.svg)
 
-This project offers citizens a way to apply for different city grants for their associations or themselves..
+This project offers citizens a way to apply for different city grants for their associations or themselves...
 
 ## Environments
 

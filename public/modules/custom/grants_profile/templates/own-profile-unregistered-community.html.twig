@@ -1,0 +1,60 @@
+<div class="container">
+  <h2>{{ "Association information"|t }}</h2>
+  <p class="grants-profile--infotext">{{ "To apply for grants, the community data must be completed. When you submit a grant application, the information you have provided will be filled in automatically."|t }}</p>
+  <div class="grants-profile">
+    <div class="grants-profile--basicinfo">
+      <div class="container">
+        <h3>{{ "Basic details"|t({}, {'context': 'Yksityishenkilön asiointi'}) }}</h3>
+        <div class="grants-profile-prh-info">
+          <p>{{ "The indicated information has been retrieved from the register of the Finnish Patent and Registration Office (PRH), and changing the information is only possible in the online service in question."|t }}</p>
+        </div>
+        <hr />
+        <dl class="grants-profile--wrapper">
+          <div class="grants-profile--wrapper-item">
+            <dt><strong>{{ "Name of association"|t }}</strong></dt>
+            <dd class="grants-profile--item grants-profile-company-name">{{ profile.companyName }}</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    <h3 class="info-grants">{{ "Association information in Grants"|t }}</h3>
+    <div class="grants-profile--extrainfo">
+      <dl class="webform-section-grid-wrapper">
+        <dt class="webform-section-title" id="yhteison-nimi">{{ "Name of association"|t }}</dt>
+        <dd class="webform-section-wrapper">
+          {{ profile.companyName }}
+        </dd>
+        <dt class="webform-section-title" id="addresses">{{ 'Addresses'|t }}</dt>
+        <div class="webform-section-wrapper grants-profile--officials">
+          {% for address in profile.addresses %}
+            <dd class="grants-profile--officials-item">
+              {{ address.street }},<br>
+              {{ address.postCode }} {{ address.city }}
+            </dd>
+          {% endfor %}
+        </div>
+        <dt class="webform-section-title" id="officials-3">{{ 'Bank account numbers'|t }}</dt>
+        <div class="webform-section-wrapper grants-profile--officials">
+          {% for bankaccount in profile.bankAccounts %}
+            <dd class="grants-profile--officials-item">
+              {{ bankaccount.bankAccount }}
+            </dd>
+          {% endfor %}
+        </div>
+        <dt class="webform-section-title" id="officials">{{ 'Persons responsible for operations'|t }}</dt>
+        <div class="webform-section-wrapper grants-profile--officials">
+          {% for official in profile.officials %}
+            <dd class="grants-profile--officials-item">
+              <span>
+                <strong>{{ official.name }}</strong><br>
+                {{ official.phone }}<br>
+                {{ official.email }}
+              </span>
+            </dd>
+          {% endfor %}
+        </div>
+      </dl>
+    </div>
+    {{ editProfileLink }}
+  </div>
+</div>

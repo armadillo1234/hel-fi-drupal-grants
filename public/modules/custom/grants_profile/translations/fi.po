@@ -22,6 +22,9 @@ msgstr "Näytä oma profiili"
 msgid "Association information"
 msgstr "Yhteisön tiedot"
 
+msgid "Add association information"
+msgstr "Lisää yhteisön tiedot"
+
 msgid "To apply for grants, the community data must be completed. When you submit a grant application, the information you have provided will be filled in automatically."
 msgstr "Avustusten hakeminen edellyttää yhteisön tietojen täydentämistä. Tehdessäsi avustushakemuksia antamasi tiedot täytetään niihin automaattisesti."
 
@@ -292,6 +295,9 @@ msgstr "Tilinumerot"
 msgid "Finnish bank account number in IBAN format"
 msgstr "Suomalainen tilinumero IBAN-muodossa"
 
+msgid "Personal bank account"
+msgstr "Henkilökohtainen tilinumero"
+
 msgid "Saved confirmation file"
 msgstr "Tallennettu varmistustiedosto"
 
@@ -423,6 +429,10 @@ msgctxt "Profile Address"
 msgid "City/town"
 msgstr "Toimipaikka"
 
+msgctxt "Profile Address"
+msgid "Country"
+msgstr "Maa"
+
 msgid "Community address"
 msgstr "Yhteisön osoite"
 
@@ -458,3 +468,37 @@ msgstr "Sinun tulee liittää tilinumeron vahvistuliite: @iban"
 
 msgid "You must add one bank account"
 msgstr "Sinun tulee lisätä vähintään yksi pankkitili"
+
+msgctxt "Yksityishenkilön asiointi"
+msgid "Personal information"
+msgstr "Omat tiedot"
+
+msgctxt "Yksityishenkilön asiointi"
+msgid "Basic details"
+msgstr "Perustiedot"
+
+msgctxt "Yksityishenkilön asiointi"
+msgid "Social security number"
+msgstr "Henkilötunnus"
+
+msgctxt "Yksityishenkilön asiointi"
+msgid "Own contact information"
+msgstr "Omat yhteystiedot"
+
+msgid "Select Private person role"
+msgstr "Valitse rooli Yksityishenkilö"
+
+msgid "Select Unregistered community role"
+msgstr "Valitse rooli Rekisteröimätön yhteisö"
+
+msgid "Add new Unregistered community"
+msgstr "Lisää uusi Rekisteröimätön yhteisö"
+
+msgid "Select Registered community role & authorize mandate"
+msgstr "Valitse rooli Rekisteröity yhteisö & tee valtuutus"
+
+msgid "The information has been retrieved from your Helsinki profile. You need to go to your Helsinki profile to edit this information. When you have edited your information in the Helsinki profile, remember to update this field."
+msgstr "Tiedot on haettu Helsinki-profiilistasi. Sinun pitää siirtyä Helsinki-profiiliin muokataksesi näitä tietoja. Kun olet muokannut tietojasi Helsinki-profiilissa, muista päivittää tämä kenttä."
+
+msgid "By completing your own information, you will facilitate your dealings with grants. Based on the information, we can find grants that are more suitable for you or your community. In addition, filling out applications will be faster in the future."
+msgstr "Täydentämällä omat tiedot helpotat asiointiasi avustuksiin liittyen. Tietojen perusteella löydämme paremmin sinulle tai yhteisöllesi sopivat avustukset. Lisäksi hakemusten täyttäminen käy jatkossa nopeammin."

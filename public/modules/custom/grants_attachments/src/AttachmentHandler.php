@@ -520,8 +520,8 @@ class AttachmentHandler {
     $atvSchema = \Drupal::service('grants_metadata.atv_schema');
 
     // If we have account number, load details.
-    $selectedCompany = $this->grantsProfileService->getSelectedCompany();
-    $grantsProfileDocument = $this->grantsProfileService->getGrantsProfile($selectedCompany['identifier']);
+    $selectedCompany = $this->grantsProfileService->getSelectedRoleData();
+    $grantsProfileDocument = $this->grantsProfileService->getGrantsProfile($selectedCompany);
     $profileContent = $grantsProfileDocument->getContent();
     $applicationDocument = FALSE;
     $fileArray = [];
@@ -596,11 +596,14 @@ class AttachmentHandler {
 
       if (!$accountConfirmationExists) {
         $found = array_filter($submittedFormData, function ($fn) use ($filename) {
-          // Not an attachment field.
-          if (!isset($fn['fileName'])) {
-            return FALSE;
+          if (is_array($fn)) {
+            // Not an attachment field.
+            if (!isset($fn['fileName'])) {
+              return FALSE;
+            }
+            return $fn['fileName'] === $filename;
           }
-          return $fn['fileName'] === $filename;
+          return FALSE;
         });
         if (!empty($found)) {
           $accountConfirmationExists = TRUE;

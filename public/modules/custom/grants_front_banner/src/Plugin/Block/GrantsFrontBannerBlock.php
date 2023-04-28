@@ -79,15 +79,17 @@ class GrantsFrontBannerBlock extends BlockBase implements ContainerFactoryPlugin
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function build() {
 
     // @todo Refactor to support other profile types https://helsinkisolutionoffice.atlassian.net/browse/AU-662
-    $selectedCompany = $this->grantsProfileService->getSelectedCompany();
+    $selectedCompany = $this->grantsProfileService->getSelectedRoleData();
 
     $getGrantsProfile = NULL;
     if ($selectedCompany) {
-      $getGrantsProfile = $this->grantsProfileService->getGrantsProfile($selectedCompany['identifier']);
+      $getGrantsProfile = $this->grantsProfileService->getGrantsProfile($selectedCompany);
     }
 
     $logged_in = \Drupal::currentUser()->isAuthenticated();

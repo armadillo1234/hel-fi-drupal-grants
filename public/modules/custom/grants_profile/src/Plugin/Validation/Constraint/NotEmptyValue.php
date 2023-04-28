@@ -22,6 +22,6 @@ class NotEmptyValue extends Constraint {
    *
    * @var string
    */
-  public string $message = '%value is not valid url';
+  public string $message = 'This value should not be blank.';
 
 }

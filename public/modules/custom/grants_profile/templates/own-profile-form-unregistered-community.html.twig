@@ -1,0 +1,26 @@
+<div class="container">
+  <h2>{{ "Association information"|t }}</h2>
+  <p class="grants-profile--infotext">{{ "To apply for grants, the community data must be completed. When you submit a grant application, the information you have provided will be filled in automatically."|t }}</p>
+  <div class="grants-profile">
+    <div class="grants-profile--basicinfo">
+      <div class="container">
+        <h3>{{ "Basic details"|t({}, {'context': 'Yksityishenkilön asiointi'}) }}</h3>
+        <div class="grants-profile-prh-info">
+          <p>{{ "The indicated information has been retrieved from the register of the Finnish Patent and Registration Office (PRH), and changing the information is only possible in the online service in question."|t }}</p>
+        </div>
+        <hr />
+        <dl class="grants-profile--wrapper">
+          <div class="grants-profile--wrapper-item">
+            <dt><strong>{{ "Name of association"|t }}</strong></dt>
+            <dd class="grants-profile--item grants-profile-company-name">{{ profile.companyName }}</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    <h3 class="info-grants">{{ "Own contact information"|t({}, {'context': 'Yksityishenkilön asiointi'}) }}</h3>
+    <div class="grants-profile--extrainfo">
+      {{ form }}
+    </div>
+  </div>
+</div>
+

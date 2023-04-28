@@ -25,9 +25,7 @@ class ApplicationOfficialDefinition extends ComplexDataDefinitionBase {
 
       $info['role'] = DataDefinition::create('integer')
         ->setLabel('Rooli')
-        ->setSetting('jsonPath', ['grantsProfile', 'officialsArray', 'role'])
-        ->addConstraint('NotBlank')
-        ->setRequired(TRUE);
+        ->setSetting('jsonPath', ['grantsProfile', 'officialsArray', 'role']);
 
       $info['email'] = DataDefinition::create('string')
         ->setLabel('Sähköposti')

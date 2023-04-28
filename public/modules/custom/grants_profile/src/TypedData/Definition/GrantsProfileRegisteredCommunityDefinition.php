@@ -9,7 +9,7 @@ use Drupal\Core\TypedData\ListDataDefinition;
 /**
  * Define address data.
  */
-class GrantsProfileDefinition extends ComplexDataDefinitionBase {
+class GrantsProfileRegisteredCommunityDefinition extends ComplexDataDefinitionBase {
 
   /**
    * {@inheritdoc}

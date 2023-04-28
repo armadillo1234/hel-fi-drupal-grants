@@ -29,4 +29,4 @@ To run only specific tests, run `ROBOT_OPTIONS="-t Test_name_here" make test-rob
 
 - `cd test`
 - `source env/bin/activate`
-- `TEST_BASEURL=https://hel-fi-drupal-grant-applications.docker.so/ robot -d logs/ tests/*.robot`
+- `ROBOT_OPTIONS="--variable environment:local --variable browser:chrome" robot -d logs/ tests/*.robot`

@@ -185,6 +185,9 @@ msgstr "Verksamhetsställe"
 msgid "Community address"
 msgstr "Gemenskapsadress"
 
+msgid "Community email"
+msgstr "Gemenskapens e-post"
+
 msgid "Add address"
 msgstr "Lägg till adress"
 
@@ -217,3 +220,47 @@ msgstr "Du måste lägga till bekräftelsefil för konto: @iban"
 
 msgid "You must add one bank account"
 msgstr "Du måste lägga till ett bankkonto"
+
+msgctxt "Yksityishenkilön asiointi"
+msgid "Personal information"
+msgstr "Personlig information"
+
+msgctxt "Yksityishenkilön asiointi"
+msgid "Basic details"
+msgstr "Grundläggande detaljer"
+
+msgctxt "Yksityishenkilön asiointi"
+msgid "Social security number"
+msgstr "Personnummer"
+
+msgctxt "Yksityishenkilön asiointi"
+msgid "Own contact information"
+msgstr "Egna kontaktuppgifter"
+
+msgid "Select Private person role"
+msgstr "Välj rollen som Privatperson"
+
+msgid "Select Unregistered community role"
+msgstr "Välj rollen som Oregistrerad gemenskap"
+
+msgid "Add new Unregistered community"
+msgstr "Lägg till ny oregistrerad gemenskap"
+
+msgid "Select Registered community role & authorize mandate"
+msgstr "Välj rollen som Registrerad gemenskap och auktorisera fullmakt"
+
+msgid "The information has been retrieved from your Helsinki profile. You need to go to your Helsinki profile to edit this information. When you have edited your information in the Helsinki profile, remember to update this field."
+msgstr "Informationen har hämtats från din Helsingforsprofil. Du måste gå till din Helsingforsprofil för att redigera denna information. När du har redigerat din information i Helsingforsprofilen, kom ihåg att uppdatera detta fält."
+
+msgid "By completing your own information, you will facilitate your dealings with grants. Based on the information, we can find grants that are more suitable for you or your community. In addition, filling out applications will be faster in the future."
+msgstr "Genom att fylla i din egen information kommer du att underlätta din hantering av bidrag. Baserat på informationen kan vi hitta bidrag som är mer lämpade för dig eller din kommun. Dessutom kommer det gå snabbare att fylla i ansökningar i framtiden."
+
+msgid "Add association information"
+msgstr "Lägg till föreningsinformation"
+
+msgid "Personal bank account"
+msgstr "Personligt bankkonto"
+
+msgctxt "Profile Address"
+msgid "Country"
+msgstr "Land"

@@ -23,3 +23,6 @@ msgstr "Begränsa din sökning"
 
 msgid "Search for application"
 msgstr "Sök understöd"
+
+msgid "This value should be a number"
+msgstr "Detta värde ska vara ett nummer"

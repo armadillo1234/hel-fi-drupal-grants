@@ -134,7 +134,7 @@ class OmaAsiointiBlock extends BlockBase implements ContainerFactoryPluginInterf
    */
   public function build() {
 
-    $selectedCompany = $this->grantsProfileService->getSelectedCompany();
+    $selectedCompany = $this->grantsProfileService->getSelectedRoleData();
     $currentUser = \Drupal::currentUser();
 
     // If no company selected, no mandates no access.

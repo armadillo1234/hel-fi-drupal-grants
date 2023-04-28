@@ -5,7 +5,7 @@ services:
         '@helfi_helsinki_profiili.userdata',
         '@http_client',
         '@logger.factory',
-        '@tempstore.private'
+        '@request_stack',
     ]
   grants_mandate.handle_mandate_errors:
     class: Drupal\grants_mandate\EventSubscriber\GrantsMandateExceptionSubscriber

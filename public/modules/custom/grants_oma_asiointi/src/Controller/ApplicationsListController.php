@@ -153,7 +153,7 @@ class ApplicationsListController extends ControllerBase {
    */
   public function build(): array {
 
-    $selectedCompany = $this->grantsProfileService->getSelectedCompany();
+    $selectedCompany = $this->grantsProfileService->getSelectedRoleData();
 
     // If no company selected, no mandates no access.
     if ($selectedCompany == NULL) {

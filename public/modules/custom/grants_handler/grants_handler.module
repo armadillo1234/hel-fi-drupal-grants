@@ -5,6 +5,7 @@
  * Provides an example of a webform handler.
  */
 
+use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Access\AccessResult;
@@ -273,6 +274,13 @@ function grants_handler_page_attachments(array &$attachments) {
  */
 function grants_handler_webform_element_alter(array &$element, FormStateInterface $form_state, array $context) {
 
+  $user = Drupal::currentUser();
+  $roles = $user->getRoles();
+
+  if (!in_array('helsinkiprofiili', $roles)) {
+    return;
+  }
+
   // Code here acts on all elements included in a webform.
   /** @var \Drupal\webform\WebformSubmissionForm $form_object */
   $form_object = $form_state->getFormObject();
@@ -388,11 +396,16 @@ function grants_handler_webform_element_alter(array &$element, FormStateInterfac
 
       /** @var \Drupal\grants_profile\GrantsProfileService $grantsProfileService */
       $grantsProfileService = \Drupal::service('grants_profile.service');
+      $applicantType = $grantsProfileService->getApplicantType();
 
-      $selectedCompany = $grantsProfileService->getSelectedCompany();
-      $profileData = $grantsProfileService->getGrantsProfileContent($selectedCompany ?? '');
+      $selectedCompany = $grantsProfileService->getSelectedRoleData();
+      try {
+        $profileData = $grantsProfileService->getGrantsProfileContent($selectedCompany ?? '');
+      }
+      catch (GuzzleException $e) {
+      }
 
-      if (isset($element['#default_value'])) {
+      if ($selectedCompany["type"] != 'private_person' && isset($element['#default_value'])) {
         $formValues = $element['#default_value'];
         $formSelection = $formValues['community_street'] . ', ' .
           $formValues['community_post_code'] . ', ' .
@@ -431,7 +444,7 @@ function grants_handler_webform_element_alter(array &$element, FormStateInterfac
       /** @var \Drupal\grants_profile\GrantsProfileService $grantsProfileService */
       $grantsProfileService = \Drupal::service('grants_profile.service');
 
-      $selectedCompany = $grantsProfileService->getSelectedCompany();
+      $selectedCompany = $grantsProfileService->getSelectedRoleData();
       $profileData = $grantsProfileService->getGrantsProfileContent($selectedCompany ?? '');
 
       $defaultDelta = '0';
@@ -506,7 +519,7 @@ function _grants_handler_imported_handler(
 /**
  * Missing data prints.
  *
- * @param array $element
+ * @param array|null $element
  *   The element in question.
  * @param string $str1
  *   Header of the alert notification.
@@ -518,10 +531,14 @@ function _grants_handler_imported_handler(
  * @todo Must be fixed with proper template & things.
  */
 function _grants_handler_missing_data(
-  array &$element,
+  ?array &$element,
   string $str1 = 'Field is missing.',
   string $str2 = 'Go to grants profile',
-  string $str3 = 'to fill out missing data.') {
+  string $str3 = 'to fill out missing data.'): void {
+
+  if (is_null($element)) {
+    return;
+  }
 
   unset($element['#value']);
   unset($element['#default_value']);
@@ -544,6 +561,13 @@ function _grants_handler_missing_data(
  * Implements hook_form_FORM_ID_alter().
  */
 function grants_handler_webform_submission_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  $user = \Drupal::currentUser();
+  $roles = $user->getRoles();
+
+  if (!in_array('helsinkiprofiili', $roles)) {
+    return;
+  }
 
   $form['actions']['wizard_next']['#validate'][] = '::noValidate';
 
@@ -581,7 +605,7 @@ function grants_handler_webform_submission_form_alter(&$form, FormStateInterface
 
   /** @var \Drupal\grants_profile\GrantsProfileService $grantsProfileService */
   $grantsProfileService = \Drupal::service('grants_profile.service');
-  $selectedCompany = $grantsProfileService->getSelectedCompany();
+  $selectedCompany = $grantsProfileService->getSelectedRoleData();
 
   /** @var \Drupal\webform\Entity\WebformSubmission $webform_submission */
   $webform_submission = $form_state->getFormObject()->getEntity();
@@ -609,7 +633,7 @@ function grants_handler_webform_submission_form_alter(&$form, FormStateInterface
     $form['#attached']['drupalSettings']['grants_handler']['formData'] = $formData;
     $form['#attached']['drupalSettings']['grants_handler']['submissionId'] = $formData["application_number"] ?? '';
 
-    if ($grantsProfile["businessPurpose"]) {
+    if (!empty($grantsProfile["businessPurpose"])) {
       _grants_handler_imported_handler($form["elements"]["3_yhteison_tiedot"]["business_info"]["community_purpose"], $grantsProfile["businessPurpose"], FALSE);
     }
     else {
@@ -638,13 +662,51 @@ function grants_handler_webform_submission_form_alter(&$form, FormStateInterface
           '#label' => t('Fields marked with an asterisk * are required, that need to be filled before saving.'),
         ],
     ];
+    foreach ($form['elements'] as $page_name => $page_contents) {
+      $page_prefetched = FALSE;
+      $page_required = FALSE;
+      if ($page_name === 'actions') {
+        break;
+      }
+      foreach ($form['elements'][$page_name] as $section_key => $section_contents) {
+        if (!strstr($section_key, '#') && is_array($section_contents)) {
+          foreach ($section_contents as $element_key => $element_contents) {
+            if (!strstr($element_key, '#') && is_array($element_contents)) {
+              if (array_key_exists('#required', $element_contents) && $element_contents['#required'] === TRUE) {
+                $page_required = TRUE;
+              }
+              if (array_key_exists('#type', $element_contents) &&
+                ($element_contents['#type'] === 'community_address_composite' ||
+                  $element_contents['#type'] === 'community_officials_composite' ||
+                  $element_contents['#type'] === 'bank_account_composite' ||
+                  $element_key === 'community_purpose'
+                )
+              ) {
+                $page_prefetched = TRUE;
+              }
+              if ($page_required && $page_prefetched) {
+                break 2;
+              }
+            }
+          }
+        }
+      }
+      if (!$isClosed && $page_required) {
+        $form['elements'][$page_name] = array_merge($required_fields_info_element, $form['elements'][$page_name]);
+      }
+      if (!$isClosed && $page_prefetched) {
+        $form['elements'][$page_name] = array_merge($infoelement, $form['elements'][$page_name]);
+      }
+    }
 
     if (!$isClosed && array_key_exists('1_hakijan_tiedot', $form['elements']) && is_array($form['elements']['1_hakijan_tiedot'])) {
-      $form['elements']['1_hakijan_tiedot'] = array_merge($required_fields_info_element, $form['elements']['1_hakijan_tiedot']);
-      $form['elements']['1_hakijan_tiedot'] = array_merge($infoelement, $form['elements']['1_hakijan_tiedot']);
 
-      _grants_handler_imported_handler($form["elements"]["1_hakijan_tiedot"]["yhteiso_jolle_haetaan_avustusta"]["community_official_name"], $grantsProfile["companyName"]);
-      _grants_handler_imported_handler($form["elements"]["1_hakijan_tiedot"]["yhteison_lyhenne"]["community_official_name_short"], $grantsProfile["companyNameShort"], FALSE);
+      if (isset($grantsProfile["companyName"])) {
+        _grants_handler_imported_handler($form["elements"]["1_hakijan_tiedot"]["yhteiso_jolle_haetaan_avustusta"]["community_official_name"], $grantsProfile["companyName"]);
+      }
+      if (isset($grantsProfile["companyNameShort"])) {
+        _grants_handler_imported_handler($form["elements"]["1_hakijan_tiedot"]["yhteison_lyhenne"]["community_official_name_short"], $grantsProfile["companyNameShort"], FALSE);
+      }
 
       if (isset($grantsProfile["registrationDate"]) && $grantsProfile["registrationDate"] !== '') {
         $regDate = new DrupalDateTime($grantsProfile["registrationDate"], 'Europe/Helsinki');
@@ -663,25 +725,26 @@ function grants_handler_webform_submission_form_alter(&$form, FormStateInterface
       _grants_handler_imported_handler($form["elements"]["1_hakijan_tiedot"]["yhteiso_jolle_haetaan_avustusta"]['grants_profile__items_container']["registration_date"], $regDate);
       _grants_handler_imported_handler($form["elements"]["1_hakijan_tiedot"]["yhteiso_jolle_haetaan_avustusta"]['grants_profile__items_container']["company_number"], $selectedCompany['identifier']);
 
-      _grants_handler_imported_handler($form["elements"]["1_hakijan_tiedot"]["perustamisvuosi"]["founding_year"], $grantsProfile["foundingYear"], FALSE);
+      if (isset($grantsProfile["foundingYear"])) {
+        _grants_handler_imported_handler($form["elements"]["1_hakijan_tiedot"]["perustamisvuosi"]["founding_year"], $grantsProfile["foundingYear"], FALSE);
+      }
 
-      _grants_handler_imported_handler($form["elements"]["1_hakijan_tiedot"]["yhteiso_jolle_haetaan_avustusta"]['grants_profile__items_container']["home"], $companyHome);
+      if (isset($companyHome)) {
+        _grants_handler_imported_handler($form["elements"]["1_hakijan_tiedot"]["yhteiso_jolle_haetaan_avustusta"]['grants_profile__items_container']["home"], $companyHome);
+      }
 
-      _grants_handler_imported_handler($form["elements"]["1_hakijan_tiedot"]["yhteiso_jolle_haetaan_avustusta"]['grants_profile__items_container']["community_status"], $grantsProfile["companyStatus"]);
-      _grants_handler_imported_handler($form["elements"]["1_hakijan_tiedot"]["yhteiso_jolle_haetaan_avustusta"]['grants_profile__items_container']["community_status_special"], $grantsProfile["companyStatusSpecial"]);
+      if (isset($grantsProfile["companyStatus"])) {
+        _grants_handler_imported_handler($form["elements"]["1_hakijan_tiedot"]["yhteiso_jolle_haetaan_avustusta"]['grants_profile__items_container']["community_status"], $grantsProfile["companyStatus"]);
+      }
 
-      _grants_handler_imported_handler($form["elements"]["1_hakijan_tiedot"]["verkkosivut"]["homepage"], $grantsProfile["companyHomePage"], FALSE);
+      if (isset($grantsProfile["companyStatusSpecial"])) {
+        _grants_handler_imported_handler($form["elements"]["1_hakijan_tiedot"]["yhteiso_jolle_haetaan_avustusta"]['grants_profile__items_container']["community_status_special"], $grantsProfile["companyStatusSpecial"]);
+      }
 
-    }
-    if (!$isClosed && array_key_exists('2_avustustiedot', $form['elements']) && is_array($form['elements']['2_avustustiedot'])) {
-      $form['elements']['2_avustustiedot'] = array_merge($required_fields_info_element, $form['elements']['2_avustustiedot']);
-    }
-    if (!$isClosed && array_key_exists('3_yhteison_tiedot', $form['elements']) && is_array($form['elements']['3_yhteison_tiedot'])) {
-      $form['elements']['3_yhteison_tiedot'] = array_merge($required_fields_info_element, $form['elements']['3_yhteison_tiedot']);
-      $form['elements']['3_yhteison_tiedot'] = array_merge($infoelement, $form['elements']['3_yhteison_tiedot']);
-    }
-    if (!$isClosed && array_key_exists('lisatiedot_ja_liitteet', $form['elements']) && is_array($form['elements']['lisatiedot_ja_liitteet'])) {
-      $form['elements']['lisatiedot_ja_liitteet'] = array_merge($required_fields_info_element, $form['elements']['lisatiedot_ja_liitteet']);
+      if (isset($grantsProfile["companyHomePage"])) {
+        _grants_handler_imported_handler($form["elements"]["1_hakijan_tiedot"]["verkkosivut"]["homepage"], $grantsProfile["companyHomePage"], FALSE);
+      }
+
     }
 
   }

@@ -9,24 +9,13 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  * Address DataType.
  *
  * @DataType(
- * id = "grants_profile_profile",
- * label = @Translation("Grants Profile"),
+ * id = "grants_profile_private_person",
+ * label = @Translation("Grants Profile PP"),
  * definition_class =
- *   "\Drupal\grants_profile\TypedData\Definition\GrantsProfileDefinition"
+ *   "\Drupal\grants_profile\TypedData\Definition\GrantsProfilePrivatePersonDefinition"
  * )
  */
-class GrantsProfileData extends Map {
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setValue($values, $notify = TRUE) {
-
-    if ($values['companyStatusSpecial'] == NULL) {
-      $values['companyStatusSpecial'] = '';
-    }
-    parent::setValue($values, $notify);
-  }
+class GrantsProfilePrivatePersonData extends Map {
 
   /**
    * This is where we could validate custom fields, bank accounts etc.

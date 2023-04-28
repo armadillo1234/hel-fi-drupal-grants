@@ -13,7 +13,7 @@ entity_type: node
 bundle: service
 label: Hakijatyyppi
 description: 'Kenttä on pakollinen, mutta päivitetään automaattisesti mikäli hakulomake on valittununa yllä. Jos ei hakulomaketta ole valittu, täytä kenttään oikea tieto jotta haut & listaukset toimivat oikein.'
-required: true
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''

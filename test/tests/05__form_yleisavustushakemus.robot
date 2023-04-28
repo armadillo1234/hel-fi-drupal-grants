@@ -7,15 +7,14 @@ Library             DateTime
 Suite Setup
 Resource            ../resources/common.resource
 Resource            ../resources/tunnistamo.resource
-Resource            ../resources/browser-test-variables.resource
 Resource            ../resources/dev-env-variables.resource
 
 *** Test Cases ***
 
-Fill Application Form
+Fill yleisavustushakemus Form
     Open Browser To Home Page
     Accept Cookies Banner
-    Do Login Process With Tunnistamo
+    Do Company Login Process With Tunnistamo
     Go To Application Search
     Start New Application
     Fill Step 1 Data
@@ -34,9 +33,9 @@ Go To Application Search
     Get Title           ==    Etsi avustusta | ${SITE_NAME}
 
 Start New Application
-    Click      .view-application-search .views-row:nth-child(1) a.application_search--link
+    Click      .view-application-search \#kaupunginhallitus--yleisavustus
     Click      \#block-servicepageauthblock .hds-button
-    Get Title           ==    ${APPLICATION_TITLE} | ${SITE_NAME}
+    Get Title           ==    Kaupunginhallituksen yleisavustushakemus | ${SITE_NAME}
     Wait For Elements State       li[data-webform-page="1_hakijan_tiedot"].is-active  visible
 
 Fill Step 1 Data
@@ -100,11 +99,26 @@ Fill Step 3 Data
     Wait For Elements State      li[data-webform-page="lisatiedot_ja_liitteet"].is-active   visible
 
 Fill Step 4 Data
+    Scroll To Element     \#edit-yhteison-saannot-attachment
+    Upload File By Selector    \#edit-yhteison-saannot-attachment-upload    ${CURDIR}/empty.pdf
+    Sleep   3   # Have to manually wait for ajax upload
     Scroll To Element     \#edit-vahvistettu-tilinpaatos-attachment
     Upload File By Selector    \#edit-vahvistettu-tilinpaatos-attachment-upload    ${CURDIR}/empty.pdf
     Sleep   3   # Have to manually wait for ajax upload
     Scroll To Element     \#edit-vahvistettu-toimintakertomus-attachment
     Upload File By Selector    \#edit-vahvistettu-toimintakertomus-attachment-upload    ${CURDIR}/empty.pdf
+    Sleep   3   # Have to manually wait for ajax upload
+    Scroll To Element     \#edit-vahvistettu-tilin-tai-toiminnantarkastuskertomus-attachment
+    Upload File By Selector    \#edit-vahvistettu-tilin-tai-toiminnantarkastuskertomus-attachment-upload    ${CURDIR}/empty.pdf
+    Sleep   3   # Have to manually wait for ajax upload
+    Scroll To Element     \#edit-vuosikokouksen-poytakirja-attachment
+    Upload File By Selector    \#edit-vuosikokouksen-poytakirja-attachment-upload    ${CURDIR}/empty.pdf
+    Sleep   3   # Have to manually wait for ajax upload
+    Scroll To Element     \#edit-toimintasuunnitelma-attachment
+    Upload File By Selector    \#edit-toimintasuunnitelma-attachment-upload    ${CURDIR}/empty.pdf
+    Sleep   3   # Have to manually wait for ajax upload
+    Scroll To Element     \#edit-talousarvio-attachment
+    Upload File By Selector    \#edit-talousarvio-attachment-upload    ${CURDIR}/empty.pdf
     Sleep   3   # Have to manually wait for ajax upload
     Click       \#edit-actions-preview-next
     Wait For Elements State      li[data-webform-page="webform_preview"].is-active   visible
@@ -113,10 +127,11 @@ Review Application Data
     Get Text    \#yleisavustushakemus--contact_person   *=    ${INPUT_CONTACT_PERSON}
     Get Text    \#yleisavustushakemus--contact_person_phone_number   *=    ${INPUT_CONTACT_PERSON_PHONE_NUMBER}
     Get Text    \#yleisavustushakemus--bank_account   *=    ${INPUT_BANK_ACCOUNT_NUMBER}
-    Get Text    \#yleisavustushakemus--subventions   *=    ${INPUT_SUBVENTION_AMOUNT_FORMATTED_ALT}
+    Get Text    \#yleisavustushakemus--subventions   *=    ${INPUT_SUBVENTION_AMOUNT_FORMATTED}
     Get Text    \#yleisavustushakemus--compensation_purpose   *=    ${INPUT_COMPENSATION_PURPOSE}
     Get Text    \#yleisavustushakemus--compensation_explanation   *=    ${INPUT_COMPENSATION_EXPLANATION}
     Get Text    \#yleisavustushakemus--fee_person   *=    ${INPUT_FEE_PERSON_FORMATTED}
+    Wait Until Network Is Idle
     Click       \#accept_terms_1 ~ label
     Click       \#edit-actions-submit
 

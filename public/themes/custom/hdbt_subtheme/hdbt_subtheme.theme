@@ -422,6 +422,18 @@ function hdbt_subtheme_preprocess_html(&$variables) {
   if ($route_name == 'grants_oma_asiointi.front' || $route_name == 'grants_profile.show') {
     $variables['attributes']['class'][] = 'page--oma-asiointi';
   }
+
+  /** @var \Drupal\grants_profile\GrantsProfileService $grantsProfileService */
+  $grantsProfileService = \Drupal::service('grants_profile.service');
+  $selectedRoleData = $grantsProfileService->getSelectedRoleData();
+
+  if (is_array($selectedRoleData) && $selectedRoleData['type'] == 'private_person') {
+    $variables['attributes']['class'][] = 'page--oma-asiointi__private-person';
+  }
+
+  if (is_array($selectedRoleData) && $selectedRoleData['type'] == 'unregistered_community') {
+    $variables['attributes']['class'][] = 'page--oma-asiointi__unregistered-community';
+  }
 }
 
 /**
@@ -450,7 +462,7 @@ function hdbt_subtheme_preprocess_paragraph(&$variables) {
   if ($parentBundle == 'oma_asiointi') {
     /** @var \Drupal\grants_profile\GrantsProfileService $grantsProfileService */
     $grantsProfileService = \Drupal::service('grants_profile.service');
-    $selectedCompany = $grantsProfileService->getSelectedCompany();
+    $selectedCompany = $grantsProfileService->getSelectedRoleData();
     $variables['company'] = $selectedCompany;
   }
 }

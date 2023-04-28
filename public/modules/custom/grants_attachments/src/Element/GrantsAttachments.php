@@ -394,8 +394,13 @@ class GrantsAttachments extends WebformCompositeBase {
    *   Form state.
    * @param array $form
    *   The form.
+   *
+   * @return bool|null
+   *   Success or not.
+   *
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
-  public static function validateUpload(array &$element, FormStateInterface $form_state, array &$form) {
+  public static function validateUpload(array &$element, FormStateInterface $form_state, array &$form): bool|null {
 
     $webformKey = $element["#parents"][0];
     $triggeringElement = $form_state->getTriggeringElement();
@@ -465,7 +470,7 @@ class GrantsAttachments extends WebformCompositeBase {
       // If no application number, we cannot validate.
       // We should ALWAYS have it though at this point.
       if (!isset($webformData['application_number'])) {
-        return;
+        return NULL;
       }
       // Get application number from data.
       $application_number = $webformData['application_number'];
@@ -479,7 +484,7 @@ class GrantsAttachments extends WebformCompositeBase {
       if (str_contains($triggeringElement["#name"], 'attachment_upload_button')) {
 
         if (!$hasSameRootElement || ($multiValueField && !$validatingTriggeringElementParent)) {
-          return;
+          return NULL;
         }
 
         // Try to find filetype via array parents.
@@ -611,7 +616,7 @@ class GrantsAttachments extends WebformCompositeBase {
         // field which triggered the action.
         if (!$hasSameRootElement || ($multiValueField && !$validatingTriggeringElementParent)) {
           $form_state->setValue([...$valueParents], $webformDataElement);
-          return;
+          return NULL;
         }
 
         try {
@@ -639,6 +644,7 @@ class GrantsAttachments extends WebformCompositeBase {
         }
       }
     }
+    return NULL;
   }
 
   /**

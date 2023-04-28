@@ -13,7 +13,7 @@ class ValidPostalCodeValidator extends ConstraintValidator {
    * {@inheritdoc}
    */
   public function validate($value, $constraint) {
-    if (!$this->isValidPostalCode($value)) {
+    if ($value !== NULL && !$this->isValidPostalCode($value)) {
 
       $this->context->addViolation($constraint->notValidPostalCode, ['%value' => $value]);
     }

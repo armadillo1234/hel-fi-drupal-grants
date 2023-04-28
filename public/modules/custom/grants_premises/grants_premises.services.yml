@@ -1,0 +1,3 @@
+services:
+  grants_premises.service:
+    class: Drupal\grants_premises\GrantsPremisesService

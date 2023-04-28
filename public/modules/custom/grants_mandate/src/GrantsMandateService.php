@@ -3,17 +3,16 @@
 namespace Drupal\grants_mandate;
 
 use Drupal\Component\Serialization\Json;
+use Drupal\Core\Http\RequestStack;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\Core\Logger\LoggerChannelInterface;
-use Drupal\Core\TempStore\PrivateTempStore;
 use Drupal\Core\TempStore\TempStoreException;
 use Drupal\Core\Url;
 use Drupal\helfi_helsinki_profiili\HelsinkiProfiiliUserData;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Ramsey\Uuid\Uuid;
-use Drupal\Core\TempStore\PrivateTempStoreFactory;
 
 /**
  * GrantsMandateAuthorize service.
@@ -63,11 +62,11 @@ class GrantsMandateService {
   protected LoggerChannelFactory|LoggerChannelInterface|LoggerChannel $logger;
 
   /**
-   * Private store.
+   * Request stack for session access.
    *
-   * @var \Drupal\Core\TempStore\PrivateTempStore
+   * @var \Drupal\Core\Http\RequestStack
    */
-  protected PrivateTempStore $tempStore;
+  protected RequestStack $requestStack;
 
   /**
    * Profile data.
@@ -85,18 +84,18 @@ class GrantsMandateService {
    *   Http client.
    * @param \Drupal\Core\Logger\LoggerChannelFactory $loggerFactory
    *   Logger.
-   * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory
-   *   Store for session id.
+   * @param \Drupal\Core\Http\RequestStack $requestStack
+   *   Request.
    */
   public function __construct(
     HelsinkiProfiiliUserData $helsinkiProfiiliUserData,
     ClientInterface $httpClient,
     LoggerChannelFactory $loggerFactory,
-    PrivateTempStoreFactory $temp_store_factory
+    RequestStack $requestStack,
   ) {
     $this->httpClient = $httpClient;
     $this->logger = $loggerFactory->get('grants_mandate');
-    $this->tempStore = $temp_store_factory->get('grants_mandate');
+    $this->requestStack = $requestStack;
     $this->helsinkiProfiiliUserData = $helsinkiProfiiliUserData;
 
     $this->clientId = getenv('DVV_WEBAPI_CLIENT_ID');
@@ -331,11 +330,10 @@ class GrantsMandateService {
    *
    * @param mixed $data
    *   Save session data for user.
-   *
-   * @throws \Drupal\Core\TempStore\TempStoreException
    */
   protected function setSessionData(mixed $data): void {
-    $this->tempStore->set('user_session_data', $data);
+    $session = $this->requestStack->getCurrentRequest()->getSession();
+    $session->set('user_session_data', $data);
   }
 
   /**
@@ -345,7 +343,8 @@ class GrantsMandateService {
    *   Session data if available.
    */
   public function getSessionData(): mixed {
-    return $this->tempStore->get('user_session_data');
+    $session = $this->requestStack->getCurrentRequest()->getSession();
+    return !empty($session->get('user_session_data')) ? $session->get('user_session_data') : NULL;
   }
 
 }

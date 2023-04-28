@@ -6,6 +6,7 @@ use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Logger\LoggerChannelFactory;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\grants_metadata\AtvSchema;
 use Drupal\helfi_atv\AtvService;
 use Drupal\helfi_helsinki_profiili\HelsinkiProfiiliUserData;
@@ -16,6 +17,8 @@ use GuzzleHttp\ClientInterface;
  * Handle message uploading and other things related.
  */
 class MessageService {
+
+  use StringTranslationTrait;
 
   /**
    * The helfi_helsinki_profiili.userdata service.

@@ -3,7 +3,7 @@
 namespace Drupal\grants_handler\Element;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\grants_profile\Form\GrantsProfileForm;
+use Drupal\grants_profile\Form\GrantsProfileFormRegisteredCommunity;
 use Drupal\webform\Element\WebformCompositeBase;
 
 /**
@@ -83,14 +83,16 @@ class CommunityOfficialsComposite extends WebformCompositeBase {
    * @return array
    *   Fixed element
    *
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   *
    * @see grants_handler.module
    */
   public static function buildOfficialOptions(array $element, FormStateInterface $form_state): array {
 
     /** @var \Drupal\grants_profile\GrantsProfileService $grantsProfileService */
     $grantsProfileService = \Drupal::service('grants_profile.service');
-    $officialRole = GrantsProfileForm::getOfficialRoles();
-    $selectedCompany = $grantsProfileService->getSelectedCompany();
+    $officialRole = GrantsProfileFormRegisteredCommunity::getOfficialRoles();
+    $selectedCompany = $grantsProfileService->getSelectedRoleData();
     $profileData = $grantsProfileService->getGrantsProfileContent($selectedCompany ?? '');
 
     $defaultDelta = '0';
@@ -98,9 +100,22 @@ class CommunityOfficialsComposite extends WebformCompositeBase {
     $options = [
       '' => '-' . t('Select official') . '-',
     ];
-    foreach ($profileData['officials'] as $delta => $official) {
+
+    if ($profileData['officials']) {
+      $persons = $profileData['officials'];
+    }
+    else {
+      $persons = [];
+    }
+
+    foreach ($persons as $delta => $official) {
       $deltaString = (string) $delta;
-      $optionSelection = $official['name'] . ' (' . $officialRole[$official['role']] . ')';
+      if (isset($official['role'])) {
+        $optionSelection = $official['name'] . ' (' . $officialRole[$official['role']] . ')';
+      }
+      else {
+        $optionSelection = $official['name'];
+      }
       $options[$deltaString] = $optionSelection;
     }
 

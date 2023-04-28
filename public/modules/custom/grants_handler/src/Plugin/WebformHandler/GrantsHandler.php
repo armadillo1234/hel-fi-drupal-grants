@@ -2,6 +2,8 @@
 
 namespace Drupal\grants_handler\Plugin\WebformHandler;
 
+use Drupal\Component\Utility\NestedArray;
+use Drupal\grants_handler\ApplicationException;
 use Drupal\webform\Utility\WebformArrayHelper;
 use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Datetime\DrupalDateTime;
@@ -216,6 +218,21 @@ class GrantsHandler extends WebformHandlerBase {
   }
 
   /**
+   * Convert EUR format value to "double" .
+   *
+   * @param string|null $value
+   *   Value to be converted.
+   *
+   * @return float
+   *   Floated value.
+   */
+  public static function convertToInt(?string $value = ''): float {
+    $value = str_replace(['€', ',', ' ', '_'], ['', '.', '', ''], $value);
+    $value = (int) $value;
+    return $value;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function defaultConfiguration(): array {
@@ -304,6 +321,30 @@ class GrantsHandler extends WebformHandlerBase {
       unset($values['bank_account']);
     }
 
+    $budgetFields = NestedArray::filter($values, function ($i) {
+      if (is_array($i) && !empty(reset($i))) {
+        $elem = reset($i);
+        return isset($elem['costGroupName']) || isset($elem['incomeGroupName']);
+      }
+
+      return FALSE;
+    });
+
+    // Force incomeGroupName by found fields.
+    $budgetInfo = [];
+    foreach ($budgetFields as $fieldKey => $field) {
+      $field = reset($values[$fieldKey]);
+      if (isset($field['costGroupName'])) {
+        $values['costGroupName'] = $field['costGroupName'];
+      }
+      elseif (isset($field['incomeGroupName'])) {
+        $values['incomeGroupName'] = $field['incomeGroupName'];
+      }
+      $budgetInfo[$fieldKey] = $values[$fieldKey];
+    }
+
+    $values['budgetInfo'] = $budgetInfo;
+
     // If for some reason we don't have application number at this point.
     if (!isset($this->applicationNumber) || $this->applicationNumber == '') {
       // But if one is coming from form (hidden field)
@@ -341,7 +382,7 @@ class GrantsHandler extends WebformHandlerBase {
 
       // These both are required to be selected.
       // probably will change when we have proper company selection process.
-      $selectedCompany = $this->grantsProfileService->getSelectedCompany();
+      $selectedCompany = $this->grantsProfileService->getSelectedRoleData();
 
       if ($selectedCompany == NULL) {
         throw new CompanySelectException('User not authorised');
@@ -355,6 +396,9 @@ class GrantsHandler extends WebformHandlerBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   * @throws \Drupal\grants_mandate\CompanySelectException
    */
   public function prepareForm(WebformSubmissionInterface $webform_submission, $operation, FormStateInterface $form_state) {
 
@@ -366,11 +410,13 @@ class GrantsHandler extends WebformHandlerBase {
       return;
     }
 
+    $webform = $webform_submission->getWebform();
+
     // If we're coming here with ADD operator, then we redirect user to
     // new application endpoint and from there they're redirected back ehre
     // with newly initialized application. And edit operator.
     if ($operation == 'add') {
-      $webform_id = $webform_submission->getWebform()->id();
+      $webform_id = $webform->id();
       $url = Url::fromRoute('grants_handler.new_application', [
         'webform_id' => $webform_id,
       ]);
@@ -378,16 +424,28 @@ class GrantsHandler extends WebformHandlerBase {
       $redirect->send();
     }
 
-    // These both are required to be selected.
-    // probably will change when we have proper company selection process.
-    $selectedCompany = $this->grantsProfileService->getSelectedCompany();
+    $selectedCompany = $this->grantsProfileService->getSelectedRoleData();
 
     if ($selectedCompany == NULL) {
-      throw new CompanySelectException('User not authorised');
+      throw new CompanySelectException('User does not have proper mandate.');
+    }
+
+    $thirdPartySettings = $webform->getThirdPartySettings('grants_metadata');
+
+    // Old applications have only single selection, we need to support this.
+    if (!is_array($thirdPartySettings["applicantTypes"])) {
+      $formApplicationTypes[] = $thirdPartySettings["applicantTypes"];
+    }
+    else {
+      $formApplicationTypes = array_values($thirdPartySettings["applicantTypes"]);
+    }
+    // If user selected role is not in forms roles, throw an error.
+    if (!in_array($selectedCompany["type"], $formApplicationTypes)) {
+      throw new CompanySelectException('User role is not allowed to use this form.');
     }
 
     try {
-      $grantsProfileDocument = $this->grantsProfileService->getGrantsProfile($selectedCompany['identifier']);
+      $grantsProfileDocument = $this->grantsProfileService->getGrantsProfile($selectedCompany);
       if (gettype($grantsProfileDocument) == 'object' && get_class($grantsProfileDocument) == 'Drupal\helfi_atv\AtvDocument') {
         $grantsProfile = $grantsProfileDocument->getContent();
       }
@@ -429,6 +487,13 @@ class GrantsHandler extends WebformHandlerBase {
    */
   public function alterForm(array &$form, FormStateInterface $form_state, WebformSubmissionInterface $webform_submission) {
 
+    $user = \Drupal::currentUser();
+    $roles = $user->getRoles();
+
+    if (!in_array('helsinkiprofiili', $roles)) {
+      return;
+    }
+
     $this->alterFormNavigation($form, $form_state, $webform_submission);
 
     $form['#webform_submission'] = $webform_submission;
@@ -440,32 +505,9 @@ class GrantsHandler extends WebformHandlerBase {
     // use that, if not then get selected from profile.
     // we know that.
     $submissionData = $this->massageFormValuesFromWebform($webform_submission);
-    if (isset($submissionData['applicant_type'])) {
-      $applicantType = $submissionData['applicant_type'];
-    }
-    else {
-      $applicantTypeString = $this->grantsProfileService->getApplicantType();
-      $applicantType = '0';
-      switch ($applicantTypeString) {
-        case 'registered_community':
-          $applicantType = '0';
-          break;
 
-        case 'unregistered_community':
-          $applicantType = '1';
-          break;
-
-        case 'private_person':
-          $applicantType = '2';
-          break;
-      }
-    }
-
-    $form["elements"]["1_hakijan_tiedot"]["yhteiso_jolle_haetaan_avustusta"]["applicant_type"] = [
-      '#type' => 'hidden',
-      '#value' => $applicantType,
-    ];
-
+    $form_state->setValue('applicant_type', $submissionData["hakijan_tiedot"]["applicantType"]);
+    $form["elements"]["1_hakijan_tiedot"]["applicant_type"]["#value"] = $submissionData["hakijan_tiedot"]["applicantType"];
     $thisYear = (integer) date('Y');
     $thisYearPlus1 = $thisYear + 1;
     $thisYearPlus2 = $thisYear + 2;
@@ -710,6 +752,9 @@ class GrantsHandler extends WebformHandlerBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\helfi_helsinki_profiili\TokenExpiredException
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function validateForm(
     array &$form,
@@ -733,9 +778,13 @@ class GrantsHandler extends WebformHandlerBase {
     $this->setTotals();
 
     // Merge form sender data from handler.
-    $this->submittedFormData = array_merge(
-      $this->submittedFormData,
-      $this->applicationHandler->parseSenderDetails());
+    try {
+      $this->submittedFormData = array_merge(
+        $this->submittedFormData,
+        $this->applicationHandler->parseSenderDetails());
+    }
+    catch (ApplicationException $e) {
+    }
 
     $this->submittedFormData['applicant_type'] = $form_state
       ->getValue('applicant_type');
@@ -766,10 +815,13 @@ class GrantsHandler extends WebformHandlerBase {
 
     // Get regdate from profile data and format it for Avustus2
     // This data is immutable for end user so safe to this way.
-    $selectedCompany = $this->grantsProfileService->getSelectedCompany();
+    $selectedCompany = $this->grantsProfileService->getSelectedRoleData();
     $grantsProfile = $this->grantsProfileService->getGrantsProfileContent($selectedCompany);
-    $regDate = new DrupalDateTime($grantsProfile["registrationDate"], 'Europe/Helsinki');
-    $this->submittedFormData["registration_date"] = $regDate->format('Y-m-d\TH:i:s');
+
+    if (isset($grantsProfile["registrationDate"])) {
+      $regDate = new DrupalDateTime($grantsProfile["registrationDate"], 'Europe/Helsinki');
+      $this->submittedFormData["registration_date"] = $regDate->format('Y-m-d\TH:i:s');
+    }
 
     // Set form update value based on new & old status + Avus2 logic.
     $this->submittedFormData["form_update"] = $this->getFormUpdate();
@@ -816,8 +868,7 @@ class GrantsHandler extends WebformHandlerBase {
           // If we HAVE errors, then refresh them from the.
           // @todo fix validation error messages.
           $this->messenger()
-            ->addError('Validation failed, please check inputs. This feature will get better.');
-
+            ->addError('Validation failed, please check inputs.');
           // @todo We need to figure out how to show these errors to user.
         }
       }
@@ -1122,7 +1173,7 @@ class GrantsHandler extends WebformHandlerBase {
               '@number' => $this->applicationNumber,
             ]
           )
-        );
+            );
     }
   }
 

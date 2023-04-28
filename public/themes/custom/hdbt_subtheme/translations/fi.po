@@ -130,3 +130,6 @@ msgstr "Puuttuvat tai vajaat tiedot"
 
 msgid "Error in page"
 msgstr "Virhe sivulla"
+
+msgid "This value should be a number"
+msgstr "Arvon tulisi olla numero"

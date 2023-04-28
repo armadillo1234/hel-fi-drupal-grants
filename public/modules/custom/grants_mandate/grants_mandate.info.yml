@@ -6,3 +6,6 @@ core: 8.x
 core_version_requirement: ^8 || ^9
 dependencies:
   - helfi_tunnistamo
+
+'interface translation project': grants_mandate
+'interface translation server pattern': modules/custom/grants_mandate/translations/%language.po

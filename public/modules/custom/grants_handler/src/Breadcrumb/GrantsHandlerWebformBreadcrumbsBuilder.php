@@ -68,7 +68,7 @@ class GrantsHandlerWebformBreadcrumbsBuilder implements BreadcrumbBuilderInterfa
     $webform = $route_match->getParameters()->get('webform');
     $webform_submission = $route_match->getParameters()->get('webform_submission');
     $applicationNumber = ApplicationHandler::createApplicationNumber($webform_submission);
-    $selectedCompany = $this->grantsProfileService->getSelectedCompany();
+    $selectedCompany = $this->grantsProfileService->getSelectedRoleData();
 
     $breadcrumb->addLink(Link::createFromRoute($this->t('Front page'), '<front>'));
     $breadcrumb->addLink(Link::createFromRoute($selectedCompany['name'], 'grants_oma_asiointi.front'));

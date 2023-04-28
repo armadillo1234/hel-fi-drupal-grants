@@ -54,12 +54,6 @@ Visit Application Search
     Go To First Application
     [Teardown]    Close Browser
 
-Visit FAQ
-    Open Browser To Home Page
-    Accept Cookies Banner
-    Go To FAQ
-    [Teardown]    Close Browser
-
 *** Keywords ***
 
 Go To Application Search
@@ -69,7 +63,7 @@ Go To Application Search
 Search Grants
     Scroll To Element    \#views-exposed-form-application-search-page-1 input[data-drupal-selector="edit-combine"]
     Type Text   \#views-exposed-form-application-search-page-1 input[data-drupal-selector="edit-combine"]    avustus
-    Click       \#views-exposed-form-application-search-page-1 input[data-drupal-selector="edit-submit-application-search"]
+    Click       \#views-exposed-form-application-search-page-1 button[data-drupal-selector="edit-submit-application-search"]
     Get Attribute   \#views-exposed-form-application-search-page-1 input[data-drupal-selector="edit-combine"]    value     ==      avustus
     Scroll To Element    .main-content .view-footer strong
     Get Text    .main-content .view-footer strong      !=      0
@@ -81,8 +75,6 @@ Go To FAQ
 
 Go To First Application
     Click      .view-application-search .views-row:nth-child(1) a.application_search--link
-    Get Title           ==    ${APPLICATION_TITLE_ALT} | ${SITE_NAME_ALT}
-    Get Text    h1      ==    ${APPLICATION_TITLE_ALT}
     # Application start button should not exist since we are not logged in
     Get Element Count   \#block-servicepageauthblock .hds-button   ==    0
 
@@ -99,6 +91,21 @@ Change Language
     Get Element Count    .language-switcher a[lang="sv"][aria-current="true"]    ==    1
     Click     .language-switcher a[lang="fi"]
     Get Element Count    .language-switcher a[lang="fi"][aria-current="true"]    ==    1
+
+Filter FAQ Categories
+    Get Element Count    .ukk--filters .category:not(.category-unselected)    ==    1
+    Click    .ukk--filters .category[href="?ukk=13"]
+    Get Element Count    .ukk--filters .category:not(.category-unselected)    ==    1
+    Get Element Count    .ukk--filters .category:not(.category-unselected)[href="?ukk=13"]    ==    1
+    Go Back
+    Get Element Count    .ukk--filters .category:not(.category-unselected)    ==    1
+
+Test FAQ Accordion
+    Get Attribute    \#mista-loydan-hakemusluonnoksen-.accordion-item__header button    aria-expanded     ==    false
+    Get Element States    \#mista-loydan-hakemusluonnoksen-.accordion-item__header ~ .accordion-item__content    contains    hidden
+    Click    \#mista-loydan-hakemusluonnoksen-.accordion-item__header
+    Get Attribute    \#mista-loydan-hakemusluonnoksen-.accordion-item__header button    aria-expanded     ==    true
+    Get Element States    \#mista-loydan-hakemusluonnoksen-.accordion-item__header ~ .accordion-item__content    contains    visible
 
 Check Footer Links
     Get Element Count    .footer \#block-hdbt-subtheme-footertopnavigation a    >=    1

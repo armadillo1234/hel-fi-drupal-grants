@@ -80,12 +80,14 @@ class OmaAsiointiHeroBlock extends BlockBase implements ContainerFactoryPluginIn
    */
   public function build() {
 
-    $selectedCompany = $this->grantsProfileService->getSelectedCompany();
-    $title = $selectedCompany['name'];
+    $selectedRole = $this->grantsProfileService->getSelectedRoleData();
+    $title = $selectedRole['name'];
+    $roleType = $selectedRole['type'];
 
     $build = [
       '#theme' => 'grants_oma_asiointi_hero_block',
       '#title' => $title,
+      '#roleType' => $roleType,
     ];
 
     return $build;

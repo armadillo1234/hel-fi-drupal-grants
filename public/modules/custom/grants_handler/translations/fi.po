@@ -402,3 +402,9 @@ msgstr "Sinulla on oltava profiilissasi tallennettu tilinumero."
 
 msgid "You must have grants profile created."
 msgstr "Sinulla on oltava hakemusprofiili luotu."
+
+msgid "User does not have proper mandate."
+msgstr "Käyttäjällä ei ole sopivaa asiointiroolia."
+
+msgid "User role is not allowed to use this form."
+msgstr "Aktiivisella asiointiroolilla ei ole pääsyoikeutta lomakkeelle."

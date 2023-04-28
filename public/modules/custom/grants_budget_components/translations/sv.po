@@ -1,0 +1,121 @@
+# Finnish translation of City of Helsinki Grants Front Banner module
+#
+msgctxt "grants_budget_components"
+msgid ""
+msgstr ""
+
+msgctxt "grants_budget_components"
+msgid "Requested grants (€)"
+msgstr "Begärt bidrag (€)"
+
+msgctxt "grants_budget_components"
+msgid "Other grants (€)"
+msgstr "Övriga bidrag (€)"
+
+msgctxt "grants_budget_components"
+msgid "Private financier (e.g. sponsorship, severance pay, donation) (€)"
+msgstr "Privat finansiär (t.ex. sponsring, avgångsvederlag, donation) (€)"
+
+msgctxt "grants_budget_components"
+msgid "Access and cancellation fees (€)"
+msgstr "Åtkomst- och avbokningsavgifter (€)"
+
+msgctxt "grants_budget_components"
+msgid "Other income from own operations (€)"
+msgstr "Övriga intäkter från egen verksamhet (€)"
+
+msgctxt "grants_budget_components"
+msgid "The community's own funding (€)"
+msgstr "Samhällets egen finansiering (€)"
+
+msgctxt "grants_budget_components"
+msgid "Proposed total income in Euros (€)"
+msgstr "Föreslagen total inkomst i euro (€)"
+
+msgctxt "grants_budget_components"
+msgid "Operational assistance of the cultural services of the City of Helsinki (€)"
+msgstr "Verksamhetsstöd för Helsingfors stads kulturtjänster (€)"
+
+msgctxt "grants_budget_components"
+msgid "State operating subvention (€)"
+msgstr "Statligt driftsbidrag (€)"
+
+msgctxt "grants_budget_components"
+msgid "Other compensations (€)"
+msgstr "Övriga ersättningar (€)"
+
+msgctxt "grants_budget_components"
+msgid "Total income (€)"
+msgstr "Total inkomst (€)"
+
+msgctxt "grants_budget_components"
+msgid "Income without subsidies (€)"
+msgstr "Inkomst utan subventioner (€)"
+
+msgctxt "grants_budget_components"
+msgid "Share of income other than subsidies (€)"
+msgstr "Andel av andra inkomster än subventioner (€)"
+
+msgctxt "grants_budget_components"
+msgid "Salaries and fees for performers and artists (€)"
+msgstr "Löner och arvoden till artister och artister (€)"
+
+msgctxt "grants_budget_components"
+msgid "Other salaries and fees (production, technology, etc.) (€)"
+msgstr "Övriga löner och avgifter (produktion, teknik, etc.) (€)"
+
+msgctxt "grants_budget_components"
+msgid "Personnel costs from salaries and fees (approx. 30%) (€)"
+msgstr "Personalkostnader från löner och arvoden (ca 30 %) (€)"
+
+msgctxt "grants_budget_components"
+msgid "Performance fees (€)"
+msgstr "Prestationsavgifter (€)"
+
+msgctxt "grants_budget_components"
+msgid "Travel costs (€)"
+msgstr "Resekostnader (€)"
+
+msgctxt "grants_budget_components"
+msgid "Transport costs (€)"
+msgstr "Transportkostnader (€)"
+
+msgctxt "grants_budget_components"
+msgid "Technology, equipment rentals and electricity (€)"
+msgstr "Teknik, utrustningsuthyrning och el (€)"
+
+msgctxt "grants_budget_components"
+msgid "Premise operating costs and rents (€)"
+msgstr "Lokaldriftskostnader och hyror (€)"
+
+msgctxt "grants_budget_components"
+msgid "Information, marketing and printing (€)"
+msgstr "Information, marknadsföring och tryck (€)"
+
+msgctxt "grants_budget_components"
+msgid "Total costs (€)"
+msgstr "Totala kostnader (€)"
+
+msgctxt "grants_budget_components"
+msgid "Donations (€)"
+msgstr "Donationer (€)"
+
+msgctxt "grants_budget_components"
+msgid "Cost explanation (€)"
+msgstr "Kostnadsförklaring (€)"
+
+msgctxt "grants_budget_components"
+msgid "Amount (€)"
+msgstr "Belopp (€)"
+
+msgctxt "grants_budget_components"
+msgid "Income explanation"
+msgstr "Inkomstförklaring"
+
+msgctxt "grants_budget_components"
+msgid "Explanation"
+msgstr "Förklaring"
+
+msgctxt "grants_budget_components"
+msgid "%name can't be empty, when %pair has a value"
+msgstr "%name kan inte vara tomt när %pair har ett värde"

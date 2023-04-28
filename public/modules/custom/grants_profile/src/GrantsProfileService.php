@@ -15,8 +15,10 @@ use Drupal\helfi_atv\AtvDocumentNotFoundException;
 use Drupal\helfi_atv\AtvService;
 use Drupal\helfi_audit_log\AuditLogService;
 use Drupal\helfi_helsinki_profiili\HelsinkiProfiiliUserData;
+use Drupal\helfi_helsinki_profiili\TokenExpiredException;
 use Drupal\helfi_yjdh\Exception\YjdhException;
 use Drupal\helfi_yjdh\YjdhClient;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Handle all profile functionality.
@@ -134,10 +136,10 @@ class GrantsProfileService {
    * @return \Drupal\helfi_atv\AtvDocument
    *   New profile
    */
-  public function newProfile(array $data): AtvDocument {
+  public function newProfileDocument(array $data): AtvDocument {
 
     $newProfileData = [];
-    $selectedCompanyArray = $this->getSelectedCompany();
+    $selectedCompanyArray = $this->getSelectedRoleData();
     $selectedCompany = $selectedCompanyArray['identifier'];
     $userData = $this->helsinkiProfiili->getUserData();
 
@@ -151,7 +153,11 @@ class GrantsProfileService {
     }
 
     $newProfileData['type'] = 'grants_profile';
-    $newProfileData['business_id'] = $selectedCompany;
+
+    if (strlen($selectedCompany) < 10) {
+      $newProfileData['business_id'] = $selectedCompany;
+    }
+
     $newProfileData['user_id'] = $userData["sub"];
     $newProfileData['status'] = self::DOCUMENT_STATUS_NEW;
     $newProfileData['deletable'] = TRUE;
@@ -160,7 +166,8 @@ class GrantsProfileService {
     $newProfileData['tos_function_id'] = $this->newProfileTosFunctionId();
 
     $newProfileData['metadata'] = [
-      'business_id' => $selectedCompany,
+      'profile_type' => $selectedCompanyArray['type'],
+      'profile_id' => $selectedCompany,
       'appenv' => ApplicationHandler::getAppEnv(),
     ];
 
@@ -214,12 +221,13 @@ class GrantsProfileService {
    * @throws \Drupal\helfi_atv\AtvDocumentNotFoundException
    * @throws \Drupal\helfi_atv\AtvFailedToConnectException
    * @throws \GuzzleHttp\Exception\GuzzleException
+   * @throws \Drupal\helfi_helsinki_profiili\TokenExpiredException
    */
   public function saveGrantsProfile(array $documentContent): bool|AtvDocument {
     // Get selected company.
-    $selectedCompany = $this->getSelectedCompany();
+    $selectedCompany = $this->getSelectedRoleData();
     // Get grants profile.
-    $grantsProfileDocument = $this->getGrantsProfile($selectedCompany['identifier'], TRUE);
+    $grantsProfileDocument = $this->getGrantsProfile($selectedCompany, TRUE);
 
     // Make sure business id is saved.
     $documentContent['businessId'] = $selectedCompany['identifier'];
@@ -227,7 +235,7 @@ class GrantsProfileService {
     $transactionId = $this->newTransactionId(time());
 
     if ($grantsProfileDocument == NULL) {
-      $newGrantsProfileDocument = $this->newProfile($documentContent);
+      $newGrantsProfileDocument = $this->newProfileDocument($documentContent);
       $newGrantsProfileDocument->setStatus(self::DOCUMENT_STATUS_SAVED);
       $newGrantsProfileDocument->setTransactionId($transactionId);
 
@@ -251,304 +259,75 @@ class GrantsProfileService {
   }
 
   /**
-   * Save address to session.
+   * Check if a given string is a valid UUID.
    *
-   * @param string $address_id
-   *   Address id in store.
-   * @param array $address
-   *   Address array.
+   * @param string $uuid
+   *   The string to check.
    *
    * @return bool
-   *   Return result.
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
+   *   Is valid or not?
    */
-  public function saveAddress(string $address_id, array $address): bool {
-    $selectedCompany = $this->getSelectedCompany();
-    $profileContent = $this->getGrantsProfileContent($selectedCompany['identifier']);
-    $addresses = (isset($profileContent['addresses']) && $profileContent['addresses'] !== NULL) ? $profileContent['addresses'] : [];
+  public function isValidUuid($uuid): bool {
 
-    // Reset keys.
-    $addresses = array_values($addresses);
-
-    if ($address_id == 'new') {
-      $nextId = count($addresses);
-    }
-    else {
-      $nextId = $address_id;
+    if (!is_string($uuid) || (preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/', $uuid) !== 1)) {
+      return FALSE;
     }
 
-    $addresses[$nextId] = $address;
-    $profileContent['addresses'] = $addresses;
-    return $this->setToCache($selectedCompany['identifier'], $profileContent);
+    return TRUE;
   }
 
   /**
-   * Remove address from profile & CACHE.
+   * Create new profile object.
    *
-   * @param string $address_id
-   *   Address id in store.
+   * @param mixed $selectedRoleData
+   *   Customers' selected role data.
    *
-   * @return bool
-   *   If success.
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
+   * @return bool|\Drupal\helfi_atv\AtvDocument
+   *   New profle.
    */
-  public function removeAddress(string $address_id): bool {
-    $selectedCompany = $this->getSelectedCompany();
-    $profileContent = $this->getGrantsProfileContent($selectedCompany['identifier']);
-    $addresses = (isset($profileContent['addresses']) && $profileContent['addresses'] !== NULL) ? $profileContent['addresses'] : [];
+  public function createNewProfile(
+    mixed $selectedRoleData
+  ): bool|AtvDocument {
 
-    $profileContent['addresses'] = array_filter($addresses, function ($address) use ($address_id) {
-      return $address['address_id'] !== $address_id;
-    });
-    return $this->setToCache($selectedCompany['identifier'], $profileContent);
-  }
+    try {
+      $grantsProfileContent = NULL;
+      if ($selectedRoleData['type'] == 'private_person') {
+        $grantsProfileContent = $this->initGrantsProfilePrivatePerson($selectedRoleData, []);
+      }
+      if ($selectedRoleData['type'] == 'registered_community') {
+        $grantsProfileContent = $this->initGrantsProfileRegisteredCommunity($selectedRoleData, []);
+      }
+      if ($selectedRoleData['type'] == 'unregistered_community') {
+        $grantsProfileContent = $this->initGrantsProfileUnRegisteredCommunity($selectedRoleData, []);
+      }
 
-  /**
-   * Delete attachment from selected company's grants profile document.
-   *
-   * @param string $selectedCompany
-   *   Selected company.
-   * @param string $attachmentId
-   *   Attachment to delete.
-   *
-   * @return \Drupal\helfi_atv\AtvDocument|bool|array
-   *   Return value varies.
-   *
-   * @throws \Drupal\helfi_atv\AtvDocumentNotFoundException
-   * @throws \Drupal\helfi_atv\AtvFailedToConnectException
-   * @throws \GuzzleHttp\Exception\GuzzleException
-   */
-  public function deleteAttachment(string $selectedCompany, string $attachmentId): AtvDocument|bool|array {
-    $grantsProfile = $this->getGrantsProfile($selectedCompany);
-    return $this->atvService->deleteAttachment($grantsProfile->getId(), $attachmentId);
-  }
-
-  /**
-   * Get address from store.
-   *
-   * @param string $address_id
-   *   Address id to fetch.
-   * @param bool $refetch
-   *   Refetch data from ATV.
-   *
-   * @return string[]
-   *   Array containing address or new address
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
-   */
-  public function getAddress(string $address_id, $refetch = FALSE): array {
-    $selectedCompany = $this->tempStore->get('selected_company');
-    $profileContent = $this->getGrantsProfileContent($selectedCompany['identifier'], $refetch);
-
-    if (isset($profileContent["addresses"][$address_id])) {
-      return $profileContent["addresses"][$address_id];
-    }
-    else {
-      return [
-        'street' => '',
-        'city' => '',
-        'postCode' => '',
-        'country' => '',
-      ];
-    }
-  }
-
-  /**
-   * Get official data from store.
-   *
-   * @param string $official_id
-   *   ID to get.
-   *
-   * @return string[]
-   *   Array containing official data
-   */
-  public function getOfficial(string $official_id): array {
-    $selectedCompany = $this->getSelectedCompany();
-    $profileContent = $this->getGrantsProfileContent($selectedCompany['identifier']);
-
-    if (isset($profileContent['officials'][$official_id])) {
-      return $profileContent['officials'][$official_id];
-    }
-    else {
-      return [
-        'name' => '',
-        'role' => '',
-        'email' => '',
-        'phone' => '',
-      ];
-    }
-  }
-
-  /**
-   * Get bank account data from store.
-   *
-   * @param string $bank_account_id
-   *   ID to get.
-   *
-   * @return string[]
-   *   Array containing official data
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
-   */
-  public function getBankAccount(string $bank_account_id): array {
-    $selectedCompany = $this->getSelectedCompany();
-    $profileContent = $this->getGrantsProfileContent($selectedCompany['identifier']);
-
-    $bankAccount = array_filter($profileContent["bankAccounts"], fn($account) => $account['bank_account_id'] == $bank_account_id);
-
-    if (!empty($bankAccount)) {
-      return reset($bankAccount);
-    }
-    else {
-      return [
-        'bankAccount' => '',
-      ];
-    }
-  }
-
-  /**
-   * SAve official to store + ATV.
-   *
-   * @param string $official_id
-   *   Id to save, "new" if adding a new.
-   * @param array $official
-   *   Data to be saved.
-   *
-   * @return bool
-   *   success or not?
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
-   */
-  public function saveOfficial(string $official_id, array $official) {
-    $selectedCompany = $this->getSelectedCompany();
-    $profileContent = $this->getGrantsProfileContent($selectedCompany['identifier']);
-    $officials = (isset($profileContent['officials']) && $profileContent['officials'] !== NULL) ? $profileContent['officials'] : [];
-
-    // Reset keys.
-    $officials = array_values($officials);
-
-    if ($official_id == 'new') {
-      $nextId = count($officials);
-    }
-    else {
-      $nextId = $official_id;
-    }
-
-    $officials[$nextId] = $official;
-    $profileContent['officials'] = $officials;
-    return $this->setToCache($selectedCompany['identifier'], $profileContent);
-  }
-
-  /**
-   * Remove official from profile data & save to CACHE.
-   *
-   * @param string $official_id
-   *   Id to save, "new" if adding a new.
-   *
-   * @return bool
-   *   Is the removal successful.
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
-   */
-  public function removeOfficial(string $official_id) {
-    $selectedCompany = $this->getSelectedCompany();
-    $profileContent = $this->getGrantsProfileContent($selectedCompany['identifier']);
-    $officials = (isset($profileContent['officials']) && $profileContent['officials'] !== NULL) ? $profileContent['officials'] : [];
-
-    unset($officials[(int) $official_id]);
-
-    $profileContent['officials'] = array_filter($officials, function ($official) use ($official_id) {
-      return $official['official_id'] !== $official_id;
-    });
-    return $this->setToCache($selectedCompany['identifier'], $profileContent);
-  }
-
-  /**
-   * Save bank account to ATV.
-   *
-   * @param string $bank_account_id
-   *   Id to save, "new" if adding a new.
-   * @param array $bank_account
-   *   Data to be saved.
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
-   */
-  public function saveBankAccount(string $bank_account_id, array $bank_account) {
-    $selectedCompany = $this->getSelectedCompany();
-    $profileContent = $this->getGrantsProfileContent($selectedCompany['identifier']);
-    $bankAccounts = (isset($profileContent['bankAccounts']) && $profileContent['bankAccounts'] !== NULL) ? $profileContent['bankAccounts'] : [];
-
-    // Reset keys.
-    $bankAccounts = array_values($bankAccounts);
-
-    if ($bank_account_id == 'new') {
-      $nextId = count($bankAccounts);
-    }
-    else {
-      $nextId = $bank_account_id;
-    }
-
-    $bankAccounts[$nextId] = $bank_account;
-    $profileContent['bankAccounts'] = $bankAccounts;
-    $this->setToCache($selectedCompany['identifier'], $profileContent);
-  }
-
-  /**
-   * Remove bank account from profile data.
-   *
-   * @param string $bank_account_id
-   *   Id to save, "new" if adding a new.
-   */
-  public function removeBankAccount(string $bank_account_id): void {
-    $selectedCompany = $this->getSelectedCompany();
-    $profileContent = $this->getGrantsProfileContent($selectedCompany['identifier']);
-    $bankAccounts = (isset($profileContent['bankAccounts']) && $profileContent['bankAccounts'] !== NULL) ? $profileContent['bankAccounts'] : [];
-
-    $profileContent['bankAccounts'] = [];
-
-    foreach ($bankAccounts as $bankAccount) {
-
-      if ($bankAccount['bank_account_id'] !== $bank_account_id) {
-
-        $profileContent['bankAccounts'][] = $bankAccount;
-
+      if ($grantsProfileContent !== NULL) {
+        // Initial save of the new profile so we can add files to it.
+        $newProfile = $this->saveGrantsProfile($grantsProfileContent);
       }
       else {
-
-        // Delete attachment from Atv.
-        $grantsProfile = $this->getGrantsProfile($selectedCompany['identifier']);
-        $attachment = $grantsProfile->getAttachmentForFilename($bankAccount['confirmationFile']);
-
-        try {
-          $this->deleteAttachment($selectedCompany['identifier'], $attachment['id']);
-
-          $this->logger->debug('Attachment deletion success: %id.',
-            [
-              '%id' => $bankAccount['bank_account_id'],
-            ]
-          );
-        }
-        catch (\Exception $e) {
-          $this->logger->debug('Attachment deletion failed: %id.',
-            [
-              '%id' => $bankAccount['bank_account_id'],
-            ]
-                  );
-        }
-
+        $newProfile = NULL;
       }
-
     }
-    $this->setToCache($selectedCompany['identifier'], $profileContent);
+    catch (\Throwable $e) {
+      $newProfile = NULL;
+      // If no company data is found, we cannot continue.
+      $this->messenger
+        ->addError($this->t('Community details not found in registries. Please contact customer service'));
+      $this->logger
+        ->error('Error fetching community data. Error: %error', [
+          '%error' => $e->getMessage(),
+        ]
+            );
+    }
+    return $newProfile;
   }
 
   /**
-   * Make sure we have needed fields in our profile document.
+   * Make sure we have needed fields in our registered community profile.
    *
-   * @param string $businessId
-   *   Business id for profile data.
+   * @param array $selectedCompanyData
+   *   Selected company.
    * @param array $profileContent
    *   Profile content.
    *
@@ -557,9 +336,9 @@ class GrantsProfileService {
    *
    * @throws \Drupal\helfi_yjdh\Exception\YjdhException
    */
-  public function initGrantsProfile(string $businessId, array $profileContent): array {
+  public function initGrantsProfileRegisteredCommunity(array $selectedCompanyData, array $profileContent): array {
     // Try to get association details.
-    $assosiationDetails = $this->yjdhClient->getAssociationBasicInfo($businessId);
+    $assosiationDetails = $this->yjdhClient->getAssociationBasicInfo($selectedCompanyData['identifier']);
     // If they're available, use them.
     if (!empty($assosiationDetails)) {
       $profileContent["companyName"] = $assosiationDetails["AssociationNameInfo"][0]["AssociationName"];
@@ -572,7 +351,7 @@ class GrantsProfileService {
     else {
       try {
         // If not, get company details and use them.
-        $companyDetails = $this->yjdhClient->getCompany($businessId);
+        $companyDetails = $this->yjdhClient->getCompany($selectedCompanyData['identifier']);
 
       }
       catch (\Exception $e) {
@@ -633,6 +412,135 @@ class GrantsProfileService {
   }
 
   /**
+   * Make sure we have needed fields in our UNregistered community profile.
+   *
+   * @param array $selectedCompanyData
+   *   Selected company.
+   * @param array $profileContent
+   *   Profile content.
+   *
+   * @return array
+   *   Profile content with required fields.
+   */
+  public function initGrantsProfileUnRegisteredCommunity(array $selectedCompanyData, array $profileContent): array {
+
+    if (!isset($profileContent['companyName'])) {
+      $profileContent["companyName"] = NULL;
+    }
+
+    if (!isset($profileContent['addresses'])) {
+      $profileContent['addresses'] = [];
+    }
+    if (!isset($profileContent['officials'])) {
+      $profileContent['officials'] = [];
+    }
+    if (!isset($profileContent['bankAccounts'])) {
+      $profileContent['bankAccounts'] = [];
+    }
+
+    // Try to load helsinki profile data.
+    try {
+      $profileData = $this->helsinkiProfiili->getUserProfileData();
+    }
+    catch (TokenExpiredException $e) {
+      $profileData = NULL;
+    }
+
+    // Prefill data from helsinki profile.
+    if ($profileData && isset($profileData['myProfile'])) {
+
+      if (isset($profileData['myProfile']['primaryAddress'])) {
+        $profileContent['addresses'][0] = [
+          'street' => $profileData['myProfile']['primaryAddress']['address'],
+          'postCode' => $profileData['myProfile']['primaryAddress']['postalCode'],
+          'city' => $profileData['myProfile']['primaryAddress']['city'],
+          'address_id' => $profileData['myProfile']['primaryAddress']['id'],
+        ];
+      }
+
+      $profileContent['officials'][0] = [
+        'name' => $profileData['myProfile']['firstName'] . " " . $profileData['myProfile']['lastName'],
+        'additional' => '',
+      ];
+
+      if (isset($profileData['myProfile']['primaryPhone'])) {
+        $profileContent['officials'][0]['phone'] = $profileData['myProfile']['primaryPhone']['phone'];
+      }
+
+      if (isset($profileData['myProfile']['primaryEmail'])) {
+        $profileContent['officials'][0]['email'] = $profileData['myProfile']['primaryEmail']['email'];
+      }
+
+    }
+
+    return $profileContent;
+
+  }
+
+  /**
+   * Make sure we have needed fields in our UNregistered community profile.
+   *
+   * @param array $selectedRoleData
+   *   Selected company.
+   * @param array $profileContent
+   *   Profile content.
+   *
+   * @return array
+   *   Profile content with required fields.
+   */
+  public function initGrantsProfilePrivatePerson(array $selectedRoleData, array $profileContent): array {
+
+    if (!isset($profileContent['addresses'])) {
+      $profileContent['addresses'] = [];
+    }
+    if (!isset($profileContent['phone_number'])) {
+      $profileContent['phone_number'] = NULL;
+    }
+    if (!isset($profileContent['email'])) {
+      $profileContent['email'] = NULL;
+    }
+    if (!isset($profileContent['bankAccounts'])) {
+      $profileContent['bankAccounts'] = [];
+    }
+    if (!isset($profileContent['unregisteredCommunities'])) {
+      $profileContent['unregisteredCommunities'] = NULL;
+    }
+
+    // Try to load helsinki profile data.
+    try {
+      $profileData = $this->helsinkiProfiili->getUserProfileData();
+    }
+    catch (TokenExpiredException $e) {
+      $profileData = NULL;
+    }
+
+    // Prefill data from helsinki profile.
+    if ($profileData && isset($profileData['myProfile'])) {
+
+      if (isset($profileData['myProfile']['primaryAddress'])) {
+        $profileContent['addresses'][0] = [
+          'street' => $profileData['myProfile']['primaryAddress']['address'],
+          'postCode' => $profileData['myProfile']['primaryAddress']['postalCode'],
+          'city' => $profileData['myProfile']['primaryAddress']['city'],
+          'address_id' => $profileData['myProfile']['primaryAddress']['id'],
+        ];
+      }
+
+      if (isset($profileData['myProfile']['primaryPhone'])) {
+        $profileContent['phone_number'] = $profileData['myProfile']['primaryPhone']['phone'];
+      }
+
+      if (isset($profileData['myProfile']['primaryEmail'])) {
+        $profileContent['email'] = $profileData['myProfile']['primaryEmail']['email'];
+      }
+
+    }
+
+    return $profileContent;
+
+  }
+
+  /**
    * Get "content" array from document in ATV.
    *
    * @param mixed $business
@@ -650,23 +558,12 @@ class GrantsProfileService {
     bool $refetch = FALSE
   ): array {
 
-    if (is_array($business)) {
-      $businessId = $business['identifier'];
-    }
-    else {
-      $businessId = $business;
-    }
-
-    if ($businessId == NULL) {
-      return [];
-    }
-
-    if ($refetch === FALSE && $this->isCached($businessId)) {
-      $profileData = $this->getFromCache($businessId);
+    if ($refetch === FALSE && $this->isCached($business['identifier'])) {
+      $profileData = $this->getFromCache($business['identifier']);
       return $profileData->getContent();
     }
 
-    $profileData = $this->getGrantsProfile($businessId, $refetch);
+    $profileData = $this->getGrantsProfile($business, $refetch);
 
     if ($profileData == NULL) {
       return [];
@@ -707,7 +604,7 @@ class GrantsProfileService {
   /**
    * Get profile Document.
    *
-   * @param string $businessId
+   * @param array $profileIdentifier
    *   Business id for profile.
    * @param bool $refetch
    *   Force refetching of the data.
@@ -718,22 +615,22 @@ class GrantsProfileService {
    * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function getGrantsProfile(
-    string $businessId,
+    array $profileIdentifier,
     bool $refetch = FALSE
   ): AtvDocument|null {
     if ($refetch === FALSE) {
-      if ($this->isCached($businessId)) {
-        $document = $this->getFromCache($businessId);
+      if ($this->isCached($profileIdentifier['identifier'])) {
+        $document = $this->getFromCache($profileIdentifier['identifier']);
         return $document;
       }
     }
 
     // Get profile document from ATV.
     try {
-      $profileDocument = $this->getGrantsProfileFromAtv($businessId, $refetch);
+      $profileDocument = $this->getGrantsProfileFromAtv($profileIdentifier, $refetch);
 
       if ($profileDocument) {
-        $this->setToCache($businessId, $profileDocument);
+        $this->setToCache($profileIdentifier['identifier'], $profileDocument);
         return $profileDocument;
       }
     }
@@ -747,7 +644,7 @@ class GrantsProfileService {
   /**
    * Get profile data from ATV.
    *
-   * @param string $businessId
+   * @param array $profileIdentifier
    *   Id to be fetched.
    * @param bool $refetch
    *   Force refetching and bypass caching.
@@ -758,13 +655,25 @@ class GrantsProfileService {
    * @throws \Drupal\helfi_atv\AtvDocumentNotFoundException
    * @throws \GuzzleHttp\Exception\GuzzleException
    */
-  private function getGrantsProfileFromAtv(string $businessId, $refetch = FALSE): AtvDocument|bool {
+  private function getGrantsProfileFromAtv(array $profileIdentifier, $refetch = FALSE): AtvDocument|bool {
 
-    $searchParams = [
-      'business_id' => $businessId,
-      'type' => 'grants_profile',
-      'lookfor' => 'appenv:' . ApplicationHandler::getAppEnv(),
-    ];
+    // Registered communities we can fetch by the business id.
+    if ($profileIdentifier["type"] === 'registered_community') {
+      $searchParams = [
+        'type' => 'grants_profile',
+        'business_id' => $profileIdentifier['identifier'],
+        'lookfor' => 'appenv:' . ApplicationHandler::getAppEnv(),
+      ];
+    }
+    else {
+      // Others, cannot.
+      $searchParams = [
+        'type' => 'grants_profile',
+        'lookfor' => 'appenv:' . ApplicationHandler::getAppEnv() .
+        ',profile_id:' . $profileIdentifier['identifier'] .
+        ',profile_type:' . $profileIdentifier['type'],
+      ];
+    }
 
     try {
       $searchDocuments = $this->atvService->searchDocuments($searchParams, $refetch);
@@ -785,7 +694,7 @@ class GrantsProfileService {
    * @return array|null
    *   Selected company
    */
-  public function getSelectedCompany(): ?array {
+  public function getSelectedRoleData(): ?array {
     if ($this->isCached('selected_company')) {
       return $this->getFromCache('selected_company');
     }
@@ -793,17 +702,24 @@ class GrantsProfileService {
   }
 
   /**
-   * Set selected business id to store.
+   * Set selected role data to store.
+   *
+   * Data structure needs to be same what we set with mandates.
+   *
+   * [
+   * name => ''
+   * identifier => ''
+   * complete => true
+   * roles => []
+   * ]
    *
    * @param array $companyData
    *   Company details.
    *
    * @return bool
    *   Success.
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
    */
-  public function setSelectedCompany(array $companyData): bool {
+  public function setSelectedRoleData(array $companyData): bool {
     return $this->setToCache('selected_company', $companyData);
   }
 
@@ -832,7 +748,7 @@ class GrantsProfileService {
   }
 
   /**
-   * Whether or not we have made this query?
+   * Whether we have made this query?
    *
    * @param string $key
    *   Used key for caching.
@@ -852,7 +768,7 @@ class GrantsProfileService {
   }
 
   /**
-   * Whether or not we have made this query?
+   * Whether we have made this query?
    *
    * @param string|null $key
    *   Used key for caching.
@@ -878,8 +794,7 @@ class GrantsProfileService {
    */
   private function getFromCache(string $key): array|AtvDocument|null {
     $session = $this->requestStack->getCurrentRequest()->getSession();
-    $retval = !empty($session->get($key)) ? $session->get($key) : NULL;
-    return $retval;
+    return !empty($session->get($key)) ? $session->get($key) : NULL;
   }
 
   /**
@@ -892,8 +807,6 @@ class GrantsProfileService {
    *
    * @return bool
    *   Did save succeed?
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   private function setToCache(string $key, array|AtvDocument $data): bool {
 
@@ -913,10 +826,16 @@ class GrantsProfileService {
       return TRUE;
     }
     else {
-      $grantsProfile = $this->getGrantsProfile($key);
-      $grantsProfile->setContent($data);
-      $session->set($key, $grantsProfile);
-      return TRUE;
+      try {
+        $grantsProfile = $this->getGrantsProfile($key);
+        $grantsProfile->setContent($data);
+        $session->set($key, $grantsProfile);
+        return TRUE;
+      }
+      catch (\Throwable $e) {
+        $this->logger->error('Error getting profile from ATV: @e', ['@e' => $e->getMessage()]);
+        return FALSE;
+      }
     }
   }
 
@@ -981,6 +900,49 @@ class GrantsProfileService {
         $this->auditLogService->dispatchEvent($message);
       }
     }
+  }
+
+  /**
+   * Get users profiles.
+   *
+   * @param string $userId
+   *   User id.
+   * @param string $profileType
+   *   Profile type.
+   *
+   * @return array
+   *   Users profiles
+   *
+   * @throws \Drupal\helfi_atv\AtvDocumentNotFoundException
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   */
+  public function getUsersGrantsProfiles(string $userId, string $profileType): array {
+
+    // Others, cannot.
+    $searchParams = [
+      'type' => 'grants_profile',
+      'user_id' => $userId,
+      'lookfor' => 'appenv:' . ApplicationHandler::getAppEnv() . ',profile_type:' . $profileType,
+    ];
+
+    try {
+      $searchDocuments = $this->atvService->searchDocuments($searchParams);
+    }
+    catch (\Exception $e) {
+      throw new AtvDocumentNotFoundException('Not found');
+    }
+
+    return $searchDocuments;
+  }
+
+  /**
+   * Get new UUID string.
+   *
+   * @return string
+   *   Unique UUID
+   */
+  public function getUuid(): string {
+    return Uuid::uuid4()->toString();
   }
 
 }

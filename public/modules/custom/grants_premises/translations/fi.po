@@ -1,0 +1,59 @@
+# Finnish translation of City of Helsinki Grants Metadata module
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2021-05-31 11:00+0300\n"
+"PO-Revision-Date: 2022-10-12 11:00+0300\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "City owns the property"
+msgstr "Kaupunki omistaa tilan"
+
+msgid "Applicant owns property"
+msgstr "Hakija omistaa tilan"
+
+msgid "Is other use"
+msgstr "On muuta käyttöä"
+
+msgid "Is premise free"
+msgstr "Tila on vapaa"
+
+msgid "Rent time end"
+msgstr "Vuokra-aika päättyy"
+
+msgid "Rent time begin"
+msgstr "Vuokra-aika alkaa"
+
+msgid "Special Students"
+msgstr "Erityisopiskelijat"
+
+msgid "Personnel Count"
+msgstr "Henkilöstön määrä"
+
+msgid "Special Groups"
+msgstr "Erityisryhmät"
+
+msgid "Group Count"
+msgstr "Ryhmien määrä"
+
+msgid "Special Students"
+msgstr "Erityisopiskelijat"
+
+msgid "Student Count"
+msgstr "Opiskelijamäärä"
+
+msgid "Premise Address"
+msgstr "Tilan osoite"
+
+msgid "Premise name"
+msgstr "Tilan nimi"
+
+msgid "Total Rent"
+msgstr "Kokonaisvuokra"
+

@@ -1,0 +1,29 @@
+#grants-mandate-type .form-actions {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
+
+  @include breakpoint($breakpoint-s) {
+    flex-direction: row;
+    margin-left: calc(-1 * var(--spacing-m));
+    width: calc(100% + var(--spacing-m));
+  }
+
+  .hds-card--applicant-role {
+    margin-bottom: var(--spacing-l);
+    position: relative;
+    width: 100%;
+    @include breakpoint($breakpoint-s) {
+      margin-left: var(--spacing-m);
+      width: calc(50% - var(--spacing-m));
+
+      @include breakpoint($breakpoint-l) {
+        width: calc(calc(100% / 3) - var(--spacing-m));
+      }
+    }
+
+  }
+
+}

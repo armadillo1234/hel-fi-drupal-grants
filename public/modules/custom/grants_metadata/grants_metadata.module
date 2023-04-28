@@ -5,7 +5,6 @@
  * Module hooks.
  */
 
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Form\FormStateInterface;
@@ -98,39 +97,6 @@ function grants_metadata_webform_presave(Webform $entity) {
 }
 
 /**
- * Implements hook_ENTITY_TYPE_presave().
- */
-function grants_metadata_node_presave(EntityInterface $entity) {
-
-  $bundle = $entity->bundle();
-  if ($bundle == 'service') {
-
-    /** @var \Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem $referenceItem */
-    $referenceItem = $entity->get('field_webform')->first();
-    if ($referenceItem) {
-      /** @var \Drupal\Core\Entity\Plugin\DataType\EntityReference $entityReference */
-      $entityReference = $referenceItem->get('entity');
-
-      /** @var \Drupal\Core\Entity\Plugin\DataType\EntityAdapter $entityAdapter */
-      $entityAdapter = $entityReference->getTarget();
-
-      /** @var \Drupal\Core\Entity\EntityInterface $referencedEntity */
-      $referencedEntity = $entityAdapter->getValue();
-
-      // Get third party settings.
-      $thirdPartySettings = $referencedEntity->getThirdPartySettings('grants_metadata');
-
-      // Get entity status.
-      $status = $referencedEntity->isOpen();
-
-      // Update node values from 3rd party settings.
-      grants_metadata_set_node_values($entity, $status, $thirdPartySettings);
-    }
-  }
-
-}
-
-/**
  * Add configurations from webform to given node.
  *
  * @param \Drupal\node\Entity\Node $page
@@ -149,7 +115,7 @@ function grants_metadata_set_node_values(Node &$page, bool $status, mixed $third
   $page->set('field_application_open', $status);
   // Applicant types.
   if (!empty($thirdPartySettings["applicantTypes"])) {
-    $page->set('field_hakijatyyppi', $thirdPartySettings["applicantTypes"]);
+    $page->set('field_hakijatyyppi', array_values($thirdPartySettings["applicantTypes"]));
   }
   // Type terms.
   if (!empty($thirdPartySettings["applicationTypeTerms"])) {
@@ -209,6 +175,7 @@ function grants_metadata_field_industry_options(): array {
  * Alter form.
  */
 function grants_metadata_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
   if ($form_id == 'webform_settings_form' || $form_id == 'webform_add_form' || $form_id == 'webform_duplicate_form') {
 
     $bundle = $form_state->getFormObject()->getEntity();
@@ -271,6 +238,7 @@ function grants_metadata_form_alter(&$form, FormStateInterface $form_state, $for
       '#default_value' => $bundle->getThirdPartySetting('grants_metadata', 'applicantTypes'),
       '#options' => $thirdPartyOptions['applicant_types'],
       '#required' => TRUE,
+      '#multiple' => TRUE,
     ];
 
     // Load the taxonomy terms.

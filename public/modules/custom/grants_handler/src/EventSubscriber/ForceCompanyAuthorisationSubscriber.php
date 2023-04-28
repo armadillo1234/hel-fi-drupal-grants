@@ -100,7 +100,7 @@ class ForceCompanyAuthorisationSubscriber implements EventSubscriberInterface {
     // & has helsinkiprofiili role.
     if ($this->currentUser->isAuthenticated() &&
       in_array('helsinkiprofiili', $currentUserRoles)) {
-      $selectedCompany = $this->grantsProfileService->getSelectedCompany();
+      $selectedCompany = $this->grantsProfileService->getSelectedRoleData();
       // If no selected company.
       if ($selectedCompany == NULL) {
         $urlObject = Url::fromUserInput($event->getRequest()->getRequestUri());

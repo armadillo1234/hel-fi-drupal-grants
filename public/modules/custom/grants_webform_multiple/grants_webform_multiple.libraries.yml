@@ -1,0 +1,6 @@
+grants_webform_multiple:
+  version: 1.x
+  js:
+    js/multiple_field_alter.js: {}
+  depencies:
+    - core/jquery

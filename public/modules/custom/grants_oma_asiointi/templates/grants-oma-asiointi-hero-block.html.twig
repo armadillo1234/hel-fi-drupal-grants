@@ -1,4 +1,8 @@
-{% set background_color = 'engel' %}
+{% if roleType == 'private_person' %}
+  {% set background_color = 'copper' %}
+{% else %}
+  {% set background_color = 'engel' %}
+{% endif %}
 {% set design_class = "hero--oma-asiointi" %}
 
 {% set hero_classes = [
@@ -11,7 +15,13 @@
   {% embed "@hdbt/misc/container.twig" with {container_element: 'hero'} %}
     {% block container_content %}
       <div class="hero__text-content">
+      {% if roleType == 'private_person' %}
+        <span aria-hidden="true" class="hds-icon hds-icon--user hds-icon--size-l"></span>
+      {% elseif roleType == 'unregistered_community' %}
+        <span aria-hidden="true" class="hds-icon hds-icon--group hds-icon--size-l"></span>
+      {% else %}
       <span aria-hidden="true" class="hds-icon hds-icon--company hds-icon--size-l"></span>
+      {% endif %}
         <h1 class="hero__title">
           {{ title }}
         </h1>

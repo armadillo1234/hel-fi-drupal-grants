@@ -1,0 +1,23 @@
+div.ui-widget.ui-datepicker {
+  padding: var(--spacing-2-xs);
+
+  .ui-datepicker-header {
+    span.ui-icon {
+      mask-image: none;
+      transform: none;
+      margin-left: -8px;
+      margin-top: -8px;
+    }
+  }
+
+  .ui-datepicker-calendar {
+    border: 0;
+    display: table;
+    margin: 0;
+    max-width: 100%;
+
+    th, td {
+      min-width: auto;
+    }
+  }
+}

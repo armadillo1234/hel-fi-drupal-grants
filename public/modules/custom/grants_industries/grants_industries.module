@@ -30,6 +30,13 @@ const GRANTS_INDUSTRIES_GID = 123;
  */
 function grants_industries_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
+  $user = Drupal::currentUser();
+  $roles = $user->getRoles();
+
+  if (!in_array('helsinkiprofiili', $roles)) {
+    return;
+  }
+
   if ($form_id == 'user_form') {
     $currentUser = \Drupal::currentUser();
     $roles = $currentUser->getRoles();

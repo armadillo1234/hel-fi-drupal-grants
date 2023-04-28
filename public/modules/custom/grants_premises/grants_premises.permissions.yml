@@ -1,0 +1,4 @@
+administer grants_webform_components configuration:
+  title: 'Administer grants_webform_components configuration'
+  description: 'Optional description.'
+  restrict access: true

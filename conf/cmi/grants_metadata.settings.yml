@@ -9,7 +9,7 @@ third_party_options:
   applicant_types:
     registered_community: 'Rekisteröity yhdistys'
     unregistered_community: 'Rekisteröimätön yhdistys'
-    private_person: 'Private person'
+    private_person: Yksityishenkilö
   application_types:
     29:
       id: ECONOMICGRANTAPPLICATION
@@ -19,8 +19,18 @@ third_party_options:
         definitionId: grants_metadata_yleisavustushakemus
       labels:
         fi: 'Kaupunginhallituksen yleisavustushakemus'
-        en: 'City Board, general grant application'
-        sv: 'Ansökan om stadsstyrelsens allmänna understöd'
+        en: 'EN Kaupunginhallituksen yleisavustushakemus'
+        sv: 'SV Kaupunginhallituksen yleisavustushakemus'
+    48:
+      id: KUVAPROJ
+      code: KUVAPROJ
+      dataDefinition:
+        definitionClass: Drupal\grants_metadata\TypedData\Definition\KuvaProjektiDefinition
+        definitionId: grants_metadata_kaskoyleis
+      labels:
+        fi: 'Taide ja kulttuuri: projektiavustus'
+        en: 'EN Taide ja kulttuuri: projektiavustus'
+        sv: 'SV Taide ja kulttuuri: projektiavustus'
     51:
       id: KASKOYLEIS
       code: KASKOYLEIS
@@ -46,31 +56,31 @@ third_party_options:
     CANCELLED: CANCELLED
     CLOSED: CLOSED
   subvention_types:
-    1: 'Operating grant'
-    2: 'Wage subsidy'
-    4: 'Project grant'
-    5: 'Rent subsidy'
-    6: 'General grant'
-    7: 'Education grant for unemployed'
-    8: 'Interests and installments'
-    9: Other
-    11: 'Transport subsidy'
+    1: Toiminta-avustus
+    2: Palkkausavustus
+    4: Projektiavustus
+    5: Vuokra-avustus
+    6: Yleisavustus
+    7: 'Työttömien koulutusavustus'
+    8: 'Korot ja lyhennykset'
+    9: Muu
+    11: Kuljetusavustus
     12: Leiriavustus
-    13: 'Exemption from payments compensation'
-    14: 'Extra grant'
-    15: 'Navigation map grant'
-    17: 'Grant for operations development'
-    29: 'Capacity buildning grant / The Helsinki Model'
-    31: 'Start grant'
-    32: 'Subsidy for use of space'
-    34: 'Basic art education'
+    13: Maksuvapauskompensaatio
+    14: Lisäavustus
+    15: Suunnistuskartta-avustus
+    17: 'Toiminnan kehittämisavustus'
+    29: 'Kehittämisavustukset / Helsingin malli'
+    31: Starttiavustus
+    32: Tilankäyttöavustus
+    34: 'Taiteen perusopetus'
     35: Varhaiskasvatus
     36: 'Vapaa sivistystyö'
-    37: 'Event grant'
-    38: 'Small grant'
-    39: 'Immigrant integration grant'
-    40: 'Culture and leisure: application for subsidy'
+    37: Tapahtuma-avustus
+    38: Pienavustus
+    39: Kotouttamisavustus
+    40: Harrastushaku
     41: Laitosavustus
-    42: 'Grant for other associations promoting physical activity'
-    43: 'Targeted sports grant'
-langcode: en
+    42: 'Muiden liikuntaa edistävien yhteisöjen avustus'
+    43: Kohdeavustus
+langcode: fi

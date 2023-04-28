@@ -1,0 +1,3 @@
+services:
+  grants_budget_components.service:
+    class: Drupal\grants_budget_components\GrantsBudgetComponentService

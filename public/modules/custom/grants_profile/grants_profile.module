@@ -13,7 +13,7 @@ use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
-use Drupal\grants_profile\Form\GrantsProfileForm;
+use Drupal\grants_profile\Form\GrantsProfileFormRegisteredCommunity;
 
 /**
  * Implements hook_theme().
@@ -37,47 +37,53 @@ function grants_profile_theme(): array {
       'submission_form' => NULL,
     ],
   ];
-  $theme['own_profile'] = [
+  $theme['own_profile_unregistered_community'] = [
     'render element' => 'build',
     'variables' => [
-      'title' => NULL,
-      'content' => NULL,
-      'grants_profile_form' => NULL,
       'profile' => NULL,
-      'applications' => NULL,
-      'colorscheme' => NULL,
-      'initials' => NULL,
+      'userData' => NULL,
       'editProfileLink' => NULL,
     ],
   ];
+  $theme['own_profile_registered_community'] = [
+    'render element' => 'build',
+    'variables' => [
+      'profile' => NULL,
+      'userData' => NULL,
+      'editProfileLink' => NULL,
+    ],
+  ];
+
+  $theme['own_profile_private_person'] = [
+    'render element' => 'build',
+    'variables' => [
+      'profile' => NULL,
+      'userData' => NULL,
+      'editProfileLink' => NULL,
+    ],
+  ];
+
+  $theme['edit_own_profile'] = [
+    'render element' => 'build',
+    'variables' => [
+      'profileForm' => NULL,
+    ],
+  ];
+
   $theme['own_profile_form'] = [
     'render element' => 'form',
   ];
-  $theme['company_select'] = [
-    'render element' => 'build',
-    'variables' => [
-      'content' => NULL,
-      'company_select_form' => NULL,
-    ],
+
+  $theme['own_profile_form_private_person'] = [
+    'render element' => 'form',
   ];
-  $theme['own_addresses'] = [
-    'render element' => 'build',
-    'variables' => [
-      'addresses' => NULL,
-    ],
+  $theme['own_profile_form_unregistered_community'] = [
+    'render element' => 'form',
   ];
-  $theme['application_officials'] = [
-    'render element' => 'build',
-    'variables' => [
-      'officials' => NULL,
-    ],
+  $theme['own_profile_form_registered_community'] = [
+    'render element' => 'form',
   ];
-  $theme['bank_accounts'] = [
-    'render element' => 'build',
-    'variables' => [
-      'bank_accounts' => NULL,
-    ],
-  ];
+
   $theme['block__grants_profile_menuitem'] = [
     'render element' => 'build',
     'template' => 'block--grants-profile-menuitem',
@@ -100,7 +106,7 @@ function grants_profile_theme(): array {
 /**
  * Implements hook_cron().
  */
-function grants_profile_cron() {
+function grants_profile_cron(): void {
 
   // Make sure no dangling files are left over from bank account confirmations.
 
@@ -130,7 +136,7 @@ function grants_profile_cron() {
 /**
  * Implements hook_form_alter().
  */
-function grants_profile_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+function grants_profile_form_alter(&$form, FormStateInterface $form_state, $form_id): void {
 
   // Hide fields from login forms without proper query strings.
   // If we're at user login.
@@ -159,7 +165,7 @@ function grants_profile_form_alter(&$form, FormStateInterface $form_state, $form
 /**
  * Implements hook_user_logout().
  */
-function grants_profile_user_logout(AccountInterface $account) {
+function grants_profile_user_logout(AccountInterface $account): void {
   /** @var \Drupal\grants_profile\GrantsProfileService $profileService */
   $profileService = \Drupal::service('grants_profile.service');
   $profileService->clearCache();
@@ -168,12 +174,31 @@ function grants_profile_user_logout(AccountInterface $account) {
 /**
  * Implements hook_preprocess_HOOK().
  */
-function grants_profile_preprocess_own_profile(&$variables) {
-  foreach ($variables['profile']['officials'] as $key => $official) {
+function grants_profile_preprocess_own_profile_registered_community(&$variables): void {
 
-    $officialRole = GrantsProfileForm::getOfficialRoles();
-    $temprole = '' . $officialRole[(int) $official['role']];
-    $variables['profile']['officials'][$key]['officialRole'] = $temprole;
+  $initials = NULL;
+  $name = $profile['companyName'] ?? '';
+  $words = explode(' ', $name);
+  if (count($words) >= 2) {
+    $initials = strtoupper(substr($words[0], 0, 1) . substr(end($words), 0, 1));
+  }
+  else {
+    preg_match_all('#([A-Z]+)#', $name, $capitals);
+    if (count($capitals[1]) >= 2) {
+      $initials = substr(implode('', $capitals[1]), 0, 2);
+    }
+    else {
+      $initials = strtoupper(substr($name, 0, 2));
+    }
+
+  }
+  $build['#initials'] = $initials;
+  $build['#colorscheme'] = 0;
+
+  $officialRoles = GrantsProfileFormRegisteredCommunity::getOfficialRoles();
+
+  foreach ($variables['profile']['officials'] as $key => $official) {
+    $variables['profile']['officials'][$key]['officialRole'] = $officialRoles[(int) $official['role']];
   }
 }
 
@@ -202,19 +227,44 @@ function grants_profile_preprocess_input(&$variables) {
 
 /**
  * Implements hook_preprocess_HOOK().
+ *
+ * @throws \GuzzleHttp\Exception\GuzzleException
  */
 function grants_profile_preprocess_own_profile_form(&$variables) {
-
-  /** @var \Drupal\grants_profile\GrantsProfileService $grantsProfileService */
-  $grantsProfileService = \Drupal::service('grants_profile.service');
-  $selectedCompany = $grantsProfileService->getSelectedCompany();
-
-  $grantsProfile = $grantsProfileService->getGrantsProfileContent($selectedCompany['identifier']);
 
   // Get profile data from parent form.
   $variables['profile'] = $variables["form"]["#profilecontent"];
   // Unset just in case.
   unset($variables["form"]["#profilecontent"]);
+
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * @throws \GuzzleHttp\Exception\GuzzleException
+ */
+function grants_profile_preprocess_own_profile_form_unregistered_community(&$variables) {
+
+  // Get profile data from parent form.
+  $variables['profile'] = $variables["form"]["#profilecontent"];
+  // Unset just in case.
+  unset($variables["form"]["#profilecontent"]);
+
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * @throws \GuzzleHttp\Exception\GuzzleException
+ */
+function grants_profile_preprocess_own_profile_form_private_person(&$variables) {
+
+  // Get profile data from parent form.
+  $variables['profile'] = $variables["form"]["#helsinkiprofilecontent"];
+
+  // Unset just in case.
+  unset($variables["form"]["#helsinkiprofilecontent"]);
 
 }
 

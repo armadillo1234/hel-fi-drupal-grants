@@ -133,6 +133,11 @@ class AttachmentRemover {
 
       // Load file.
       $file = File::load($fileId);
+
+      if ($file == NULL) {
+        continue;
+      }
+
       $filename = $file->getFilename();
 
       // Only if we have positive upload result remove file.

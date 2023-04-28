@@ -28,6 +28,22 @@ class BankAccountDefinition extends ComplexDataDefinitionBase {
         ->addConstraint('NotEmptyValue')
         ->addConstraint('ValidIban');
 
+      $info['ownerName'] = DataDefinition::create('string')
+        ->setLabel('ownerName')
+        ->setSetting('jsonPath', [
+          'grantsProfile',
+          'bankAccountsArray',
+          'ownerName',
+        ]);
+
+      $info['ownerSsn'] = DataDefinition::create('string')
+        ->setLabel('ownerSsn')
+        ->setSetting('jsonPath', [
+          'grantsProfile',
+          'bankAccountsArray',
+          'ownerSsn',
+        ]);
+
       $info['confirmationFile'] = DataDefinition::create('string')
         ->setRequired(TRUE)
         ->setLabel('File attachment to validate bank account')

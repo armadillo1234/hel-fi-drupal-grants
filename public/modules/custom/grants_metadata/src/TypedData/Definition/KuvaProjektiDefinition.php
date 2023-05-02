@@ -163,22 +163,22 @@ class KuvaProjektiDefinition extends ComplexDataDefinitionBase {
         ]);
 
       $info['kokoaikainen_henkilotyovuosia'] = DataDefinition::create('string')
-      ->setLabel('Kokoaikaisten henkilötyövuodet')
-      ->setSetting('jsonPath', [
-        'compensation',
-        'communityInfo',
-        'generalCommunityInfoArray',
-        'staffManyearsFulltime',
-      ]);
+        ->setLabel('Kokoaikaisten henkilötyövuodet')
+        ->setSetting('jsonPath', [
+          'compensation',
+          'communityInfo',
+          'generalCommunityInfoArray',
+          'staffManyearsFulltime',
+        ]);
 
       $info['osa_aikainen_henkilotyovuosia'] = DataDefinition::create('string')
-      ->setLabel('Osa-aikaisten henkilötyövuodet')
-      ->setSetting('jsonPath', [
-        'compensation',
-        'communityInfo',
-        'generalCommunityInfoArray',
-        'staffManyearsParttime',
-      ]);
+        ->setLabel('Osa-aikaisten henkilötyövuodet')
+        ->setSetting('jsonPath', [
+          'compensation',
+          'communityInfo',
+          'generalCommunityInfoArray',
+          'staffManyearsParttime',
+        ]);
 
       $info['toiminta_taiteelliset_lahtokohdat'] = DataDefinition::create('string')
         ->setLabel('Kuvaa toiminnan taiteellisia lähtökohtia ja tavoitteita, taiteellista ammattimaisuutta sekä asemaa taiteen kentällä.')

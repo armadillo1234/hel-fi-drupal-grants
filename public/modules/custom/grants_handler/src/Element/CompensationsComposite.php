@@ -8,6 +8,26 @@ use Drupal\webform\Element\WebformCompositeBase;
 /**
  * Compensations webform component.
  *
+ * Support for following must be added:
+ *
+ * "uniqueID",
+ * "subventionType",
+ * "amount",
+ * "amountInLetters",
+ * "eventBegin",
+ * "eventEnd",
+ * "primaryArt",
+ * "purpose",
+ * "isFestival",
+ * "letterNumber",
+ * "letterDate",
+ * "supportTimeBegin",
+ * "supportTimeEnd",
+ * "studentName",
+ * "caretakerName",
+ * "caretakerAddress",
+ * "totalCosts"
+ *
  * @FormElement("grants_compensations")
  *
  * @see \Drupal\webform\Element\WebformCompositeBase

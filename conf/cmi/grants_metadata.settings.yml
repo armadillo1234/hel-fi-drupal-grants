@@ -41,6 +41,16 @@ third_party_options:
         fi: 'Kasvatus ja koulutus: yleisavustushakemus'
         en: 'EN Kasvatus ja koulutus: yleisavustushakemus'
         sv: 'SV Kasvatus ja koulutus: yleisavustushakemus'
+    47:
+      id: KUVATOIMINTA
+      code: KUVATOIMINTA
+      dataDefinition:
+        definitionClass: Drupal\grants_metadata\TypedData\Definition\KuvaToimintaDefinition
+        definitionId: grants_metadata_kuvatoiminta
+      labels:
+        fi: 'Taide ja kulttuuri: toiminta-avustus'
+        en: 'EN Taide ja kulttuuri: toiminta-avustus'
+        sv: 'SV Taide ja kulttuuri: toiminta-avustus'
   application_statuses:
     DRAFT: DRAFT
     SENT: SENT

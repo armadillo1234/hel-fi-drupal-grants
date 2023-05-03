@@ -7,12 +7,12 @@ dependencies:
     - grants_metadata
 third_party_settings:
   grants_metadata:
-    applicationType: KUVATOIM
+    applicationType: KUVATOIMINTA
     applicationTypeID: '47'
     applicantTypes:
       registered_community: registered_community
     applicationTypeTerms:
-      47: '47'
+      45: '45'
     applicationOpen: '2022-10-02T11:08:26'
     applicationClose: '2023-06-14T11:19:00'
     applicationContinuous: 0
@@ -115,13 +115,10 @@ elements: |-
     tilinumero:
       '#type': webform_section
       '#title': Tilinumero
-      bank_account:
+      account_number:
         '#type': bank_account_composite
         '#title': Tilinumero
-        '#required': true
-        '#attributes':
-          class:
-            - webform--medium
+        '#account_number__access': false
     toiminnasta_vastaavat_henkilot:
       '#type': webform_section
       '#title': 'Toiminnasta vastaavat henkilöt'
@@ -439,7 +436,6 @@ elements: |-
       festivaalin_tai_tapahtuman_kohdalla_tapahtuman_paivamaarat:
         '#type': textarea
         '#title': 'Festivaalin tai tapahtuman kohdalla tapahtuman päivämäärät'
-        '#multiple': true
       hanke_alkaa:
         '#type': datetime
         '#title': 'Hanke alkaa'
@@ -653,12 +649,133 @@ elements: |-
           - or
           - ':input[name="applicant_type"]':
               value: registered_community
-      organisaatio_kuuluu_valtionosuusjarjestelmaan:
-        '#type': checkbox
+      organisaatio_kuuluu_valtionosuusjarjestelmaan_vos_:
+        '#type': radios
         '#title': 'Organisaatio kuuluu valtionosuusjärjestelmään (VOS)'
-    tahan_tulee_talousarvio_komponentti:
+        '#options': yes_no
+    suunnitellut_tulot:
       '#type': webform_section
-      '#title': 'tähän tulee talousarvio-komponentti'
+      '#title': 'Suunnitellut tulot'
+      tulot:
+        '#type': grants_budget_income_static
+        '#title': 'Suunnitellut Tulot'
+        '#multiple': false
+        '#incomeGroup': general
+        '#compensation__access': false
+        '#customerFees__access': false
+        '#donations__access': false
+        '#entryFees__access': false
+        '#otherCompensations__access': false
+        '#sponsorships__access': false
+        '#sales__access': false
+        '#compensationFromCulturalAffairs__access': false
+        '#otherCompensationFromCity__access': false
+        '#otherCompensationType__access': false
+        '#totalIncome__access': false
+        '#incomeWithoutCompensations__access': false
+        '#ownFunding__access': false
+        '#financialFundingAndInterests__access': false
+        '#plannedTotalIncomeWithoutSubventions__access': false
+        '#plannedShareOfIncomeWithoutSubventions__access': false
+        '#stateOperativeSubvention__access': false
+        '#totalIncomeWithoutSubventions__access': false
+        '#shareOfIncomeWithoutSubventions__access': false
+    suunnitellut_menot_osio:
+      '#type': webform_section
+      '#title': 'Suunnitellut menot'
+      suunnitellut_menot:
+        '#type': grants_budget_cost_static
+        '#title': 'Suunnitellut menot'
+        '#multiple': false
+        '#incomeGroup': general
+        '#salaries__access': false
+        '#personnelSocialSecurityCosts__access': false
+        '#rentSum__access': false
+        '#materials__access': false
+        '#transport__access': false
+        '#food__access': false
+        '#pr__access': false
+        '#insurance__access': false
+        '#snacks__access': false
+        '#cleaning__access': false
+        '#premisesService__access': false
+        '#travel__access': false
+        '#heating__access': false
+        '#servicesTotal__access': false
+        '#water__access': false
+        '#electricity__access': false
+        '#suppliesTotal__access': false
+        '#admin__access': false
+        '#accounting__access': false
+        '#health__access': false
+        '#otherCostsTotal__access': false
+        '#services__access': false
+        '#supplies__access': false
+        '#useOfCustomerFeesTotal__access': false
+        '#totalCosts__access': false
+        '#netCosts__access': false
+        '#performerFees__access': false
+        '#otherFees__access': false
+        '#personnelSideCosts__access': false
+        '#generalCosts__access': false
+        '#permits__access': false
+        '#setsAndCostumes__access': false
+        '#equipment__access': false
+        '#premises__access': false
+        '#security__access': false
+        '#marketing__access': false
+        '#costsWithoutDeferredItems__access': false
+        '#generalCostsTotal__access': false
+        '#allCostsTotal__access': false
+        '#showCosts__access': false
+        '#travelCosts__access': false
+        '#transportCosts__access': false
+    muu_huomioitava_panostus:
+      '#type': webform_section
+      '#title': 'Muu huomioitava panostus'
+      sisaltyyko_toiminnan_toteuttamiseen_jotain_muuta_rahanarvoista_p:
+        '#type': textarea
+        '#title': 'Sisältyykö toiminnan toteuttamiseen jotain muuta rahanarvoista panosta tai vaihtokauppaa, joka ei käy ilmi budjetista?'
+    toteutuneet_tulot_ja_menot:
+      '#type': webform_section
+      '#title': 'Toteutuneet tulot ja menot'
+      organisaatio_kuului_valtionosuusjarjestelmaan_vos_:
+        '#type': radios
+        '#title': 'Organisaatio kuului valtionosuusjärjestelmään (VOS)'
+        '#options': yes_no
+    toteutuneet_menot_osio:
+      '#type': webform_section
+      '#title': 'Toteutuneet menot'
+      menot_yhteensa:
+        '#type': number
+        '#title': 'Menot yhteensä'
+        '#autocomplete': ''
+    toteutuneet_tulot:
+      '#type': webform_section
+      '#title': 'Toteutuneet tulot'
+      '#title_tag': h3
+      toteutuneet_tulot_data:
+        '#type': grants_budget_income_static
+        '#title': 'Toteutuneet tulot'
+        '#multiple': false
+        '#incomeGroup': general
+        '#customerFees__access': false
+        '#donations__access': false
+        '#compensationFromCulturalAffairs__access': false
+        '#otherCompensationType__access': false
+        '#incomeWithoutCompensations__access': false
+        '#plannedStateOperativeSubvention__access': false
+        '#plannedOtherCompensations__access': false
+        '#ownFunding__access': false
+        '#plannedTotalIncome__access': false
+        '#plannedTotalIncomeWithoutSubventions__access': false
+        '#plannedShareOfIncomeWithoutSubventions__access': false
+        '#totalIncomeWithoutSubventions__access': false
+        '#shareOfIncomeWithoutSubventions__access': false
+      tulot_yhteensa:
+        '#type': number
+        '#title': 'Tulot yhteensä'
+        '#autocomplete': ''
   lisatiedot_ja_liitteet:
     '#type': webform_wizard_page
     '#title': '7. Lisätiedot ja liitteet'
@@ -726,12 +843,6 @@ elements: |-
         '#multiple__add_more_button_label': 'Lisää liite'
         '#isDeliveredLater__access': false
         '#isIncludedInOtherFile__access': false
-  toteutuneet_tilat_markup:
-    '#type': webform_markup
-    '#markup': |-
-      <h3>
-        Helsingissä järjestettävä yleisölle avoin toiminta toteutettiin
-      </h3>
   actions:
     '#type': webform_actions
     '#title': 'Submit button(s)'

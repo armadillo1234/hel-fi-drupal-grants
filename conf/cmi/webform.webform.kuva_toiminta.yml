@@ -164,7 +164,7 @@ elements: |-
         '#title': Avustukset
         '#multiple': true
         '#subventionType':
-          4: '4'
+          1: '1'
         '#required': true
         '#multiple__header': true
         '#multiple__empty_items': 0

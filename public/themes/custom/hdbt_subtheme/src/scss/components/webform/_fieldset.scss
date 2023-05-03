@@ -1,0 +1,32 @@
+fieldset.grants-fieldset {
+  .fieldset-wrapper {
+    display: flex;
+    gap: 0 var(--spacing-layout-2-xs);
+    flex-flow: row wrap;
+  }
+  .fieldset-break {
+    flex-basis: 100%;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+  }
+}
+table[data-drupal-selector="edit-tila-items"] td > .fieldgroup {
+  border-width: 2px;
+  padding: var(--spacing-s);
+  margin-top: var(--spacing-layout-2-xs);
+  span.visually-hidden {
+    height: auto;
+    width: auto;
+    overflow: auto;
+    clip: initial;
+    clip-path: initial;
+    left: var(--spacing-layout-2-xs);
+    top: -12px;
+    background: white;
+    padding-right: var(--spacing-layout-2-xs);
+  }
+}

@@ -14,7 +14,7 @@ parameters:
     values:
       - chrome
       - firefox
-      - edge
+      - safari
 
 jobs:
   - job: InstallAndRun
@@ -37,11 +37,14 @@ jobs:
       - script: pip install robotframework robotframework-pabot robotframework-seleniumlibrary webdrivermanager robotframework-browser
         displayName: "Install dependencies"
 
+      - script: rfbrowser init
+        displayName: "Install browsers"
+
       #- powershell: Get-ChildItem -Filter *.robot -Recurse
       #  failOnStderr: true
       #  displayName: "saa naha mita loytyy"
       #  continueOnError: true
-      - powershell: robot -d logit --pythonpath . --variable environment:${{ parameters.testEnv }}-${{ parameters.testBrowser }} -x 'outputjunit.xml' '$(Build.SourcesDirectory)\test\tests\*.robot'
+      - powershell: robot -d logit --pythonpath . --variable environment:${{ parameters.testEnv }} --variable browser:${{ parameters.testBrowser }} -x 'outputjunit.xml' '$(Build.SourcesDirectory)\test\tests\*.robot'
         #powershell: robot --pythonpath . --variable environment:${{ parameters.testEnv }}-${{ parameters.testBrowser }} -x 'outputjunit.xml' --exitonfailure 'D:\a\1\s\test\tests\lomake-Check-tjpt-page-functionality*.robot'
         failOnStderr: true
         displayName: "Run Robot Framework Tests - All tests"

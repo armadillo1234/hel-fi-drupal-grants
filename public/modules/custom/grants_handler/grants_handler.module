@@ -5,6 +5,7 @@
  * Provides an example of a webform handler.
  */
 
+use Drupal\webform\Entity\Webform;
 use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Drupal\block_content\Entity\BlockContent;
@@ -1597,4 +1598,36 @@ function grants_handler_preprocess_fieldset(&$variables) {
   if (isset($variables['element']['#attributes']['error_label'])) {
     $variables['errors'] = $variables['element']['#attributes']['error_label'];
   }
+}
+
+/**
+ * Implements hook_language_switch_links_alter().
+ */
+function grants_handler_language_switch_links_alter(array &$links) {
+  $route_match = Drupal::routeMatch();
+  if (!$route_match) {
+    return;
+  }
+
+  $route_name = $route_match->getRouteName();
+
+  if ($route_name === 'grants_handler.edit_application') {
+    $webform_key = $route_match->getParameter('webform');
+    $webform = Webform::load($webform_key);
+
+    if (!$webform) {
+      return;
+    }
+
+    // If we have translations for webform, override
+    // untranslated as original hbdt doesn't take account into dynamic routes.
+    $translations = array_keys($webform->getTranslationLanguages());
+
+    foreach ($translations as $translation) {
+      if ($links[$translation]) {
+        $links[$translation]['#untranslated'] = FALSE;
+      }
+    }
+  }
+
 }

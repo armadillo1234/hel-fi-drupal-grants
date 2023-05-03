@@ -60,7 +60,7 @@ module:
   grants_budget_components: 0
   grants_front_banner: 0
   grants_frontpage_info_block: 0
-  grants_handler: 0
+  grants_handler: 1
   grants_healtz: 0
   grants_industries: 0
   grants_mandate: 0

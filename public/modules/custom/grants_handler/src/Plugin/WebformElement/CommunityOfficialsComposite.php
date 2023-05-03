@@ -2,7 +2,6 @@
 
 namespace Drupal\grants_handler\Plugin\WebformElement;
 
-use Drupal\grants_profile\Form\GrantsProfileFormRegisteredCommunity;
 use Drupal\webform\Plugin\WebformElement\WebformCompositeBase;
 use Drupal\webform\WebformSubmissionInterface;
 

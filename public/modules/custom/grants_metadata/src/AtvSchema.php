@@ -669,7 +669,7 @@ class AtvSchema {
         }
         // If value is an array, then we need to return desired element value.
         if ($value['ID'] == $elementName) {
-          $retval = htmlspecialchars_decode($value['value']);
+          $retval = htmlspecialchars_decode($value['value'] ?? '');
 
           return $retval;
         }

@@ -374,51 +374,84 @@ elements: |-
     jasenmaara:
       '#type': webform_section
       '#title': Jäsenmäärä
-      members_applicant_person_global:
-        '#type': number
-        '#title': 'Henkilöjäseniä yhteensä'
-        '#help': 'Kuinka monta j&auml;senmaksun maksanutta henkil&ouml;j&auml;sent&auml; yhteis&ouml;ll&auml; on t&auml;ll&auml; hetkell&auml;?'
-        '#maxlength': 7
-        '#pattern': '^[0-9]*$'
-        '#pattern_error': 'Vain numeroita'
-        '#size': 16
-      members_applicant_person_local:
-        '#type': number
-        '#title': 'Helsinkiläisiä henkilöjäseniä yhteensä'
-        '#help': 'Kuinka monta j&auml;senmaksun maksanutta helsinkil&auml;ist&auml; henkil&ouml;j&auml;sent&auml; yhteis&ouml;ll&auml; on t&auml;ll&auml; hetkell&auml;?'
-        '#maxlength': 7
-        '#pattern': '^[0-9]*$'
-        '#pattern_error': 'Vain numeroita'
-        '#size': 16
-      members_applicant_community_global:
-        '#type': number
-        '#title': Yhteisöjäseniä
-        '#help': 'Kuinka monta j&auml;senmaksun maksanutta yhteis&ouml;j&auml;sent&auml; yhteis&ouml;ll&auml; on t&auml;ll&auml; hetkell&auml;? Yhteis&ouml;j&auml;seni&auml; ovat muut kuin henkil&ouml;j&auml;senet, esimerkiksi yhdistykset, s&auml;&auml;ti&ouml;t, yritykset tai kunnat.'
-        '#maxlength': 7
-        '#pattern': '^[0-9]*$'
-        '#pattern_error': 'Vain numeroita'
-        '#size': 16
-      members_applicant_community_local:
-        '#type': number
-        '#title': 'Helsinkiläisiä yhteisöjäseniä yhteensä'
-        '#help': 'Kuinka monta j&auml;senmaksun maksanutta helsinkil&auml;ist&auml; yhteis&ouml;j&auml;sent&auml; yhteis&ouml;ll&auml; on t&auml;ll&auml; hetkell&auml;? Yhteis&ouml;j&auml;seni&auml; ovat muut kuin henkil&ouml;j&auml;senet, esimerkiksi yhdistykset, s&auml;&auml;ti&ouml;t, yritykset tai kunnat.'
-        '#maxlength': 7
-        '#pattern': '^[0-9]*$'
-        '#pattern_error': 'Vain numeroita'
-        '#size': 16
+      jasenmaara_fieldset:
+        '#type': fieldset
+        '#title': Jäsenmäärä
+        '#attributes':
+          class:
+            - grants-fieldset
+        members_applicant_person_global:
+          '#type': number
+          '#title': 'Henkilöjäseniä yhteensä'
+          '#help': 'Kuinka monta j&auml;senmaksun maksanutta henkil&ouml;j&auml;sent&auml; yhteis&ouml;ll&auml; on t&auml;ll&auml; hetkell&auml;?'
+          '#maxlength': 7
+          '#pattern': '^[0-9]*$'
+          '#pattern_error': 'Vain numeroita'
+          '#size': 16
+        members_applicant_person_local:
+          '#type': number
+          '#title': 'Helsinkiläisiä henkilöjäseniä yhteensä'
+          '#help': 'Kuinka monta j&auml;senmaksun maksanutta helsinkil&auml;ist&auml; henkil&ouml;j&auml;sent&auml; yhteis&ouml;ll&auml; on t&auml;ll&auml; hetkell&auml;?'
+          '#maxlength': 7
+          '#pattern': '^[0-9]*$'
+          '#pattern_error': 'Vain numeroita'
+          '#size': 16
+        break_markup_0:
+          '#type': webform_markup
+          '#wrapper_attributes':
+            class:
+              - fieldset-break
+        members_applicant_community_global:
+          '#type': number
+          '#title': Yhteisöjäseniä
+          '#help': 'Kuinka monta j&auml;senmaksun maksanutta yhteis&ouml;j&auml;sent&auml; yhteis&ouml;ll&auml; on t&auml;ll&auml; hetkell&auml;? Yhteis&ouml;j&auml;seni&auml; ovat muut kuin henkil&ouml;j&auml;senet, esimerkiksi yhdistykset, s&auml;&auml;ti&ouml;t, yritykset tai kunnat.'
+          '#maxlength': 7
+          '#pattern': '^[0-9]*$'
+          '#pattern_error': 'Vain numeroita'
+          '#size': 16
+        members_applicant_community_local:
+          '#type': number
+          '#title': 'Helsinkiläisiä yhteisöjäseniä yhteensä'
+          '#help': 'Kuinka monta j&auml;senmaksun maksanutta helsinkil&auml;ist&auml; yhteis&ouml;j&auml;sent&auml; yhteis&ouml;ll&auml; on t&auml;ll&auml; hetkell&auml;? Yhteis&ouml;j&auml;seni&auml; ovat muut kuin henkil&ouml;j&auml;senet, esimerkiksi yhdistykset, s&auml;&auml;ti&ouml;t, yritykset tai kunnat.'
+          '#maxlength': 7
+          '#pattern': '^[0-9]*$'
+          '#pattern_error': 'Vain numeroita'
+          '#size': 16
     henkilosto_hankkeessa_jolle_avustusta_haetaan:
       '#type': webform_section
       '#title': 'Henkilöstö hankkeessa, jolle avustusta haetaan'
-      '#help': 'Henkil&ouml;st&ouml;&ouml;n voi sis&auml;llytt&auml;&auml; muitakin kuin palkattuja ty&ouml;ntekij&ouml;it&auml;, mm. palkkioilla tai muilla korvauksilla ty&ouml;skentelevi&auml; tai ostopalveluna ostettavaa ty&ouml;t&auml;. Kokoaikaiset ty&ouml;ntekij&auml;t voivat sis&auml;lt&auml;&auml; my&ouml;s m&auml;&auml;r&auml;aikaisia ty&ouml;ntekij&ouml;it&auml;, jos n&auml;m&auml; ty&ouml;skentelev&auml;t t&auml;ysp&auml;iv&auml;isesti. Henkil&ouml;ty&ouml;vuosi kuvaa kokoaikaiseksi muutetun henkil&ouml;n ty&ouml;panosta. Esimerkiksi 6kk kokop&auml;iv&auml;isesti ty&ouml;skentelev&auml;st&auml; henkil&ouml;st&auml; voi laskea muodostuvan 0,5 henkil&ouml;ty&ouml;vuotta. Vastaavasti koko vuoden osa-aikaisesti 30% ty&ouml;m&auml;&auml;r&auml;&auml; tekev&auml;st&auml; henkil&ouml;st&auml; voi laskea muodostuvan 0,3 henkil&ouml;ty&ouml;vuotta. Kyseess&auml; on arvio, joka kuvaa suuntaa-antavasti projektiin osallistuvan henkil&ouml;st&ouml;n ty&ouml;panosta.'
-      kokoaikainen_henkilosto:
-        '#type': number
-        '#title': 'Kokoaikainen henkilöstö'
-      osa_aikainen_henkilosto:
-        '#type': number
-        '#title': 'Osa-aikainen henkilöstö'
-      vapaaehtoinen_henkilosto:
-        '#type': number
-        '#title': 'Vapaaehtoinen henkilöstö'
+      henkilosto_hankkeessa:
+        '#type': fieldset
+        '#title': 'Henkilöstö hankkeessa'
+        '#help': 'Henkil&ouml;st&ouml;&ouml;n voi sis&auml;llytt&auml;&auml; muitakin kuin palkattuja ty&ouml;ntekij&ouml;it&auml;, mm. palkkioilla tai muilla korvauksilla ty&ouml;skentelevi&auml; tai ostopalveluna ostettavaa ty&ouml;t&auml;. Kokoaikaiset ty&ouml;ntekij&auml;t voivat sis&auml;lt&auml;&auml; my&ouml;s m&auml;&auml;r&auml;aikaisia ty&ouml;ntekij&ouml;it&auml;, jos n&auml;m&auml; ty&ouml;skentelev&auml;t t&auml;ysp&auml;iv&auml;isesti. Henkil&ouml;ty&ouml;vuosi kuvaa kokoaikaiseksi muutetun henkil&ouml;n ty&ouml;panosta. Esimerkiksi 6kk kokop&auml;iv&auml;isesti ty&ouml;skentelev&auml;st&auml; henkil&ouml;st&auml; voi laskea muodostuvan 0,5 henkil&ouml;ty&ouml;vuotta. Vastaavasti koko vuoden osa-aikaisesti 30% ty&ouml;m&auml;&auml;r&auml;&auml; tekev&auml;st&auml; henkil&ouml;st&auml; voi laskea muodostuvan 0,3 henkil&ouml;ty&ouml;vuotta. Kyseess&auml; on arvio, joka kuvaa suuntaa-antavasti projektiin osallistuvan henkil&ouml;st&ouml;n ty&ouml;panosta.'
+        '#attributes':
+          class:
+            - grants-fieldset
+        kokoaikainen_henkilosto:
+          '#type': number
+          '#title': 'Kokoaikaisia: Henkilöstö'
+        kokoaikainen_henkilotyovuosia:
+          '#type': number
+          '#title': 'Kokoaikaisia: Henkilötyövuosia'
+        break_markup_1:
+          '#type': webform_markup
+          '#wrapper_attributes':
+            class:
+              - fieldset-break
+        osa_aikainen_henkilosto:
+          '#type': number
+          '#title': 'Osa-aikaisia: Henkilöstö'
+        osa_aikainen_henkilotyovuosia:
+          '#type': number
+          '#title': 'Osa-aikaisia: Henkilötyövuosia'
+        break_markup_2:
+          '#type': webform_markup
+          '#wrapper_attributes':
+            class:
+              - fieldset-break
+        vapaaehtoinen_henkilosto:
+          '#type': number
+          '#title': 'Vapaaehtoinen henkilöstö'
   4_suunniteltu_toiminta:
     '#type': webform_wizard_page
     '#title': '4. Suunniteltu toiminta'
@@ -431,87 +464,104 @@ elements: |-
       tapahtuma_tai_esityspaivien_maara_helsingissa:
         '#type': number
         '#title': 'Tapahtuma- tai esityspäivien määrä Helsingissä'
-      esitykset_fieldset:
+      esityspaivien_maara_helsingissa_fieldset:
         '#type': fieldset
-        '#title': Esitykset
+        '#title': 'Esityspäivien määrä Helsingissä'
+        '#attributes':
+          class:
+            - grants-fieldset
         esitykset_maara_helsingissa:
           '#type': number
-          '#title': 'Määrä Helsingissä'
-        esitykset_maara_kaikkiaan:
-          '#type': number
-          '#title': 'Määrä kaikkiaan'
-          '#help': 'T&auml;yt&auml; luvut sis&auml;lt&auml;en toiminnan kokonaisuudessaan sek&auml; Suomessa ett&auml; mahdollisesti ulkomailla.'
-        esitykset_kavijamaara_helsingissa:
-          '#type': number
-          '#title': 'Kävijämäärä Helsingissä'
-          '#help': '&Auml;l&auml; t&auml;yt&auml; samoja k&auml;vij&ouml;it&auml; kahteen kertaan, esim. n&auml;yttelytilassa j&auml;rjestetty&auml; ty&ouml;pajaa sek&auml; n&auml;yttelyihin ett&auml; ty&ouml;pajoihin.'
-        esitykset_kavijamaara_kaikkiaan:
-          '#type': number
-          '#title': 'Kävijämäärä kaikkiaan'
-          '#help': '&Auml;l&auml; t&auml;yt&auml; samoja k&auml;vij&ouml;it&auml; kahteen kertaan, esim. n&auml;yttelytilassa j&auml;rjestetty&auml; ty&ouml;pajaa sek&auml; n&auml;yttelyihin ett&auml; ty&ouml;pajoihin. T&auml;yt&auml; luvut sis&auml;lt&auml;en toiminnan kokonaisuudessaan sek&auml; Suomessa ett&auml; mahdollisesti ulkomailla.'
-      nayttelyt_fieldset:
-        '#type': fieldset
-        '#title': Näyttelyt
+          '#title': Esitykset
         nayttelyt_maara_helsingissa:
           '#type': number
-          '#title': 'Määrä Helsingissä'
-        nayttelyt_maara_kaikkiaan:
-          '#type': number
-          '#title': 'Määrä kaikkiaan'
-          '#help': 'T&auml;yt&auml; luvut sis&auml;lt&auml;en toiminnan kokonaisuudessaan sek&auml; Suomessa ett&auml; mahdollisesti ulkomailla.'
-        nayttelyt_kavijamaara_helsingissa:
-          '#type': number
-          '#title': 'Kävijämäärä Helsingissä'
-          '#help': '&Auml;l&auml; t&auml;yt&auml; samoja k&auml;vij&ouml;it&auml; kahteen kertaan, esim. n&auml;yttelytilassa j&auml;rjestetty&auml; ty&ouml;pajaa sek&auml; n&auml;yttelyihin ett&auml; ty&ouml;pajoihin.'
-        nayttelyt_kavijamaara_kaikkiaan:
-          '#type': number
-          '#title': 'Kävijämäärä kaikkiaan'
-          '#help': '&Auml;l&auml; t&auml;yt&auml; samoja k&auml;vij&ouml;it&auml; kahteen kertaan, esim. n&auml;yttelytilassa j&auml;rjestetty&auml; ty&ouml;pajaa sek&auml; n&auml;yttelyihin ett&auml; ty&ouml;pajoihin. T&auml;yt&auml; luvut sis&auml;lt&auml;en toiminnan kokonaisuudessaan sek&auml; Suomessa ett&auml; mahdollisesti ulkomailla.'
-      tyopaja_fieldset:
-        '#type': fieldset
-        '#title': 'Työpaja tai muu osallistava toimintamuoto'
+          '#title': Näyttelyt
         tyopaja_maara_helsingissa:
           '#type': number
-          '#title': 'Määrä Helsingissä'
+          '#title': 'Työpaja tai muu osallistava toimintamuoto'
+      esityspaivien_maara_kaikkiaan_fieldset:
+        '#type': fieldset
+        '#title': 'Esityspäivien määrä kaikkiaan'
+        '#attributes':
+          class:
+            - grants-fieldset
+        '#help': 'T&auml;yt&auml; luvut sis&auml;lt&auml;en toiminnan kokonaisuudessaan sek&auml; Suomessa ett&auml; mahdollisesti ulkomailla.'
+        esitykset_maara_kaikkiaan:
+          '#type': number
+          '#title': Esitykset
+        nayttelyt_maara_kaikkiaan:
+          '#type': number
+          '#title': Näyttelyt
         tyopaja_maara_kaikkiaan:
           '#type': number
-          '#title': 'Määrä kaikkiaan'
-          '#help': 'T&auml;yt&auml; luvut sis&auml;lt&auml;en toiminnan kokonaisuudessaan sek&auml; Suomessa ett&auml; mahdollisesti ulkomailla.'
+          '#title': 'Työpaja tai muu osallistava toimintamuoto'
+      kavijamaara_helsingissa_fieldset:
+        '#type': fieldset
+        '#title': 'Kävijämäärä Helsingissä'
+        '#attributes':
+          class:
+            - grants-fieldset
+        '#help': '&Auml;l&auml; t&auml;yt&auml; samoja k&auml;vij&ouml;it&auml; kahteen kertaan, esim. n&auml;yttelytilassa j&auml;rjestetty&auml; ty&ouml;pajaa sek&auml; n&auml;yttelyihin ett&auml; ty&ouml;pajoihin.'
+        esitykset_kavijamaara_helsingissa:
+          '#type': number
+          '#title': Esitykset
+        nayttelyt_kavijamaara_helsingissa:
+          '#type': number
+          '#title': Näyttelyt
         tyopaja_kavijamaara_helsingissa:
           '#type': number
-          '#title': 'Kävijämäärä Helsingissä'
-          '#help': '&Auml;l&auml; t&auml;yt&auml; samoja k&auml;vij&ouml;it&auml; kahteen kertaan, esim. n&auml;yttelytilassa j&auml;rjestetty&auml; ty&ouml;pajaa sek&auml; n&auml;yttelyihin ett&auml; ty&ouml;pajoihin.'
+          '#title': 'Työpaja tai muu osallistava toimintamuoto'
+      kavijamaara_kaikkiaan_fieldset:
+        '#type': fieldset
+        '#title': 'Kävijämäärä kaikkiaan'
+        '#attributes':
+          class:
+            - grants-fieldset
+        '#help': '&Auml;l&auml; t&auml;yt&auml; samoja k&auml;vij&ouml;it&auml; kahteen kertaan, esim. n&auml;yttelytilassa j&auml;rjestetty&auml; ty&ouml;pajaa sek&auml; n&auml;yttelyihin ett&auml; ty&ouml;pajoihin. T&auml;yt&auml; luvut sis&auml;lt&auml;en toiminnan kokonaisuudessaan sek&auml; Suomessa ett&auml; mahdollisesti ulkomailla.'
+        esitykset_kavijamaara_kaikkiaan:
+          '#type': number
+          '#title': Esitykset
+        nayttelyt_kavijamaara_kaikkiaan:
+          '#type': number
+          '#title': Näyttelyt
         tyopaja_kavijamaara_kaikkiaan:
           '#type': number
-          '#title': 'Kävijämäärä kaikkiaan'
-          '#help': '&Auml;l&auml; t&auml;yt&auml; samoja k&auml;vij&ouml;it&auml; kahteen kertaan, esim. n&auml;yttelytilassa j&auml;rjestetty&auml; ty&ouml;pajaa sek&auml; n&auml;yttelyihin ett&auml; ty&ouml;pajoihin. T&auml;yt&auml; luvut sis&auml;lt&auml;en toiminnan kokonaisuudessaan sek&auml; Suomessa ett&auml; mahdollisesti ulkomailla.'
+          '#title': 'Työpaja tai muu osallistava toimintamuoto'
     esityksista:
       '#type': webform_section
       '#title': Esityksistä
       kantaesitysten_maara:
         '#type': number
         '#title': 'Kantaesitysten määrä'
+        '#help': 'Kantaesityksell&auml; tarkoitetaan ennen esitt&auml;m&auml;t&ouml;nt&auml;, t&auml;ysin uutta teosta. Esimerkiksi uusinta-ensi-ilta ei ole kantaesitys.'
       ensi_iltojen_maara_helsingissa:
         '#type': number
         '#title': 'Ensi-iltojen määrä Helsingissä'
+        '#help': 'Ensi-illalla tarkoitetaan tuotannon ensimm&auml;ist&auml; esityst&auml;. T&auml;yt&auml; t&auml;h&auml;n ne ensi-illat, jotka tapahtuvat Helsingiss&auml;.'
     yleisolle_avoin_toiminta:
       '#type': webform_section
       '#title': 'Yleisölle avoin toiminta'
-      ensimmainen_yleisolle_avoimen_tilaisuuden_paikka_helsingissa:
-        '#type': textfield
+      ensimmainen_tila_fieldset:
+        '#type': fieldset
         '#title': 'Ensimmäinen yleisölle avoimen tilaisuuden paikka Helsingissä'
-      postinumero:
-        '#type': number
-        '#title': Postinumero
-        '#input_mask': '99999'
-      kyseessa_on_kaupungin_omistama_tila:
-        '#type': radios
-        '#title': 'Kyseessä on kaupungin omistama tila'
-        '#options': yes_no
+        ensimmainen_yleisolle_avoimen_tilaisuuden_paikka_helsingissa:
+          '#type': textfield
+          '#title': 'Tilan nimi'
+        postinumero:
+          '#type': number
+          '#title': Postinumero
+          '#input_mask': '99999'
+        kyseessa_on_kaupungin_omistama_tila:
+          '#type': radios
+          '#title': 'Kyseessä on kaupungin omistama tila'
+          '#options':
+            Kyllä: Kyllä
+            Ei: Ei
       tila:
         '#type': premises_composite
-        '#title': Tila
+        '#title': 'Muut tilat'
         '#multiple': true
+        '#title_display': before
         '#multiple__min_items': 0
         '#multiple__empty_items': 0
         '#multiple__sorting': false
@@ -532,6 +582,9 @@ elements: |-
         '#free__access': false
         '#isOthersUse__access': false
         '#isOwnedByApplicant__access': false
+    aikataulu:
+      '#type': webform_section
+      '#title': Aikataulu
       ensimmaisen_yleisolle_avoimen_tilaisuuden_paivamaara:
         '#type': datetime
         '#title': 'Ensimmäisen yleisölle avoimen tilaisuuden päivämäärä'
@@ -539,6 +592,7 @@ elements: |-
         '#date_date_format': d.m.Y
         '#date_year_range': '2023:2010'
         '#date_time_element': none
+        '#required': true
       festivaalin_tai_tapahtuman_kohdalla_tapahtuman_paivamaarat:
         '#type': textfield
         '#title': 'Festivaalin tai tapahtuman kohdalla tapahtuman päivämäärät'
@@ -549,6 +603,7 @@ elements: |-
         '#date_date_format': d.m.Y
         '#date_year_range': '2023:2030'
         '#date_time_element': none
+        '#required': true
       hanke_loppuu:
         '#type': datetime
         '#title': 'Hanke loppuu'
@@ -556,6 +611,7 @@ elements: |-
         '#date_date_format': d.m.Y
         '#date_year_range': '2023:2030'
         '#date_time_element': none
+        '#required': true
     hankekuvaus:
       '#type': webform_section
       '#title': Hankekuvaus
@@ -757,19 +813,15 @@ elements: |-
       attachments_info:
         '#type': webform_markup
         '#markup': |-
-          Avustushakemuksen k&auml;sittely&auml; varten tulee toimittaa kaikki alla luetellut liitteet. Avustushakemus voidaan hyl&auml;t&auml;, jos liitteit&auml; ei ole toimitettu. Mik&auml;li joku liitteist&auml; puuttuu kerro siit&auml; hakemuksen Lis&auml;selvitys liitteist&auml; -kohdassa.<br />
-          <br />
-          Tuetut tiedostomuodot xx xx xx. Tiedoston maksimikoko on x Mt. Tiedostojen maksimikoko voi olla yhteens&auml; x Gt.<br />
+          Avustushakemuksen k&auml;sittely&auml; varten tulee toimittaa kaikki alla luetellut liitteet. Avustushakemus voidaan hyl&auml;t&auml;, jos liitteit&auml; ei ole toimitettu. Mik&auml;li joku liitteist&auml; puuttuu, kerro siit&auml; hakemuksen Lis&auml;selvitys liitteist&auml; -kohdassa.<br />
           <br />
           <strong>Vaaditut liitteet</strong><br />
-          Avustushakemuksen k&auml;sittely&auml; varten tarvitaan vahvistettuja, yhteis&ouml;n kokouksessaan hyv&auml;ksymi&auml; ja allekirjoittamia, liitteit&auml; edelliselt&auml; p&auml;&auml;ttyneelt&auml; tilikaudelta sek&auml; liitteit&auml; sille toimintavuodelle, jolle avustusta haetaan. Edellist&auml; tilikautta koskevat liitteet ovat: tilinp&auml;&auml;t&ouml;s, toimintakertomus ja tilin- tai toiminnantarkastuskertomus sek&auml; vuosikokouksen p&ouml;yt&auml;kirja. Liitteet vuodelle, jolle avustusta haetaan ovat: talousarvio ja toimintasuunnitelma.&nbsp;<br />
+          Avustushakemuksen k&auml;sittely&auml; varten tarvitaan ty&ouml;ryhm&auml;n j&auml;senten ansioluettelot, kun kyseess&auml; on taiteen ammattilaisten hanke.&nbsp;<br />
           <br />
-          <strong>Usean liitteen toimittaminen yhten&auml; tiedostona</strong><br />
-          Voit halutessasi toimittaa useampia liitteit&auml; yhten&auml; tiedostona Tilinp&auml;&auml;t&ouml;s tai talousarvio -liitekohdassa. Merkitse t&auml;ll&ouml;in muiden liiteotsikoiden kohdalla &rdquo;Liite on toimitettu yhten&auml; tiedostona tai toisen hakemuksen yhteydess&auml;&rdquo;. &nbsp;<br />
+          Uusilta hakijoilta ja tapauksissa, joissa pankkiyhteystiedot ovat muuttuneet, tarvitaan my&ouml;s tiliote tai vastaava asiakirja, josta selvi&auml;&auml; tilinomistajan nimi ja tilinumero.<br />
           <br />
-          <strong>Helsingin kaupungille aiemmin toimitetut liitteet</strong><br />
-          Jos vaaditut liitteet on jo toimitettu toisen Helsingin kaupungille osoitetun avustushakemuksen liitteen&auml;, samoja liitteit&auml; ei tarvitse toimittaa uudelleen. Yhteis&ouml;n vahvistettu tilinp&auml;&auml;t&ouml;s, toimintakertomus, toimintasuunnitelma ja talousarvio eiv&auml;t voi olla erilaisia eri hakemusten liitteen&auml;. Merkitse t&auml;ll&ouml;in toimitettujen liitteiden kohdalla &rdquo;Liite on toimitettu yhten&auml; tiedostona tai toisen hakemuksen yhteydess&auml;&rdquo;.<br />
-          &nbsp;
+          <strong>Usean liitteen toimittaminen</strong><br />
+          Voit toimittaa useampia ty&ouml;ryhm&auml;n j&auml;senten ansioluetteloita erillisin&auml; tiedostoina liitt&auml;m&auml;ll&auml; ne Muu liite -kohtaan. Voit halutessasi my&ouml;s toimittaa useampia liitteit&auml; yhten&auml; tiedostona.
       notification_attachments:
         '#type': processed_text
         '#text': |

@@ -651,11 +651,13 @@ elements: |-
       organisaatio_kuuluu_valtionosuusjarjestelmaan_vos_:
         '#type': radios
         '#title': 'Organisaatio kuuluu valtionosuusjärjestelmään (VOS)'
-        '#options': yes_no
+        '#options':
+          1: Kyllä
+          0: Ei
     suunnitellut_tulot:
       '#type': webform_section
       '#title': 'Suunnitellut tulot'
-      tulot:
+      budget_static_income:
         '#type': grants_budget_income_static
         '#title': 'Suunnitellut Tulot'
         '#multiple': false
@@ -741,7 +743,9 @@ elements: |-
       organisaatio_kuului_valtionosuusjarjestelmaan_vos_:
         '#type': radios
         '#title': 'Organisaatio kuului valtionosuusjärjestelmään (VOS)'
-        '#options': yes_no
+        '#options':
+          1: Kyllä
+          0: Ei
     toteutuneet_menot_osio:
       '#type': webform_section
       '#title': 'Toteutuneet menot'

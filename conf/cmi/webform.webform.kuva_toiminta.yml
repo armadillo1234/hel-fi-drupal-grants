@@ -115,10 +115,9 @@ elements: |-
     tilinumero:
       '#type': webform_section
       '#title': Tilinumero
-      account_number:
+      bank_account:
         '#type': bank_account_composite
-        '#title': Tilinumero
-        '#account_number__access': false
+        '#title': 'Bank account'
     toiminnasta_vastaavat_henkilot:
       '#type': webform_section
       '#title': 'Toiminnasta vastaavat henkilöt'

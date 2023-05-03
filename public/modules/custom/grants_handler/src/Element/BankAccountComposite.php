@@ -63,6 +63,7 @@ class BankAccountComposite extends WebformCompositeBase {
    *
    * @return array
    *   Edited element.
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public static function buildAccountOptions(array $element, FormStateInterface $form_state): array {
 

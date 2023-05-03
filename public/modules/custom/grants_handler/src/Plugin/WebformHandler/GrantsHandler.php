@@ -963,6 +963,7 @@ class GrantsHandler extends WebformHandlerBase {
 
   /**
    * {@inheritdoc}
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function postSave(WebformSubmissionInterface $webform_submission, $update = TRUE) {
 
@@ -1001,12 +1002,14 @@ class GrantsHandler extends WebformHandlerBase {
       $this->attachmentHandler->deleteRemovedAttachmentsFromAtv($this->formStateTemp, $this->submittedFormData);
       // submitForm is triggering element when saving as draft.
       // Parse attachments to data structure.
-      $this->attachmentHandler->parseAttachments(
-        $this->formTemp,
-        $this->submittedFormData,
-        $this->applicationNumber
-      );
-
+      try {
+        $this->attachmentHandler->parseAttachments(
+          $this->formTemp,
+          $this->submittedFormData,
+          $this->applicationNumber
+        );
+      } catch (\Throwable $e) {
+      }
       try {
         $applicationData = $this->applicationHandler->webformToTypedData(
           $this->submittedFormData);

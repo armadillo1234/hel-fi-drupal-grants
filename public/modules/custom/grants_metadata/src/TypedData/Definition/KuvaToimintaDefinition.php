@@ -39,19 +39,6 @@ class KuvaToimintaDefinition extends ComplexDataDefinitionBase {
           'compensationArray',
         ]);
 
-      // No form field?
-      //      $info['kyseessa_on_monivuotinen_avustus'] = DataDefinition::create('string')
-      //        ->setLabel('Kyseessä on monivuotinen avustus.')
-      //        ->setSetting('jsonPath', [
-      //          'compensation',
-      //          'activityInfo',
-      //          'plannedActivityInfoArray',
-      //          'isOwnedByCity',
-      //        ])
-      //        ->setSetting('typeOverride', [
-      //          'dataType' => 'string',
-      //          'jsonType' => 'bool',
-      //        ]);.
       $info['tulevat_vuodet_joiden_ajalle_monivuotista_avustusta_on_haettu_ta'] = DataDefinition::create('string')
         ->setLabel('Tulevat vuodet joiden ajalle monivuotista avustusta on haettu tai myönnetty')
         ->setSetting('jsonPath', [
@@ -149,37 +136,6 @@ class KuvaToimintaDefinition extends ComplexDataDefinitionBase {
           'jsonType' => 'int',
         ]);
 
-      // $info['kokoaikainen_henkilotyovuosia'] = DataDefinition::create('integer')
-      //        ->setLabel('Kokoaikaisten henkilötyövuodet')
-      //        ->setSetting('jsonPath', [
-      //          'compensation',
-      //          'communityInfo',
-      //          'generalCommunityInfoArray',
-      //          'staffManyearsFulltime',
-      //        ])->setSetting('valueCallback', [
-      //          '\Drupal\grants_handler\Plugin\WebformHandler\GrantsHandler',
-      //          'convertToInt',
-      //        ])
-      //        ->setSetting('typeOverride', [
-      //          'dataType' => 'string',
-      //          'jsonType' => 'int',
-      //        ]);
-      //
-      //      $info['osa_aikainen_henkilotyovuosia'] = DataDefinition::create('integer')
-      //        ->setLabel('Osa-aikaisten henkilötyövuodet')
-      //        ->setSetting('jsonPath', [
-      //          'compensation',
-      //          'communityInfo',
-      //          'generalCommunityInfoArray',
-      //          'staffManyearsParttime',
-      //        ])->setSetting('valueCallback', [
-      //          '\Drupal\grants_handler\Plugin\WebformHandler\GrantsHandler',
-      //          'convertToInt',
-      //        ])
-      //        ->setSetting('typeOverride', [
-      //          'dataType' => 'string',
-      //          'jsonType' => 'int',
-      //        ]);
       $info['taiteellisen_toiminnan_tilaa_omistuksessa_tai_ymparivuotisesti_p'] = DataDefinition::create('string')
         ->setLabel('Taiteellisen toiminnan tilaa omistuksessa tai ympärivuotisesti päävuokralaisena.')
         ->setSetting('jsonPath', [

@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 
-msgid "The transition to the new grants service will take place in stages during 2023."
-msgstr "Uuteen avustusasiointiin siirtyminen tapahtuu vaiheittain vuoden 2023 aikana."
+msgid "The transition to the new grants service will take place in stages during 2023"
+msgstr "Uuteen avustusasiointiin siirtyminen tapahtuu vaiheittain vuoden 2023 aikana"
 
 msgid "Grant forms are being worked on for the new transaction at a fast pace! Despite this, some applications are still filled out in the old transaction service. We list all the applications found on this site in the list below."
 msgstr "Avustuslomakkeita työstetään uuteen asiointiin kovaa vauhtia! Tästä huolimatta osa hakemuksista täytetään vielä vanhassa asiointipalvelussa. Listaamme kaikki tältä sivustolta löytyvät hakemukset alla olevaan listaan."

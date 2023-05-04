@@ -200,6 +200,7 @@ elements: |-
           application_number: 0
           status: 0
           applicant_type: 0
+          hakijan_tiedot: 0
           email: 0
           contact_person: 0
           contact_person_phone_number: 0
@@ -220,8 +221,34 @@ elements: |-
           members_applicant_community_global: 0
           members_applicant_community_local: 0
           kokoaikainen_henkilosto: 0
+          kokoaikainen_henkilotyovuosia: 0
           osa_aikainen_henkilosto: 0
+          osa_aikainen_henkilotyovuosia: 0
           vapaaehtoinen_henkilosto: 0
+          tapahtuma_tai_esityspaivien_maara_helsingissa: 0
+          esitykset_maara_helsingissa: 0
+          nayttelyt_maara_helsingissa: 0
+          tyopaja_maara_helsingissa: 0
+          esitykset_maara_kaikkiaan: 0
+          nayttelyt_maara_kaikkiaan: 0
+          tyopaja_maara_kaikkiaan: 0
+          esitykset_kavijamaara_helsingissa: 0
+          nayttelyt_kavijamaara_helsingissa: 0
+          tyopaja_kavijamaara_helsingissa: 0
+          esitykset_kavijamaara_kaikkiaan: 0
+          nayttelyt_kavijamaara_kaikkiaan: 0
+          tyopaja_kavijamaara_kaikkiaan: 0
+          kantaesitysten_maara: 0
+          ensi_iltojen_maara_helsingissa: 0
+          ensimmainen_yleisolle_avoimen_tilaisuuden_paikka_helsingissa: 0
+          postinumero: 0
+          kyseessa_on_kaupungin_omistama_tila: 0
+          tila: 0
+          ensimmaisen_yleisolle_avoimen_tilaisuuden_paivamaara: 0
+          festivaalin_tai_tapahtuman_kohdalla_tapahtuman_paivamaarat: 0
+          hanke_alkaa: 0
+          hanke_loppuu: 0
+          laajempi_hankekuvaus: 0
           toiminta_taiteelliset_lahtokohdat: 0
           toiminta_tasa_arvo: 0
           toiminta_saavutettavuus: 0
@@ -231,8 +258,11 @@ elements: |-
           toiminta_ekologisuus: 0
           toiminta_yhteistyokumppanit: 0
           organisaatio_kuuluu_valtionosuusjarjestelmaan: 0
+          budget_static_income: 0
+          budget_static_cost: 0
+          budget_other_cost: 0
+          muu_huomioitava_panostus: 0
           additional_information: 0
-          tyoryhman_jasenten_ansioluettelot: 0
           extra_info: 0
           muu_liite: 0
         '#data_type': euro
@@ -555,8 +585,8 @@ elements: |-
           '#type': radios
           '#title': 'Kyseessä on kaupungin omistama tila'
           '#options':
-            Kyllä: Kyllä
-            Ei: Ei
+            1: Kyllä
+            0: Ei
       tila:
         '#type': premises_composite
         '#title': 'Muut tilat'
@@ -641,6 +671,11 @@ elements: |-
         '#counter_type': character
         '#counter_maximum': 1000
         '#counter_maximum_message': '%d/1000 merkkiä jäljellä'
+        '#states':
+          visible:
+            ':input[name="avustukset_summa"]':
+              value:
+                greater_equal: '5000'
     toiminnan_tavoittavuus:
       '#type': webform_section
       '#title': 'Toiminnan tavoittavuus'
@@ -651,6 +686,11 @@ elements: |-
         '#counter_type': character
         '#counter_maximum': 1000
         '#counter_maximum_message': '%d/1000 merkkiä jäljellä'
+        '#states':
+          visible:
+            ':input[name="avustukset_summa"]':
+              value:
+                greater_equal: '5000'
       toiminta_yhteisollisyys:
         '#type': textarea
         '#title': 'Miten toiminta vahvistaa yhteisöllisyyttä, verkostomaista yhteistyöskentelyä ja miten kaupunkilaisten on mahdollista osallistua toiminnan eri vaiheisiin? Minkälaisia toimenpiteitä, resursseja ja osaamista on asian edistämiseksi?'
@@ -658,6 +698,11 @@ elements: |-
         '#counter_type': character
         '#counter_maximum': 1000
         '#counter_maximum_message': '%d/1000 merkkiä jäljellä'
+        '#states':
+          visible:
+            ':input[name="avustukset_summa"]':
+              value:
+                greater_equal: '5000'
       toiminta_kohderyhmat:
         '#type': textarea
         '#title': 'Keitä toiminnalla tavoitellaan? Miten kyseiset kohderyhmät aiotaan tavoittaa ja mitä osaamista näiden kanssa työskentelyyn on?'
@@ -668,6 +713,11 @@ elements: |-
     toiminnan_jarjestaminen:
       '#type': webform_section
       '#title': 'Toiminnan järjestäminen'
+      '#states':
+        visible:
+          ':input[name="avustukset_summa"]':
+            value:
+              greater_equal: '5000'
       toiminta_ammattimaisuus:
         '#type': textarea
         '#title': 'Kuvaa toiminnan järjestämisen ammattimaisuutta ja organisoimista'
@@ -727,13 +777,20 @@ elements: |-
         '#multiple__add_more': false
         '#multiple__add_more_input': false
         '#customerFees__access': false
+        '#donations__access': false
         '#compensationFromCulturalAffairs__access': false
+        '#otherCompensationFromCity__access': false
         '#otherCompensationType__access': false
+        '#totalIncome__access': false
         '#incomeWithoutCompensations__access': false
         '#plannedStateOperativeSubvention__access': false
         '#financialFundingAndInterests__access': false
+        '#plannedTotalIncome__access': false
         '#plannedTotalIncomeWithoutSubventions__access': false
         '#plannedShareOfIncomeWithoutSubventions__access': false
+        '#stateOperativeSubvention__access': false
+        '#totalIncomeWithoutSubventions__access': false
+        '#shareOfIncomeWithoutSubventions__access': false
     menot:
       '#type': webform_section
       '#title': 'Suunnitellut menot'
@@ -773,6 +830,7 @@ elements: |-
         '#services__access': false
         '#supplies__access': false
         '#useOfCustomerFeesTotal__access': false
+        '#totalCosts__access': false
         '#netCosts__access': false
         '#generalCosts__access': false
         '#permits__access': false
@@ -792,6 +850,12 @@ elements: |-
         '#multiple__sorting': false
         '#multiple__add': false
         '#multiple__add_more_input': false
+    muu_huomioitava_panostus_osio:
+      '#type': webform_section
+      '#title': 'Muu huomioitava panostus'
+      muu_huomioitava_panostus:
+        '#type': textarea
+        '#title': 'Muu huomioitava panostus'
   lisatiedot_ja_liitteet:
     '#type': webform_wizard_page
     '#title': '7. Lisätiedot ja liitteet'

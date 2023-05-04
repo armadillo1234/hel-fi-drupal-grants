@@ -28,6 +28,41 @@ class KaskoYleisavustusDefinition extends ComplexDataDefinitionBase {
         $info[$key] = $property;
       }
 
+      $info['members_applicant_person_local'] = DataDefinition::create('string')
+        ->setLabel('activitiesInfoArray=>membersApplicantPersonLocal')
+        ->setSetting('defaultValue', "")
+        ->setSetting('jsonPath', [
+          'compensation',
+          'activitiesInfoArray',
+          'membersApplicantPersonLocal',
+        ]);
+
+      $info['members_applicant_person_global'] = DataDefinition::create('string')
+        ->setLabel('activitiesInfoArray=>membersApplicantPersonGlobal')
+        ->setSetting('defaultValue', "")
+        ->setSetting('jsonPath', [
+          'compensation',
+          'activitiesInfoArray',
+          'membersApplicantPersonGlobal',
+        ]);
+
+      $info['members_applicant_community_local'] = DataDefinition::create('string')
+        ->setLabel('activitiesInfoArray=>membersApplicantCommunityLocal')
+        ->setSetting('defaultValue', "")
+        ->setSetting('jsonPath', [
+          'compensation',
+          'activitiesInfoArray',
+          'membersApplicantCommunityLocal',
+        ]);
+
+      $info['members_applicant_community_global'] = DataDefinition::create('string')
+        ->setLabel('activitiesInfoArray=>membersApplicantCommunityGlobal')
+        ->setSetting('jsonPath', [
+          'compensation',
+          'activitiesInfoArray',
+          'membersApplicantCommunityGlobal',
+        ]);
+
       $info['subventions'] = ListDataDefinition::create('grants_metadata_compensation_type')
         ->setLabel('compensationArray')
         ->setSetting('jsonPath', [

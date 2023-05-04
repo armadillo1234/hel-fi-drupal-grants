@@ -616,6 +616,8 @@ class AtvSchema {
     // Get new key to me evalued.
     $newKey = array_shift($pathArray);
 
+    $type = $definition->getDataType();
+
     // If key exist in content array.
     if (array_key_exists($newKey, $content)) {
       // Get content for key.
@@ -626,6 +628,7 @@ class AtvSchema {
     }
     // If we are at the root of content, and the given element exists.
     elseif (array_key_exists($elementName, $content)) {
+
       $thisElement = $content[$elementName];
 
       // If element is array.
@@ -633,9 +636,6 @@ class AtvSchema {
         $retval = [];
         // We need to loop values and structure data in array as well.
         foreach ($content[$elementName] as $key => $value) {
-          if (is_string($value)) {
-            $d = 'asdf';
-          }
           foreach ($value as $key2 => $v) {
             if (is_array($v)) {
               if (array_key_exists('value', $v)) {
@@ -667,9 +667,22 @@ class AtvSchema {
         if (!is_array($value)) {
           return $value;
         }
+
         // If value is an array, then we need to return desired element value.
         if ($value['ID'] == $elementName) {
           $retval = htmlspecialchars_decode($value['value'] ?? '');
+
+          if ($type == 'boolean') {
+            if ($retval == 'true') {
+              $retval = '1';
+            }
+            elseif ($retval == 'false'){
+              $retval = '0';
+            }
+            else {
+              $retval = '0';
+            }
+          }
 
           return $retval;
         }
@@ -771,10 +784,16 @@ class AtvSchema {
       if ($itemValue === '0') {
         $itemValue = 'false';
       }
+      if ($itemValue === 0) {
+        $itemValue = 'false';
+      }
       if ($itemValue === TRUE) {
         $itemValue = 'true';
       }
       if ($itemValue === '1') {
+        $itemValue = 'true';
+      }
+      if ($itemValue === 1) {
         $itemValue = 'true';
       }
       if ($itemValue == 'Yes') {

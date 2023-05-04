@@ -1003,6 +1003,7 @@ class ApplicationHandler {
    * @throws \Drupal\helfi_atv\AtvFailedToConnectException
    * @throws \Drupal\helfi_helsinki_profiili\TokenExpiredException
    * @throws \GuzzleHttp\Exception\GuzzleException
+   * @throws \Exception
    */
   public function handleApplicationUploadToAtv(
     TypedDataInterface $applicationData,
@@ -1012,10 +1013,13 @@ class ApplicationHandler {
     $appDocumentContent = $this->atvSchema->typedDataToDocumentContent($applicationData);
 
     $atvDocument = $this->getAtvDocument($applicationNumber, TRUE);
-    $atvDocument->addMetadata(
-      'saveid',
-      $this->logSubmissionSaveid(NULL, $applicationNumber)
-    );
+    try {
+      $atvDocument->addMetadata(
+        'saveid',
+        $this->logSubmissionSaveid(NULL, $applicationNumber)
+      );
+    } catch (\Exception $e) {
+    }
 
     $atvDocument->setContent($appDocumentContent);
 

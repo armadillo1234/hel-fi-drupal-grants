@@ -164,7 +164,7 @@ elements: |-
         '#title': Avustukset
         '#multiple': true
         '#subventionType':
-          4: '4'
+          1: '1'
         '#required': true
         '#multiple__header': true
         '#multiple__empty_items': 0
@@ -186,8 +186,8 @@ elements: |-
         '#title': 'Kyseessä on monivuotinen avustus'
         '#description': 'Nelivuotiskaudella 2023-2026 monivuotisia toiminta-avustuksia voidaan my&ouml;nt&auml;&auml; helsinkil&auml;isille rekister&ouml;ityneille esitt&auml;v&auml;n taiteen ja musiikin valtionosuusj&auml;rjestelm&auml;n piiriss&auml; oleville taide- ja kulttuuriyhteis&ouml;ille. Tuen saajat on p&auml;&auml;tetty vuoden 2022 lopulla.'
         '#options':
-          Kyllä: Kyllä
-          Ei: Ei
+          1: Kyllä
+          0: Ei
       tulevat_vuodet_joiden_ajalle_monivuotista_avustusta_on_haettu_ta:
         '#type': textarea
         '#title': 'Tulevat vuodet joiden ajalle monivuotista avustusta on haettu tai myönnetty'
@@ -214,13 +214,25 @@ elements: |-
           Tanssi: Tanssi
           Teatteri: Teatteri
         '#required': true
+      info_festivaali:
+        '#type': processed_text
+        '#text': |
+          <div class="hds-notification hds-notification--info">
+            <div class="hds-notification__content">
+              <div class="hds-notification__label" role="heading" aria-level="2">
+                <span class="hel-icon hel-icon--alert-circle-fill" aria-hidden="true"></span>
+                <span>Myöntävä vastaus avaa lisäkysymyksen</span>
+              </div>
+            </div>
+          </div>
+        '#format': full_html
       kyseessa_on_festivaali_tai_tapahtuma:
         '#type': radios
         '#title': 'Kyseessä on festivaali tai tapahtuma'
         '#help': 'T&auml;ss&auml; tarkoitetaan festivaalia tai tapahtumaa, joka tapahtuu tiiviin ajanjakson sis&auml;ll&auml; ja on ohjelmaltaan ja kestoltaan laajempi kuin yksitt&auml;inen konsertti, esitys tms. Festivaali tai tapahtuma sis&auml;lt&auml;&auml; useampia eri ohjelmasis&auml;lt&ouml;j&auml;, esim. esityksi&auml;, joiden v&auml;liss&auml; yleis&ouml; voi my&ouml;s vaihtua. Esimerkiksi kaupunginosatapahtumat. Ei esimerkiksi esityssarjat. Festivaali tai tapahtuma voi olla toistuva tai kertaluonteinen.'
         '#options':
-          Kyllä: Kyllä
-          Ei: Ei
+          1: Kyllä
+          0: Ei
         '#required': true
       hankkeen_tai_toiminnan_lyhyt_esittelyteksti:
         '#type': textarea
@@ -234,7 +246,7 @@ elements: |-
         '#states':
           visible:
             ':input[name="kyseessa_on_festivaali_tai_tapahtuma"]':
-              value: Kyllä
+              value: 1
     muut_samaan_tarkoitukseen_myonnetyt_avustukset:
       '#type': webform_section
       '#title': 'Muut samaan tarkoitukseen myönnetyt avustukset'
@@ -261,8 +273,8 @@ elements: |-
         '#title': 'Olemme saaneet muita avustuksia'
         '#description_display': before
         '#options':
-          Kyllä: Kyllä
-          Ei: Ei
+          1: Kyllä
+          0: Ei
       myonnetty_avustus:
         '#type': webform_custom_composite
         '#title': 'Myönnetty avustus'
@@ -270,10 +282,10 @@ elements: |-
         '#states':
           visible:
             ':input[name="olemme_saaneet_muita_avustuksia"]':
-              value: Kyllä
+              value: 1
           required:
             ':input[name="olemme_saaneet_muita_avustuksia"]':
-              value: Kyllä
+              value: 1
         '#multiple__header': false
         '#multiple__item_label': 'myönnetty avustus'
         '#multiple__no_items_message': 'Ei sy&ouml;tettyj&auml; arvoja. Lis&auml;&auml; uusi my&ouml;nnetty avustus alta.'
@@ -381,8 +393,8 @@ elements: |-
         '#description': 'Vastaa hakuhetken tilanteen mukaisesti.&nbsp;'
         '#help': 'Taiteellisen toiminnan tilalla tarkoitetaan t&auml;ss&auml; esitystilaa, n&auml;yttelytilaa tai erillist&auml; harjoittelutilaa tai muuta taiteellisen ty&ouml;skentelyn tilaa. Ei kuitenkaan esim. toimisto tai varasto.'
         '#options':
-          Kyllä: Kyllä
-          Ei: Ei
+          1: Kyllä
+          0: Ei
         '#required': true
       tila:
         '#type': premises_composite
@@ -461,8 +473,8 @@ elements: |-
         '#title': 'Oliko kyseessä festivaali tai tapahtuma?'
         '#help': 'T&auml;ss&auml; tarkoitetaan festivaalia tai tapahtumaa, joka tapahtuu tiiviin ajanjakson sis&auml;ll&auml; ja on ohjelmaltaan ja kestoltaan laajempi kuin yksitt&auml;inen konsertti, esitys tms. &nbsp;Festivaali tai tapahtuma sis&auml;lt&auml;&auml; useampia eri ohjelmasis&auml;lt&ouml;j&auml;, esim. esityksi&auml;, joiden v&auml;liss&auml; yleis&ouml; voi my&ouml;s vaihtua. Esimerkiksi kaupunginosatapahtumat. Ei esimerkiksi esityssarjat. Festivaali tai tapahtuma voi olla toistuva tai kertaluonteinen.'
         '#options':
-          Kyllä: Kyllä
-          Ei: Ei
+          1: Kyllä
+          0: Ei
         '#required': true
       toteutuneet_markup:
         '#type': webform_markup
@@ -651,11 +663,13 @@ elements: |-
       organisaatio_kuuluu_valtionosuusjarjestelmaan_vos_:
         '#type': radios
         '#title': 'Organisaatio kuuluu valtionosuusjärjestelmään (VOS)'
-        '#options': yes_no
+        '#options':
+          1: Kyllä
+          0: Ei
     suunnitellut_tulot:
       '#type': webform_section
       '#title': 'Suunnitellut tulot'
-      tulot:
+      budget_static_income:
         '#type': grants_budget_income_static
         '#title': 'Suunnitellut Tulot'
         '#multiple': false
@@ -741,7 +755,9 @@ elements: |-
       organisaatio_kuului_valtionosuusjarjestelmaan_vos_:
         '#type': radios
         '#title': 'Organisaatio kuului valtionosuusjärjestelmään (VOS)'
-        '#options': yes_no
+        '#options':
+          1: Kyllä
+          0: Ei
     toteutuneet_menot_osio:
       '#type': webform_section
       '#title': 'Toteutuneet menot'

@@ -924,56 +924,7 @@ settings:
   submission_exception_message: ''
   submission_locked_message: ''
   submission_log: false
-  submission_excluded_elements:
-    application_number: application_number
-    status: status
-    applicant_type: applicant_type
-    hakijan_tiedot: hakijan_tiedot
-    email: email
-    contact_person: contact_person
-    contact_person_phone_number: contact_person_phone_number
-    community_address: community_address
-    bank_account: bank_account
-    community_officials: community_officials
-    acting_year: acting_year
-    subventions: subventions
-    avustukset_summa: avustukset_summa
-    ensisijainen_taiteen_ala: ensisijainen_taiteen_ala
-    hankkeen_nimi: hankkeen_nimi
-    kyseessa_on_festivaali_tai_tapahtuma: kyseessa_on_festivaali_tai_tapahtuma
-    hankkeen_tai_toiminnan_lyhyt_esittelyteksti: hankkeen_tai_toiminnan_lyhyt_esittelyteksti
-    olemme_saaneet_muita_avustuksia: olemme_saaneet_muita_avustuksia
-    myonnetty_avustus: myonnetty_avustus
-    members_applicant_person_global: members_applicant_person_global
-    members_applicant_person_local: members_applicant_person_local
-    members_applicant_community_global: members_applicant_community_global
-    members_applicant_community_local: members_applicant_community_local
-    kokoaikainen_henkilosto: kokoaikainen_henkilosto
-    osa_aikainen_henkilosto: osa_aikainen_henkilosto
-    vapaaehtoinen_henkilosto: vapaaehtoinen_henkilosto
-    tapahtuma_tai_esityspaivien_maara_helsingissa: tapahtuma_tai_esityspaivien_maara_helsingissa
-    kantaesitysten_maara: kantaesitysten_maara
-    ensi_iltojen_maara_helsingissa: ensi_iltojen_maara_helsingissa
-    postinumero: postinumero
-    kyseessa_on_kaupungin_omistama_tila: kyseessa_on_kaupungin_omistama_tila
-    tila: tila
-    ensimmaisen_yleisolle_avoimen_tilaisuuden_paivamaara: ensimmaisen_yleisolle_avoimen_tilaisuuden_paivamaara
-    festivaalin_tai_tapahtuman_kohdalla_tapahtuman_paivamaarat: festivaalin_tai_tapahtuman_kohdalla_tapahtuman_paivamaarat
-    hanke_alkaa: hanke_alkaa
-    hanke_loppuu: hanke_loppuu
-    laajempi_hankekuvaus: laajempi_hankekuvaus
-    toiminta_taiteelliset_lahtokohdat: toiminta_taiteelliset_lahtokohdat
-    toiminta_tasa_arvo: toiminta_tasa_arvo
-    toiminta_saavutettavuus: toiminta_saavutettavuus
-    toiminta_yhteisollisyys: toiminta_yhteisollisyys
-    toiminta_kohderyhmat: toiminta_kohderyhmat
-    toiminta_ammattimaisuus: toiminta_ammattimaisuus
-    toiminta_ekologisuus: toiminta_ekologisuus
-    toiminta_yhteistyokumppanit: toiminta_yhteistyokumppanit
-    organisaatio_kuuluu_valtionosuusjarjestelmaan: organisaatio_kuuluu_valtionosuusjarjestelmaan
-    additional_information: additional_information
-    extra_info: extra_info
-    muu_liite: muu_liite
+  submission_excluded_elements: {  }
   submission_exclude_empty: false
   submission_exclude_empty_checkbox: false
   submission_views: {  }

@@ -75,27 +75,7 @@ class ServicePageAuthBlock extends BlockBase implements ContainerFactoryPluginIn
    */
   protected function blockAccess(AccountInterface $account) {
 
-    $access = FALSE;
-
-    $node = \Drupal::routeMatch()->getParameter('node');
-
-    $applicationOpen = $node->get('field_application_open')->value;
-    $applicationContinuous = (bool) $node->get('field_application_continuous')->value;
-    $applicationPeriodStart = new Carbon($node->get('field_application_period')->value);
-    $applicationPeriodEnd = new Carbon($node->get('field_application_period')->end_value);
-    $now = new Carbon();
-
-    $applicationOpenByTime = $now->between($applicationPeriodStart, $applicationPeriodEnd);
-
-    $webformId = $node->get('field_webform')->target_id;
-
-    if (!$webformId) {
-      $access = FALSE;
-    }
-
-    if (($applicationOpenByTime || $applicationContinuous) && $applicationOpen == '1') {
-      $access = TRUE;
-    }
+    $access = $this->checkFormAccess();
 
     return AccessResult::allowedIf($access);
   }
@@ -165,10 +145,12 @@ class ServicePageAuthBlock extends BlockBase implements ContainerFactoryPluginIn
 
     $webformId = $node->get('field_webform')->target_id;
 
-    // No webform reference, no need for this block.
-    if (!$webformId) {
+    $access = $this->checkFormAccess();
+
+    if (!$access) {
       return FALSE;
     }
+
     // Create link for new application.
     $link = Url::fromRoute('grants_handler.new_application',
       [
@@ -183,6 +165,57 @@ class ServicePageAuthBlock extends BlockBase implements ContainerFactoryPluginIn
     ];
 
     return $linkArr;
+  }
+
+  /**
+   * Checks if form is open and if user role has permission to it.
+   *
+   * @return bool
+   *   Boolean value telling if user can see the new application button.
+   */
+  private function checkFormAccess() {
+
+    $access = FALSE;
+
+    $node = \Drupal::routeMatch()->getParameter('node');
+
+    $profileService = \Drupal::service('grants_profile.service');
+    $selectedCompany = $profileService->getSelectedRoleData();
+
+    $applicationOpen = $node->get('field_application_open')->value;
+    $applicationContinuous = (bool) $node->get('field_application_continuous')->value;
+    $applicationPeriodStart = new Carbon($node->get('field_application_period')->value);
+    $applicationPeriodEnd = new Carbon($node->get('field_application_period')->end_value);
+    $now = new Carbon();
+
+    $applicationOpenByTime = $now->between($applicationPeriodStart, $applicationPeriodEnd);
+
+    $webformId = $node->get('field_webform')->target_id;
+
+    if (!$webformId) {
+      $access = FALSE;
+    }
+
+    if (($applicationOpenByTime || $applicationContinuous) && $applicationOpen == '1') {
+      $access = TRUE;
+    }
+
+    $webform = \Drupal::entityTypeManager()->getStorage('webform')->load($webformId);
+    $thirdPartySettings = $webform->getThirdPartySettings('grants_metadata');
+
+    // Old applications have only single selection, we need to support this.
+    if (!is_array($thirdPartySettings["applicantTypes"])) {
+      $formApplicationTypes[] = $thirdPartySettings["applicantTypes"];
+    }
+    else {
+      $formApplicationTypes = array_values($thirdPartySettings["applicantTypes"]);
+    }
+
+    if (!in_array($selectedCompany["type"], $formApplicationTypes)) {
+      $access = FALSE;
+    }
+
+    return $access;
   }
 
 }

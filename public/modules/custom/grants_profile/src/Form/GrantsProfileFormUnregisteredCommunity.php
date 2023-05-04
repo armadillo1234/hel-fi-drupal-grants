@@ -414,7 +414,7 @@ class GrantsProfileFormUnregisteredCommunity extends FormBase {
               $errorMesg = 'You must add one address';
             }
             else {
-              $propertyPath = 'addressWrapper][' . ($propertyPathArray[1] + 1) . '][address][' . $propertyPathArray[2];
+              $propertyPath = 'addressWrapper][' . $propertyPathArray[1] . '][address][' . $propertyPathArray[2];
             }
           }
           elseif ($propertyPathArray[0] == 'bankAccounts') {
@@ -585,7 +585,7 @@ class GrantsProfileFormUnregisteredCommunity extends FormBase {
 
     $addressValues = $formState->getValue('addressWrapper') ?? $addresses;
     unset($addressValues['actions']);
-    foreach ($addressValues as $delta => $address) {
+    foreach (array_values($addressValues) as $delta => $address) {
       if (array_key_exists('address', $address)) {
         $temp = $address['address'];
         unset($address['address']);
@@ -639,7 +639,7 @@ class GrantsProfileFormUnregisteredCommunity extends FormBase {
 
     if ($newItem == 'addressWrapper') {
 
-      $form['addressWrapper'][count($addressValues) + 1] = [
+      $form['addressWrapper'][] = [
         'address' => [
           '#type' => 'fieldset',
           '#title' => $this->t('Community address'),

@@ -149,6 +149,9 @@ class MessageForm extends FormBase {
         'file_validate_extensions' => ['doc docx gif jpg jpeg pdf png ppt pptx rtf txt xls xlsx zip'],
         'file_validate_size' => [$maxFileSizeInBytes],
       ],
+      '#description' => $this->t('Only one file.<br>Limit: 32 MB.<br>
+Allowed file types: doc, docx, gif, jpg, jpeg, pdf, png, ppt, pptx,
+rtf, txt, xls, xlsx, zip.'),
       '#element_validate' => ['\Drupal\grants_handler\Form\MessageForm::validateUpload'],
       '#upload_location' => $upload_location,
       '#sanitize' => TRUE,

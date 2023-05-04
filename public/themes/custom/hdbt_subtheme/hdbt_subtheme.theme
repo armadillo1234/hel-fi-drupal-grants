@@ -478,7 +478,7 @@ function hdbt_subtheme_preprocess_tpr_service_channel(array &$variables) {
   $typeName = $node ? $node->bundle() : NULL;
 
   if ($typeName === 'service') {
-
+    $variables['#cache']['max-age'] = 0;
     $webform = $node->get('field_webform')->target_id;
 
     if (!isset($variables['content']['links']) || !$webform) {

@@ -667,6 +667,7 @@ class AtvSchema {
         if (!is_array($value)) {
           return $value;
         }
+
         // If value is an array, then we need to return desired element value.
         if ($value['ID'] == $elementName) {
           $retval = htmlspecialchars_decode($value['value'] ?? '');
@@ -801,7 +802,6 @@ class AtvSchema {
       if ($itemValue == 'No') {
         $itemValue = 'false';
       }
-      $d = 'asdf';
     }
 
     if ($itemTypes['jsonType'] == 'int') {

@@ -40,18 +40,18 @@ class KuvaToimintaDefinition extends ComplexDataDefinitionBase {
         ]);
 
       // no form field?
-      $info['kyseessa_on_monivuotinen_avustus'] = DataDefinition::create('string')
-        ->setLabel('	Kyseessä on monivuotinen avustus.')
-        ->setSetting('jsonPath', [
-          'compensation',
-          'activityInfo',
-          'plannedActivityInfoArray',
-          'isOwnedByCity',
-        ])
-        ->setSetting('typeOverride', [
-          'dataType' => 'string',
-          'jsonType' => 'bool',
-        ]);
+//      $info['kyseessa_on_monivuotinen_avustus'] = DataDefinition::create('string')
+//        ->setLabel('Kyseessä on monivuotinen avustus.')
+//        ->setSetting('jsonPath', [
+//          'compensation',
+//          'activityInfo',
+//          'plannedActivityInfoArray',
+//          'isOwnedByCity',
+//        ])
+//        ->setSetting('typeOverride', [
+//          'dataType' => 'string',
+//          'jsonType' => 'bool',
+//        ]);
 
       $info['tulevat_vuodet_joiden_ajalle_monivuotista_avustusta_on_haettu_ta'] = DataDefinition::create('string')
         ->setLabel('Tulevat vuodet joiden ajalle monivuotista avustusta on haettu tai myönnetty')
@@ -78,6 +78,19 @@ class KuvaToimintaDefinition extends ComplexDataDefinitionBase {
           'compensationInfo',
           'generalInfoArray',
           'primaryArt',
+        ]);
+
+      $info['kyseessa_on_festivaali_tai_tapahtuma'] = DataDefinition::create('boolean')
+        ->setLabel('Kyseessä on festivaali')
+        ->setSetting('jsonPath', [
+          'compensation',
+          'compensationInfo',
+          'compensationArray',
+          'isFestival',
+        ])
+        ->setSetting('typeOverride', [
+          'dataType' => 'string',
+          'jsonType' => 'bool',
         ]);
 
       $info['hankkeen_tai_toiminnan_lyhyt_esittelyteksti'] = DataDefinition::create('string')
@@ -309,7 +322,7 @@ class KuvaToimintaDefinition extends ComplexDataDefinitionBase {
 
 
       $info['oliko_kyseessa_festivaali_tai_tapahtuma_'] = DataDefinition::create('string')
-        ->setLabel('Kyseessä on kaupungin omistama tila.')
+        ->setLabel('Kyseessä on festivaali.')
         ->setSetting('jsonPath', [
           'compensation',
           'activityInfo',

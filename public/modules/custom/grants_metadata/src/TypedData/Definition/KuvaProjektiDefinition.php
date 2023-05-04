@@ -80,7 +80,7 @@ class KuvaProjektiDefinition extends ComplexDataDefinitionBase {
           'communityInfo',
           'generalCommunityInfoArray',
           'staffPeopleFulltime',
-        ]) ->setSetting('valueCallback', [
+        ])->setSetting('valueCallback', [
           '\Drupal\grants_handler\Plugin\WebformHandler\GrantsHandler',
           'convertToInt',
         ])
@@ -96,7 +96,7 @@ class KuvaProjektiDefinition extends ComplexDataDefinitionBase {
           'communityInfo',
           'generalCommunityInfoArray',
           'staffPeopleFulltime',
-        ]) ->setSetting('valueCallback', [
+        ])->setSetting('valueCallback', [
           '\Drupal\grants_handler\Plugin\WebformHandler\GrantsHandler',
           'convertToInt',
         ])
@@ -121,7 +121,7 @@ class KuvaProjektiDefinition extends ComplexDataDefinitionBase {
           'communityInfo',
           'generalCommunityInfoArray',
           'staffPeopleVoluntary',
-        ]) ->setSetting('valueCallback', [
+        ])->setSetting('valueCallback', [
           '\Drupal\grants_handler\Plugin\WebformHandler\GrantsHandler',
           'convertToInt',
         ])
@@ -137,7 +137,7 @@ class KuvaProjektiDefinition extends ComplexDataDefinitionBase {
           'communityInfo',
           'generalCommunityInfoArray',
           'staffManyearsFulltime',
-        ]) ->setSetting('valueCallback', [
+        ])->setSetting('valueCallback', [
           '\Drupal\grants_handler\Plugin\WebformHandler\GrantsHandler',
           'convertToInt',
         ])
@@ -153,7 +153,7 @@ class KuvaProjektiDefinition extends ComplexDataDefinitionBase {
           'communityInfo',
           'generalCommunityInfoArray',
           'staffManyearsParttime',
-        ]) ->setSetting('valueCallback', [
+        ])->setSetting('valueCallback', [
           '\Drupal\grants_handler\Plugin\WebformHandler\GrantsHandler',
           'convertToInt',
         ])

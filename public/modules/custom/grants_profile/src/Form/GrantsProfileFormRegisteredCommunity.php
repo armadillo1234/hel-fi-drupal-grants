@@ -638,7 +638,7 @@ class GrantsProfileFormRegisteredCommunity extends FormBase {
 
     $addressValues = $formState->getValue('addressWrapper') ?? $addresses;
     unset($addressValues['actions']);
-    foreach ($addressValues as $delta => $address) {
+    foreach (array_values($addressValues) as $delta => $address) {
       if (array_key_exists('address', $address)) {
         $temp = $address['address'];
         unset($address['address']);
@@ -698,7 +698,7 @@ class GrantsProfileFormRegisteredCommunity extends FormBase {
 
     if ($newItem == 'addressWrapper') {
 
-      $form['addressWrapper'][count($addressValues) + 1] = [
+      $form['addressWrapper'][] = [
         'address' => [
           '#type' => 'fieldset',
           '#title' => $this->t('Community address'),

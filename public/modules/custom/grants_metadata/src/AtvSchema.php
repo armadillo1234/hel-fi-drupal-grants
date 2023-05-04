@@ -676,7 +676,7 @@ class AtvSchema {
             if ($retval == 'true') {
               $retval = '1';
             }
-            elseif ($retval == 'false'){
+            elseif ($retval == 'false') {
               $retval = '0';
             }
             else {

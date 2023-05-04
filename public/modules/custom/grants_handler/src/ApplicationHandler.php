@@ -1018,7 +1018,8 @@ class ApplicationHandler {
         'saveid',
         $this->logSubmissionSaveid(NULL, $applicationNumber)
       );
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
     }
 
     $atvDocument->setContent($appDocumentContent);

@@ -207,8 +207,6 @@ trait ApplicationDefinitionTrait {
       ])
       ->addConstraint('NotBlank');
 
-
-
     $info['compensation_total_amount'] = DataDefinition::create('float')
       ->setLabel('compensationInfo=>purpose')
       ->setSetting('defaultValue', 0)
@@ -334,8 +332,6 @@ trait ApplicationDefinitionTrait {
         'convertToFloat',
       ])
       ->addConstraint('NotBlank');
-
-
 
     $info['business_purpose'] = DataDefinition::create('string')
       ->setLabel('businessPurpose')

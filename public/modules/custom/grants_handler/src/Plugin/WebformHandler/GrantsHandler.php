@@ -963,6 +963,7 @@ class GrantsHandler extends WebformHandlerBase {
 
   /**
    * {@inheritdoc}
+   *
    * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function postSave(WebformSubmissionInterface $webform_submission, $update = TRUE) {
@@ -1008,7 +1009,8 @@ class GrantsHandler extends WebformHandlerBase {
           $this->submittedFormData,
           $this->applicationNumber
         );
-      } catch (\Throwable $e) {
+      }
+      catch (\Throwable $e) {
       }
       try {
         $applicationData = $this->applicationHandler->webformToTypedData(

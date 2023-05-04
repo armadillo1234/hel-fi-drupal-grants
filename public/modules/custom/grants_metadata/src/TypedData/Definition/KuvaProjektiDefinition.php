@@ -725,7 +725,6 @@ class KuvaProjektiDefinition extends ComplexDataDefinitionBase {
           'otherValuables',
         ]);
 
-
     }
     return $this->propertyDefinitions;
   }

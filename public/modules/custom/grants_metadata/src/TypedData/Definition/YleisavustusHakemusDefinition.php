@@ -94,6 +94,31 @@ class YleisavustusHakemusDefinition extends ComplexDataDefinitionBase {
           'compensationPreviousYear',
         ]);
 
+      $info['compensation_total_amount'] = DataDefinition::create('float')
+        ->setLabel('compensationInfo=>purpose')
+        ->setSetting('defaultValue', 0)
+        ->setSetting('typeOverride', [
+          'dataType' => 'string',
+          'jsonType' => 'float',
+        ])
+        ->setSetting('jsonPath', [
+          'compensation',
+          'compensationInfo',
+          'generalInfoArray',
+          'totalAmount',
+        ])
+        ->addConstraint('NotBlank');
+
+      $info['compensation_explanation'] = DataDefinition::create('string')
+        ->setLabel('compensationInfo=>explanation')
+        ->setSetting('defaultValue', "")
+        ->setSetting('jsonPath', [
+          'compensation',
+          'compensationInfo',
+          'generalInfoArray',
+          'explanation',
+        ]);
+
     }
     return $this->propertyDefinitions;
   }

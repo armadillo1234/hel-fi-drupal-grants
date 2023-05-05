@@ -55,13 +55,17 @@ class KuvaProjektiDefinition extends ComplexDataDefinitionBase {
           'nameOfEvent',
         ]);
 
-      $info['hankkeen_nimi'] = DataDefinition::create('string')
-        ->setLabel('Hankkeen nimi')
+      $info['kyseessa_on_festivaali_tai_tapahtuma'] = DataDefinition::create('boolean')
+        ->setLabel('Kyseessä on festivaali')
         ->setSetting('jsonPath', [
           'compensation',
           'compensationInfo',
           'generalInfoArray',
-          'nameOfEvent',
+          'isFestival',
+        ])
+        ->setSetting('typeOverride', [
+          'dataType' => 'string',
+          'jsonType' => 'bool',
         ]);
 
       $info['hankkeen_tai_toiminnan_lyhyt_esittelyteksti'] = DataDefinition::create('string')
@@ -71,22 +75,6 @@ class KuvaProjektiDefinition extends ComplexDataDefinitionBase {
           'compensationInfo',
           'generalInfoArray',
           'purpose',
-        ]);
-
-      $info['kokoaikainen_henkilosto'] = DataDefinition::create('integer')
-        ->setLabel('Kokoaikainen henkilöstö')
-        ->setSetting('jsonPath', [
-          'compensation',
-          'communityInfo',
-          'generalCommunityInfoArray',
-          'staffPeopleFulltime',
-        ])->setSetting('valueCallback', [
-          '\Drupal\grants_handler\Plugin\WebformHandler\GrantsHandler',
-          'convertToInt',
-        ])
-        ->setSetting('typeOverride', [
-          'dataType' => 'string',
-          'jsonType' => 'int',
         ]);
 
       $info['kokoaikainen_henkilosto'] = DataDefinition::create('integer')
@@ -624,7 +612,7 @@ class KuvaProjektiDefinition extends ComplexDataDefinitionBase {
           'postCode',
         ]);
 
-      $info['organisaatio_kuuluu_valtionosuusjarjestelmaan'] = DataDefinition::create('boolean')
+      $info['organisaatio_kuuluu_valtionosuusjarjestelmaan_vos_'] = DataDefinition::create('boolean')
         ->setLabel('Organisaatio kuuluu valtionosuusjärjestelmään (VOS).')
         ->setSetting('jsonPath', [
           'compensation',

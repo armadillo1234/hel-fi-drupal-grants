@@ -71,7 +71,7 @@ class KuvaToimintaDefinition extends ComplexDataDefinitionBase {
         ->setSetting('jsonPath', [
           'compensation',
           'compensationInfo',
-          'compensationArray',
+          'generalInfoArray',
           'isFestival',
         ])
         ->setSetting('typeOverride', [

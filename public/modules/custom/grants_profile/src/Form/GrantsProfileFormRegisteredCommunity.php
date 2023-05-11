@@ -224,44 +224,29 @@ class GrantsProfileFormRegisteredCommunity extends FormBase {
    *   Form state.
    */
   public static function removeOne(array &$form, FormStateInterface $formState) {
-
     $triggeringElement = $formState->getTriggeringElement();
     [
       $fieldName,
       $deltaToRemove,
     ] = explode('--', $triggeringElement['#name']);
-
     $fieldValue = $formState->getValue($fieldName);
 
-    if ($fieldName == 'bankAccountWrapper') {
+    if ($fieldName == 'bankAccountWrapper' && $fieldValue[$deltaToRemove]['bank']['confirmationFileName']) {
       $attachmentDeleteResults = self::deleteAttachmentFile($fieldValue[$deltaToRemove]['bank'], $formState);
 
       if ($attachmentDeleteResults) {
         \Drupal::messenger()
           ->addStatus('Bank account & verification attachment deleted.');
-
-        // Remove item from items.
-        unset($fieldValue[$deltaToRemove]);
-        $formState->setValue($fieldName, $fieldValue);
-        $formState->setRebuild();
       }
       else {
         \Drupal::messenger()
           ->addError('Attachment deletion failed, error has been logged. Please contact customer support');
-
-        // Remove item from items.
-        unset($fieldValue[$deltaToRemove]);
-        $formState->setValue($fieldName, $fieldValue);
-        $formState->setRebuild();
-
       }
     }
-    else {
-      // Remove item from items.
-      unset($fieldValue[$deltaToRemove]);
-      $formState->setValue($fieldName, $fieldValue);
-      $formState->setRebuild();
-    }
+    // Remove item from items.
+    unset($fieldValue[$deltaToRemove]);
+    $formState->setValue($fieldName, $fieldValue);
+    $formState->setRebuild();
 
   }
 

@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
+APP_ENV='LOCALJ'
+
 ATV_BASE_URL="https://atv-api-hki-kanslia-atv-test.agw.arodevtest.hel.fi"
-ATV_API_KEY="t8mGBSyL.eNd0sfHzvG4k1pXbRFA3XibMQL6a36bn"
+ATV_API_KEY=""
 ATV_VERSION="v1"
 ATV_SERVICE="Avustushakemusintegraatio"
 
-USER_IDT="asdf,asdf,asdf,asdf,asdf,asdf,asdf"
+USER_IDT="[asdfadfafd,asdfasdfasdf,asdfasdfasdf,asdfasdf]"
 Y_TUNNUKSET="345345-5,345345-5"

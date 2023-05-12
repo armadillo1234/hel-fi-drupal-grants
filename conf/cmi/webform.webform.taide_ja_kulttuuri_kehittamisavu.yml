@@ -502,6 +502,12 @@ elements: |-
     aikataulu:
       '#type': webform_section
       '#title': Aikataulu
+      festivaalin_tai_tapahtuman_kohdalla_tapahtuman_paivamaarat:
+        '#type': textfield
+        '#title': 'Festivaalin tai tapahtuman kohdalla tapahtuman päivämäärät'
+        '#attributes':
+          class:
+            - webform--large
       hanke_alkaa:
         '#type': datetime
         '#title': 'Hanke alkaa'

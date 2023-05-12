@@ -261,6 +261,18 @@ trait ApplicationDefinitionTrait {
         'compensation',
         'otherCompensationsInfo',
         'otherAppliedCompensationsArray',
+      ])
+      ->setSetting('webformDataExtracter', [
+        'service' => 'grants_metadata.atv_schema',
+        'method' => 'returnRelations',
+        'mergeResults' => TRUE,
+        'arguments' => [
+          'relations' => [
+            'master' => 'haettu_avustus_tieto',
+            'slave' => 'olemme_hakeneet_avustuksia_muualta_kuin_helsingin_kaupungilta',
+            'type' => 'boolean',
+          ],
+        ],
       ]);
 
     $info['myonnetty_avustus_total'] = DataDefinition::create('float')

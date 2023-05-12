@@ -80,7 +80,7 @@ class KaskoYleisavustusDefinition extends ComplexDataDefinitionBase {
           'purpose',
         ]);
 
-      $info['compensation_boolean'] = DataDefinition::create('string')
+      $info['compensation_boolean'] = DataDefinition::create('boolean')
         ->setLabel('compensationPreviousYear')
         ->setSetting('defaultValue', FALSE)
         ->setSetting('typeOverride', [

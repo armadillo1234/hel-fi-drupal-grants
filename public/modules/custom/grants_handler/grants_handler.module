@@ -324,15 +324,6 @@ function grants_handler_webform_element_alter(array &$element, FormStateInterfac
     // Get data from webform.
     $webformData = $webformSubmission->getData();
 
-    if (isset($element['#webform_key']) && $element['#webform_key'] == 'olemme_hakeneet_avustuksia_muualta_kuin_helsingin_kaupungilta') {
-      if (empty($webformData["haettu_avustus_tieto"])) {
-        $element['#default_value'] = 'Ei';
-      }
-      else {
-        $element['#default_value'] = 'Kyllä';
-      }
-    }
-
     // For some reason, this is only place I've found to do this.
     if (isset($element['#webform_key']) && $element['#webform_key'] == 'subventions') {
       // Get form values.

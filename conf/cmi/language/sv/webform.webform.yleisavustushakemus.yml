@@ -136,7 +136,7 @@ elements: |
     '#title': '3. Samfundets verksamhet'
   business_info:
     '#title': Verksamhetsbeskrivning
-  business_purpose:
+  community_purpose:
     '#title': Verksamhetsbeskrivning
     '#help': 'Verksamhetsbeskrivningen redigeras i dina uppgifter.'
   community_practices_business:

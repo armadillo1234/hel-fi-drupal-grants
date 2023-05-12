@@ -146,7 +146,7 @@ elements: |
     '#next_button_label': 'Next >'
   business_info:
     '#title': 'Description of activities'
-  business_purpose:
+  community_purpose:
     '#title': 'Description of activities'
     '#help': 'The description of activities is maintained in your data.'
   community_practices_business:

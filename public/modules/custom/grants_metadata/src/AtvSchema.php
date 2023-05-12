@@ -480,6 +480,7 @@ class AtvSchema {
         if ($propertyName !== 'attachments') {
           // Dig up the data from webform. First page.
           $pageId = $webformMainElement['#webform_parents'][0];
+
           $pageLabel = $pages[$pageId]['#title'];
           $pageNumber = array_search($pageId, $pageKeys) + 1;
           // Then section.

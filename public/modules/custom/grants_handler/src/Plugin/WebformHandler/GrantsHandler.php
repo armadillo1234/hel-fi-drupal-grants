@@ -526,11 +526,13 @@ class GrantsHandler extends WebformHandlerBase {
     $thisYearPlus2 = $thisYear + 2;
 
     // If we have webform summation field present (agreed location)
-    if ($form["elements"]['avustukset_summa']) {
+    if (isset($form["elements"]['avustukset_summa']) && $form["elements"]['avustukset_summa']) {
       // Then we calculate tota sum.
       $subventionsTotalAmount = 0;
-      foreach ($submissionData["subventions"] as $sub) {
-        $subventionsTotalAmount += (int) $sub['amount'];
+      if (isset($submissionData["subventions"]) && is_array($submissionData["subventions"])) {
+        foreach ($submissionData["subventions"] as $sub) {
+          $subventionsTotalAmount += (int) $sub['amount'];
+        }
       }
 
       /*

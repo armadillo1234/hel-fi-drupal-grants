@@ -188,15 +188,27 @@
   }
   .oma-asiointi-infoboxes-container {
     .oma-asiointi-infoboxes {
-      display: flex;
       gap: var(--spacing-3-xl);
       margin: var(--spacing-2-xl) 0;
+
+      @media (min-width: $breakpoint-m) {
+        display: flex;
+      }
     }
 
     .oma-asiointi-infobox {
       flex: 1;
       padding: var(--spacing-l);
       background-color: var(--color-info-light);
+      margin-bottom: var(--spacing-layout-2-xs);
+
+      @media (min-width: $breakpoint-m) {
+        margin-bottom: 0;
+      }
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
 
       &--link {
         margin-top: var(--spacing-layout-2-xs);

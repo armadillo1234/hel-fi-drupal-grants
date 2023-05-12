@@ -21,3 +21,23 @@ msgctxt "Asiointirooli block"
 msgid "Private person"
 msgstr "Privatperson"
 
+msgid "Information about grants and instructions for the applicant"
+msgstr "Information om bidrag och anvisningar till den sökande"
+
+msgid "Find your grant"
+msgstr "Hitta ditt bidrag"
+
+msgid "Go to view different grants and find yours. <strong>Please remember to check your information before proceeding to the application.</strong>"
+msgstr "Gå för att se olika anslag och hitta ditt. <strong>Kom ihåg att kontrollera din information innan du går vidare till ansökan.</strong>"
+
+msgid "Information about grants"
+msgstr "Om understöden"
+
+msgid "Check out the general instructions"
+msgstr "Kolla in de allmänna instruktionerna"
+
+msgid "Take a look at the instructions, which tell you in more detail about the things to consider when applying for a grant."
+msgstr "Ta en titt på instruktionerna som berättar mer i detalj om vad du bör tänka på när du ansöker om bidrag."
+
+msgid "Instructions for applicants"
+msgstr "Anvisningar för sökande"

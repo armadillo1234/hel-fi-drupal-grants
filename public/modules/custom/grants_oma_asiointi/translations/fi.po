@@ -80,3 +80,24 @@ msgstr "Yksityishenkilö"
 
 msgid "New on your applications"
 msgstr "Huomioitavaa hakemuksissasi"
+
+msgid "Information about grants and instructions for the applicant"
+msgstr "Tietoa avustuksista ja ohjeita hakijalle"
+
+msgid "Find your grant"
+msgstr "Löydä avustuksesi"
+
+msgid "Go to view different grants and find yours. <strong>Please remember to check your information before proceeding to the application.</strong>"
+msgstr "Siirry katselemaan eri avustuksia ja löydä omasi. <strong>Muistathan tarkistaa omat tiedot ennen hakemukselle siirtymistä.</strong>"
+
+msgid "Information about grants"
+msgstr "Tietoa avustuksista"
+
+msgid "Check out the general instructions"
+msgstr "Tutustu yleisiin ohjeisiin"
+
+msgid "Take a look at the instructions, which tell you in more detail about the things to consider when applying for a grant."
+msgstr "Käy tutustumassa ohjeistukseen jossa kerrotaan tarkemmin avustuksen hakemisessa huomioitavista asioista."
+
+msgid "Instructions for applicants"
+msgstr "Ohjeita hakijalle"

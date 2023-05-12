@@ -373,14 +373,17 @@ class GrantsProfileFormRegisteredCommunity extends FormBase {
     $input = $formState->getUserInput();
 
     if (array_key_exists('addressWrapper', $input)) {
+      $addressArrayKeys = array_keys($input["addressWrapper"]);
       $values["addressWrapper"] = $input["addressWrapper"];
     }
 
     if (array_key_exists('officialWrapper', $input)) {
+      $officialArrayKeys = array_keys($input["officialWrapper"]);
       $values["officialWrapper"] = $input["officialWrapper"];
     }
 
     if (array_key_exists('bankAccountWrapper', $input)) {
+      $bankAccountArrayKeys = array_keys($input["bankAccountWrapper"]);
       $values["bankAccountWrapper"] = $input["bankAccountWrapper"];
     }
 
@@ -429,7 +432,6 @@ class GrantsProfileFormRegisteredCommunity extends FormBase {
         $propertyPathArray = explode('.', $violation->getPropertyPath());
         $errorElement = NULL;
         $errorMesg = NULL;
-
         $propertyPath = '';
 
         if ($propertyPathArray[0] == 'companyNameShort') {
@@ -450,7 +452,7 @@ class GrantsProfileFormRegisteredCommunity extends FormBase {
             $errorMesg = 'You must add one address';
           }
           else {
-            $propertyPath = 'addressWrapper][' . $propertyPathArray[1] . '][address][' . $propertyPathArray[2];
+            $propertyPath = 'addressWrapper][' . $addressArrayKeys[$propertyPathArray[1]] . '][address][' . $propertyPathArray[2];
           }
         }
         elseif ($propertyPathArray[0] == 'bankAccounts') {
@@ -459,12 +461,12 @@ class GrantsProfileFormRegisteredCommunity extends FormBase {
             $errorMesg = 'You must add one bank account';
           }
           else {
-            $propertyPath = 'bankAccountWrapper][' . $propertyPathArray[1] . '][bank][' . $propertyPathArray[2];
+            $propertyPath = 'bankAccountWrapper][' . $bankAccountArrayKeys[$propertyPathArray[1]] . '][bank][' . $propertyPathArray[2];
           }
 
         }
         elseif (count($propertyPathArray) > 1 && $propertyPathArray[0] == 'officials') {
-          $propertyPath = 'officialWrapper][' . $propertyPathArray[1] . '][official][' . $propertyPathArray[2];
+          $propertyPath = 'officialWrapper][' . $officialArrayKeys[$propertyPathArray[1]] . '][official][' . $propertyPathArray[2];
         }
         else {
           $propertyPath = $violation->getPropertyPath();
@@ -619,11 +621,9 @@ class GrantsProfileFormRegisteredCommunity extends FormBase {
 
     $addressValues = $formState->getValue('addressWrapper') ?? $addresses;
     unset($addressValues['actions']);
-    foreach (array_values($addressValues) as $delta => $address) {
+    foreach ($addressValues as $delta => $address) {
       if (array_key_exists('address', $address)) {
-        $temp = $address['address'];
-        unset($address['address']);
-        $addressValues[$delta] = array_merge($address, $temp);
+        $address = $address['address'];
       }
       // Make sure we have proper UUID as address id.
       if (!$this->grantsProfileService->isValidUuid($address['address_id'])) {
@@ -660,7 +660,7 @@ class GrantsProfileFormRegisteredCommunity extends FormBase {
         '#type' => 'hidden',
         '#value' => $address['address_id'],
       ];
-      // Address delta is replaced with alter hook in module file.
+
       $form['addressWrapper'][$delta]['address']['deleteButton'] = [
         '#type' => 'submit',
         '#icon_left' => 'trash',
@@ -704,7 +704,6 @@ class GrantsProfileFormRegisteredCommunity extends FormBase {
             '#type' => 'hidden',
             '#value' => Uuid::uuid4()->toString(),
           ],
-          // Address delta is replaced with alter hook in module file.
           'deleteButton' => [
             '#type' => 'submit',
             '#icon_left' => 'trash',
@@ -1259,7 +1258,6 @@ rtf, txt, xls, xlsx, zip.'),
         }
         return FALSE;
       });
-
     $attachmentToDelete = reset($attachmentToDelete);
     $hrefToDelete = NULL;
 

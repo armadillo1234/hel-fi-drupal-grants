@@ -788,6 +788,7 @@ elements: |-
         '#counter_type': character
         '#counter_maximum': 1000
         '#counter_maximum_message': '%d/1000 merkkiä jäljellä'
+        '#help': 'Voit nostaa myös esiin esimerkisksi keskeisiä palkintoja tai muita noteerauksia.'
       toiminta_tasa_arvo:
         '#type': textarea
         '#attributes':

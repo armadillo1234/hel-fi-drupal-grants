@@ -1,0 +1,29 @@
+uuid: d59bcddb-23d0-46bf-a3d9-425f62461f9f
+langcode: fi
+status: true
+dependencies:
+  module:
+    - grants_handler
+    - node
+  theme:
+    - hdbt_subtheme
+id: servicepageanonblock
+theme: hdbt_subtheme
+region: sidebar_first
+weight: 0
+provider: null
+plugin: grants_handler_service_page_anon_block
+settings:
+  id: grants_handler_service_page_anon_block
+  label: 'Vaihda asiointiroolia'
+  label_display: visible
+  provider: grants_handler
+  foo: ''
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      service: service

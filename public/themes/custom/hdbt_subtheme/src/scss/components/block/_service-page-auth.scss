@@ -1,4 +1,5 @@
-#block-servicepageauthblock {
+#block-servicepageauthblock,
+#block-servicepageanonblock {
   h2 {
     @include font('h4');
   }

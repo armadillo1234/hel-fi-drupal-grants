@@ -5,9 +5,9 @@
   {% set banner_style = 'component--banner-secondary'%}
   {% set banner_icon = 'alert-circle' %}
 {% elseif loggedin %}
-  {% set title = "Ovathan omat tietosi ajan tasalla?"|t %}
-  {% set description = "Avustusasiointiin tallennetut käyttäjätiedot tuodaan suoraan lomakkeille, kun haet uusia avustuksia. Muista tarkistaa aika ajoin omat käyttäjätietosi, jotta hakemuslomakkeilla on ajantasaiset tiedot."|t %}
-  {% set link = 'Siirry päivittämään omat tietosi'|t({}, {'context': 'Login to grants'}) %}
+  {% set title = "Please make sure that your information is up to date!"|t %}
+  {% set description = "The user information saved in the grant process will be imported directly to the application when you apply for new grants. Remember to check your information from time to time so that the information in the application form is up to date."|t %}
+  {% set link = 'Go to update your information'|t({}, {'context': 'Login to grants'}) %}
   {% set banner_style = 'component--banner-secondary'%}
   {% set banner_icon = 'alert-circle' %}
 {% else %}

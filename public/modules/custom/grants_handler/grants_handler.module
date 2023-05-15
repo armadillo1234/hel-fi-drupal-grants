@@ -324,15 +324,6 @@ function grants_handler_webform_element_alter(array &$element, FormStateInterfac
     // Get data from webform.
     $webformData = $webformSubmission->getData();
 
-    if (isset($element['#webform_key']) && $element['#webform_key'] == 'olemme_hakeneet_avustuksia_muualta_kuin_helsingin_kaupungilta') {
-      if (empty($webformData["haettu_avustus_tieto"])) {
-        $element['#default_value'] = 'Ei';
-      }
-      else {
-        $element['#default_value'] = 'Kyllä';
-      }
-    }
-
     // For some reason, this is only place I've found to do this.
     if (isset($element['#webform_key']) && $element['#webform_key'] == 'subventions') {
       // Get form values.
@@ -651,15 +642,6 @@ function grants_handler_webform_submission_form_alter(&$form, FormStateInterface
     $form['#attached']['drupalSettings']['grants_handler']['selectedCompany'] = $selectedCompany;
     $form['#attached']['drupalSettings']['grants_handler']['formData'] = $formData;
     $form['#attached']['drupalSettings']['grants_handler']['submissionId'] = $formData["application_number"] ?? '';
-
-    if (isset($grantsProfile["businessPurpose"]) && $grantsProfile["businessPurpose"]) {
-      _grants_handler_imported_handler($form["elements"]["3_yhteison_tiedot"]["business_info"]["business_purpose"], $grantsProfile["businessPurpose"], FALSE);
-    }
-    else {
-      _grants_handler_missing_data($form["elements"]["3_yhteison_tiedot"]["business_info"]["business_purpose"],
-        t('You need a description of the community purpose for the application.'), t('Add description of purpose'),
-        t('to My Services > My Information so it can be used on the application.'));
-    }
 
     if (isset($form["elements"]["1_hakijan_tiedot"]["tilinumero"]["account_number"]["#default_value"])) {
       $form["elements"]["1_hakijan_tiedot"]["tilinumero"]["account_number_select"]["#default_value"] = $form["elements"]["1_hakijan_tiedot"]["tilinumero"]["account_number"]["#default_value"];

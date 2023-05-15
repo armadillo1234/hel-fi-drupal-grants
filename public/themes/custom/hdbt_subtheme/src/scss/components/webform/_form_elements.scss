@@ -172,17 +172,17 @@ form .hds-text-input__input-wrapper, .hds-text-input__input-wrapper  {
   input, textarea,  {
     &.webform--small {
       max-width: var(--webform-element-width--input-small);
-      width: 100%;
+      width: 100vw;
     }
 
     &.webform--medium {
       max-width: var(--webform-element-width--input-medium);
-      width: 100%;
+      width: 100vw;
     }
 
     &.webform--large {
       max-width: var(--webform-element-width--input-large);
-      width: 100%;
+      width: 100vw;
     }
   }
 }

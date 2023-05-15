@@ -16,7 +16,7 @@ provider: null
 plugin: grants_handler_service_page_auth_block
 settings:
   id: grants_handler_service_page_auth_block
-  label: 'Hae avustusta'
+  label: 'Apply for grant'
   label_display: visible
   provider: grants_handler
   foo: 'Tämä on esimerkkiteksti joka ei varmaankaan näy missään, mutta tähän voidaan halutesssa lisätä jotain tekstiä / elementtejä lohkolle.'

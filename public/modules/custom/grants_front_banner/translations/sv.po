@@ -22,3 +22,13 @@ msgstr "Vänligen notera att du inte kan ansöka om understöd innan du fyllt i 
 msgctxt "Login to grants"
 msgid "Go to fill in your personal information"
 msgstr "Börja fylla i dina uppgifter."
+
+msgid "Please make sure that your information is up to date!"
+msgstr "Är dina uppgifter uppdaterade?"
+
+msgid "The user information saved in the grant process will be imported directly to the application when you apply for new grants. Remember to check your information from time to time so that the information in the application form is up to date."
+msgstr "De användaruppgifter som sparats i e-tjänsten hämtas direkt till blanketter när du ansöker om nya understöd. Kom ihåg att kontrollera dina användaruppgifter då och då så att uppgifterna på ansökningsblanketterna är uppdaterade."
+
+msgctxt "Login to grants"
+msgid "Go to update your information"
+msgstr "Gå och uppdatera dina uppgifter"

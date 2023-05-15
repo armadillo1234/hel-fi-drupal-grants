@@ -24,6 +24,17 @@
       }
     }
 
+    .hds-card__body {
+      align-content: space-between;
+      height: 100%;
+    }
+
+    .hds-card--mandate-card-content {
+      display: grid;
+      grid-gap: var(--spacing-m);
+      gap: var(--spacing-m);
+    }
+
   }
 
 }

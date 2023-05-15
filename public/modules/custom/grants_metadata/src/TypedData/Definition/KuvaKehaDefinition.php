@@ -332,6 +332,7 @@ class KuvaKehaDefinition extends ComplexDataDefinitionBase {
         ->setSetting('propertyStructureCallback', [
           'service' => 'grants_budget_components.service',
           'method' => 'processBudgetInfo',
+          'webform' => TRUE,
         ])
         ->setSetting('webformDataExtracter', [
           'service' => 'grants_budget_components.service',
@@ -383,6 +384,18 @@ class KuvaKehaDefinition extends ComplexDataDefinitionBase {
         'compensationInfo',
         'generalInfoArray',
         'yearsForMultiYearApplication',
+      ])
+      ->setSetting('webformDataExtracter', [
+        'service' => 'grants_metadata.atv_schema',
+        'method' => 'returnRelations',
+        'mergeResults' => TRUE,
+        'arguments' => [
+          'relations' => [
+            'slave' => 'kyseessa_on_monivuotinen_avustus',
+            'master' => 'vuodet_joille_monivuotista_avustusta_on_haettu_tai_myonetty',
+            'type' => 'boolean',
+          ],
+        ],
       ]);
 
     $info['erittely_kullekin_vuodelle_haettavasta_avustussummasta'] = DataDefinition::create('string')

@@ -22,3 +22,13 @@ msgstr "Huomaathan, että avustuksen hakemista varten omien tietojen täytyy oll
 msgctxt "Login to grants"
 msgid "Go to fill in your personal information"
 msgstr "Siirry täydentämään omat tietosi"
+
+msgid "Please make sure that your information is up to date!"
+msgstr "Ovathan omat tietosi ajan tasalla?"
+
+msgid "The user information saved in the grant process will be imported directly to the application when you apply for new grants. Remember to check your information from time to time so that the information in the application form is up to date."
+msgstr "Avustusasiointiin tallennetut käyttäjätiedot tuodaan suoraan lomakkeille, kun haet uusia avustuksia. Muista tarkistaa aika ajoin omat käyttäjätietosi, jotta hakemuslomakkeilla on ajantasaiset tiedot."
+
+msgctxt "Login to grants"
+msgid "Go to update your information"
+msgstr "Siirry päivittämään omat tietosi"

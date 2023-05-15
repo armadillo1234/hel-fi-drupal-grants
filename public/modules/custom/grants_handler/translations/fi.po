@@ -439,3 +439,9 @@ msgstr "Käyttäjällä ei ole sopivaa asiointiroolia."
 
 msgid "User role is not allowed to use this form."
 msgstr "Aktiivisella asiointiroolilla ei ole pääsyoikeutta lomakkeelle."
+
+msgid "You do not have the necessary authorizations to make an application."
+msgstr "Sinulla ei ole tarvittavia valtuuksia hakemuksen tekemiseen."
+
+msgid "Change your role"
+msgstr "Vaihda asiointiroolia"

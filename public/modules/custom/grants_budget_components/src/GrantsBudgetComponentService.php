@@ -275,7 +275,7 @@ class GrantsBudgetComponentService {
   /**
    * Process budget components to ATV structure.
    */
-  public static function processBudgetInfo($property) {
+  public static function processBudgetInfo($property, $arguments) {
     $incomeStaticRow = [
       'incomeRowsArrayStatic' => [],
       'otherIncomeRowsArrayStatic' => [],
@@ -285,14 +285,23 @@ class GrantsBudgetComponentService {
       'otherCostRowsArrayStatic' => [],
     ];
 
-    foreach ($property as $p) {
-      $pDef = $p->getDataDefinition();
+    foreach ($property as $propertyKey => $property) {
+      $pDef = $property->getDataDefinition();
       $jsonPath = $pDef->getSetting('jsonPath');
       $pJsonPath = reset($jsonPath);
       $defaultValue = $pDef->getSetting('defaultValue');
       $valueCallback = $pDef->getSetting('fullItemValueCallback');
       $itemTypes = AtvSchema::getJsonTypeForDataType($pDef);
-      $itemValue = AtvSchema::getItemValue($itemTypes, $p, $defaultValue, $valueCallback);
+      $itemValue = AtvSchema::getItemValue($itemTypes, $property, $defaultValue, $valueCallback);
+
+      if (isset($arguments['webform'])) {
+        $processedValues = self::processMetaFields(
+          $property,
+          $propertyKey,
+          $itemValue,
+          $arguments['webform']
+        );
+      }
 
       switch ($pJsonPath) {
         case 'incomeRowsArrayStatic':
@@ -300,7 +309,7 @@ class GrantsBudgetComponentService {
         case 'incomeGroupName':
           if (is_array($itemValue)) {
             $original = $incomeStaticRow[$pJsonPath] ?? [];
-            $incomeStaticRow[$pJsonPath] = array_merge($original, $itemValue);
+            $incomeStaticRow[$pJsonPath] = array_merge($original, $processedValues);
           }
           else {
             $incomeStaticRow[$pJsonPath] = $itemValue;
@@ -312,7 +321,7 @@ class GrantsBudgetComponentService {
         case 'costGroupName':
           if (is_array($itemValue)) {
             $original = $costStaticRow[$pJsonPath] ?? [];
-            $costStaticRow[$pJsonPath] = array_merge($original, $itemValue);
+            $costStaticRow[$pJsonPath] = array_merge($original, $processedValues);
           }
           else {
             $costStaticRow[$pJsonPath] = $itemValue;
@@ -332,6 +341,60 @@ class GrantsBudgetComponentService {
     ];
 
     return $retval;
+
+  }
+
+  /**
+   * Add meta fields to budget component values.
+   */
+  private static function processMetaFields($propertyDefinition, $propertyKey, $values, $webform) {
+    if (!is_array($values) || count($values) == 0 || !$webform) {
+      return $values;
+    }
+
+    $webformMainElement = $webform->getElement($propertyKey);
+    $elements = $webform->getElementsDecodedAndFlattened();
+    $elementKeys = array_keys($elements);
+
+    $pages = $webform->getPages('edit');
+
+    $pageId = $webformMainElement['#webform_parents'][0];
+    $pageKeys = array_keys($pages);
+    $pageLabel = $pages[$pageId]['#title'];
+    $pageNumber = array_search($pageId, $pageKeys) + 1;
+
+    $sectionId = $webformMainElement['#webform_parents'][1];
+    $sectionLabel = $elements[$sectionId]['#title'];
+    $sectionWeight = array_search($sectionId, $elementKeys);
+
+    $page = [
+      'id' => $pageId,
+      'label' => $pageLabel,
+      'number' => $pageNumber,
+    ];
+
+    $section = [
+      'id' => $sectionId,
+      'label' => $sectionLabel,
+      'weight' => $sectionWeight,
+    ];
+
+    foreach ($values as &$value) {
+
+      $fieldId = $value['ID'];
+
+      $webformLabelElement = $webformMainElement['#webform_composite_elements'][$fieldId] ?? $webformMainElement['#webform_key'];
+      $label = $webformLabelElement['#title'] ?? $webformMainElement['#title'];
+
+      $element = [
+        'label' => $label,
+      ];
+
+      $value['meta'] = json_encode(AtvSchema::getMetaData($page, $section, $element));
+
+    }
+
+    return $values;
 
   }
 

@@ -2,8 +2,10 @@
 
 namespace Drupal\grants_handler\Plugin\Block;
 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\helfi_helsinki_profiili\HelsinkiProfiiliUserData;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -62,28 +64,19 @@ class ServicePageAnonBlock extends BlockBase implements ContainerFactoryPluginIn
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
-    return [
-      'foo' => $this->t('Hello world!'),
-    ];
+    return [];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function blockForm($form, FormStateInterface $form_state) {
-    $form['foo'] = [
-      '#type' => 'textarea',
-      '#title' => $this->t('Foo'),
-      '#default_value' => $this->configuration['foo'],
-    ];
-    return $form;
-  }
+  protected function blockAccess(AccountInterface $account) {
 
-  /**
-   * {@inheritdoc}
-   */
-  public function blockSubmit($form, FormStateInterface $form_state) {
-    $this->configuration['foo'] = $form_state->getValue('foo');
+    $getApplicantType = $this->build();
+
+    $correctApplicantType = $getApplicantType['content']['#applicantType'];
+
+    return AccessResult::allowedIf(\Drupal::currentUser()->isAuthenticated() && !$correctApplicantType);
   }
 
   /**
@@ -91,8 +84,40 @@ class ServicePageAnonBlock extends BlockBase implements ContainerFactoryPluginIn
    */
   public function build() {
 
+    $node = \Drupal::routeMatch()->getParameter('node');
+
+    $webformId = $node->get('field_webform')->target_id;
+
+    $applicantTypes = $node->get('field_hakijatyyppi')->getValue();
+
+    $profileService = \Drupal::service('grants_profile.service');
+    $currentRole = $profileService->getSelectedRoleData();
+    $currentRoleType = NULL;
+    if ($currentRole) {
+      $currentRoleType = $currentRole['type'];
+    }
+
+    $isCorrectApplicantType = FALSE;
+
+    foreach ($applicantTypes as $applicantType) {
+      if (in_array($currentRoleType, $applicantType)) {
+        $isCorrectApplicantType = TRUE;
+      }
+    }
+
+    $link = Link::createFromRoute($this->t('Change your role'), 'grants_mandate.mandateform',
+    [],
+    [
+      'attributes' => [
+        'class' => ['hds-button', 'hds-button--primary'],
+      ],
+    ]);
+
+    $markup = '<p>' . $this->t('You do not have the necessary authorizations to make an application.') . '</p>' . $link->toString();
+
     $build['content'] = [
-      '#markup' => 'Here we can show thingsfor non authenticated users.',
+      '#markup' => $markup,
+      '#applicantType' => $isCorrectApplicantType,
     ];
 
     return $build;

@@ -101,8 +101,8 @@ msgid "Donations (€)"
 msgstr "Lahjoitukset (€)"
 
 msgctxt "grants_budget_components"
-msgid "Cost explanation (€)"
-msgstr "Kuvaus menosta (€)"
+msgid "Cost explanation"
+msgstr "Kuvaus menosta"
 
 msgctxt "grants_budget_components"
 msgid "Amount (€)"

@@ -62,10 +62,6 @@ elements: |-
     contact_person_email_section:
       '#type': webform_section
       '#title': Sähköposti
-      '#states':
-        visible:
-          ':input[name="applicant_type"]':
-            '!value': private_person
       contact_markup:
         '#type': webform_markup
         '#markup': 'Ilmoita tässä sellainen yhteisön sähköpostiosoite, jota luetaan aktiivisesti. Sähköpostiin lähetetään avustushakemukseen liittyviä yhteydenottoja esim. lisäselvitys- ja täydennyspyyntöjä.'
@@ -75,44 +71,37 @@ elements: |-
         '#help': 'Ilmoita s&auml;hk&ouml;postiosoite, johon t&auml;h&auml;n hakemukseen liittyvät viestit sek&auml; her&auml;tteet osoitetaan ja jota luetaan aktiivisesti'
         '#size': 63
         '#autocomplete': 'off'
-        '#states':
-          required:
-            ':input[name="applicant_type"]':
-              '!value': private_person
+        '#attributes':
+          class:
+            - webform--large
     contact_person_section:
       '#type': webform_section
       '#title': 'Hakemuksen yhteyshenkilö'
-      '#states':
-        visible:
-          ':input[name="applicant_type"]':
-            value: registered_community
       contact_person:
         '#type': textfield
         '#title': Yhteyshenkilö
         '#autocomplete': 'off'
+        '#attributes':
+          class:
+            - webform--large
         '#required': true
         '#size': 63
       contact_person_phone_number:
         '#type': textfield
         '#title': Puhelinnumero
         '#required': true
+        '#attributes':
+          class:
+            - webform--medium
         '#autocomplete': 'off'
         '#size': 32
     osoite:
       '#type': webform_section
       '#title': Osoite
       '#required': true
-      '#states':
-        visible:
-          ':input[name="applicant_type"]':
-            '!value': private_person
       community_address:
         '#type': community_address_composite
         '#title': 'Yhteisön osoite'
-        '#states':
-          required:
-            ':input[name="applicant_type"]':
-              '!value': private_person
         '#attributes':
           class:
             - webform--large
@@ -129,13 +118,6 @@ elements: |-
     toiminnasta_vastaavat_henkilot:
       '#type': webform_section
       '#title': 'Toiminnasta vastaavat henkilöt'
-      '#states':
-        visible:
-          - ':input[name="applicant_type"]':
-              value: registered_community
-          - or
-          - ':input[name="applicant_type"]':
-              value: unregistered_community
       community_officials:
         '#type': community_officials_composite
         '#title': 'Yhteisön vastaavat henkilöt'
@@ -206,19 +188,10 @@ elements: |-
       vuodet_joille_monivuotista_avustusta_on_haettu_tai_myonetty:
         '#type': textarea
         '#title': 'Tulevat vuodet joiden ajalle monivuotista avustusta on haettu tai myönnetty'
-        '#help': |-
-          <div ccp_infra_copy_id="ee8e0393-3d2f-4de2-9750-968501edec3a" ccp_infra_timestamp="1683185538973" ccp_infra_user_hash="1155518190" ccp_infra_version="3" data-ccp-timestamp="1683185538973">&nbsp;</div>
-
-          <table style="border-collapse:collapse; width:228px" width="228">
-          	<colgroup>
-          		<col style="width:171pt" width="228" />
-          	</colgroup>
-          	<tbody>
-          		<tr>
-          			<td class="xl42" style="border-bottom:none; border-left:none; border-right:none; border-top:none; height:120px; padding-left:1px; padding-right:1px; padding-top:1px; text-align:left; vertical-align:top; white-space:normal; width:228px"><span style="font-size:16px"><span style="font-family:Arial,sans-serif"><span style="color:black"><span style="font-weight:400"><span style="font-style:normal"><span style="text-decoration:none">T&auml;yt&auml; vuodet vain t&auml;st&auml; eteenp&auml;in haettavan avustuskauden osalta. &Auml;l&auml; kirjaa saman tai aikaisemman avustuskauden aikaisempia vuosia.</span></span></span></span></span></span></td>
-          		</tr>
-          	</tbody>
-          </table>
+        '#attributes':
+          class:
+            - webform--large
+        '#help': Täytä vuodet vain tästä eteenpäin haettavan avustuskauden osalta. Älä kirjaa saman tai aikaisemman avustuskauden aikaisempia vuosia.'
         '#states':
           visible:
             ':input[name="kyseessa_on_monivuotinen_avustus"]':
@@ -226,45 +199,17 @@ elements: |-
       erittely_kullekin_vuodelle_haettavasta_avustussummasta:
         '#type': textarea
         '#title': 'Erittely kullekin vuodelle haettavasta avustussummasta'
-        '#help': |-
-          <div ccp_infra_copy_id="b53c4ce0-0500-4352-8a34-ae8337164f71" ccp_infra_timestamp="1683185616580" ccp_infra_user_hash="1155518190" ccp_infra_version="3" data-ccp-timestamp="1683185616580">&nbsp;</div>
-
-          <table style="border-collapse:collapse; width:228px" width="228">
-          	<colgroup>
-          		<col style="width:171pt" width="228" />
-          	</colgroup>
-          	<tbody>
-          		<tr>
-          			<td class="xl42" style="border-bottom:none; border-left:none; border-right:none; border-top:none; height:60px; padding-left:1px; padding-right:1px; padding-top:1px; text-align:left; vertical-align:top; white-space:normal; width:228px"><span style="font-size:16px"><span style="font-family:Arial,sans-serif"><span style="color:black"><span style="font-weight:400"><span style="font-style:normal"><span style="text-decoration:none">Kirjoita vuosikohtaisesti muotoon: vuosi: avustussumma.</span></span></span></span></span></span></td>
-          		</tr>
-          	</tbody>
-          </table>
-        '#states':
-          visible:
-            ':input[name="kyseessa_on_monivuotinen_avustus"]':
-              value: '1'
-    hankkeen_tiedot:
-      '#type': webform_section
-      '#title': 'Hankkeen tiedot'
-      hankkeen_nimi:
-        '#type': textarea
-        '#title': 'Hankkeen nimi'
-        '#help': |-
-          <div ccp_infra_copy_id="d22334d5-fbb1-4013-9135-2ef4e0a4563d" ccp_infra_timestamp="1683191478520" ccp_infra_user_hash="1155518190" ccp_infra_version="3" data-ccp-timestamp="1683191478520">&nbsp;</div>
-
-          <table style="border-collapse:collapse; width:228px" width="228">
-          	<colgroup>
-          		<col style="width:171pt" width="228" />
-          	</colgroup>
-          	<tbody>
-          		<tr>
-          			<td class="xl42" style="border-bottom:none; border-left:none; border-right:none; border-top:none; height:60px; padding-left:1px; padding-right:1px; padding-top:1px; text-align:left; vertical-align:top; white-space:normal; width:228px"><span style="font-size:16px"><span style="font-family:Arial,sans-serif"><span style="color:black"><span style="font-weight:400"><span style="font-style:normal"><span style="text-decoration:none">Valitse hankkeelle nimi, joka voidaan julkaista p&auml;&auml;t&ouml;ksen yhteydess&auml;.</span></span></span></span></span></span></td>
-          		</tr>
-          	</tbody>
-          </table>
+        '#attributes':
+          class:
+            - webform--large
+        '#help': 'Kirjoita vuosikohtaisesti muotoon: vuosi: avustussumma.'
       ensisijainen_taiteen_ala:
         '#type': select
         '#title': 'Ensisijainen taiteen ala '
+        '#help': 'Valitse pudotusvalikosta toimintaa parhaiten kuvaava vaihtoehto.'
+        '#wrapper_attributes':
+          class:
+            - webform-element-help--wrapper-short
         '#options':
           'Design ja käsityö': 'Design ja käsityö'
           'Elokuva, valokuva ja media': 'Elokuva, valokuva ja media'
@@ -278,6 +223,24 @@ elements: |-
           Sirkus: Sirkus
           Tanssi: Tanssi
           Teatteri: Teatteri
+        '#states':
+          visible:
+            ':input[name="kyseessa_on_monivuotinen_avustus"]':
+              value: '1'
+    hankkeen_tiedot:
+      '#type': webform_section
+      '#title': 'Hankkeen tiedot'
+      hankkeen_nimi:
+        '#type': textarea
+        '#title': 'Hankkeen nimi'
+        '#help': 'Valitse hankkeelle nimi, joka voidaan julkaista päätöksen yhteydessä.'
+        '#maxlength': 100
+        '#counter_type': character
+        '#counter_maximum': 100
+        '#counter_maximum_message': '%d/100 merkkiä jäljellä'
+        '#attributes':
+          class:
+            - webform--large
       info_festivaali:
         '#type': processed_text
         '#text': |-
@@ -290,19 +253,10 @@ elements: |-
       kyseessa_on_festivaali_tai_tapahtuma:
         '#type': radios
         '#title': 'Kyseessä on festivaali tai tapahtuma'
-        '#help': |-
-          <div ccp_infra_copy_id="94474e20-3797-4548-9258-f4a941d94046" ccp_infra_timestamp="1683191513952" ccp_infra_user_hash="1155518190" ccp_infra_version="3" data-ccp-timestamp="1683191513952">&nbsp;</div>
-
-          <table style="border-collapse:collapse; width:228px" width="228">
-          	<colgroup>
-          		<col style="width:171pt" width="228" />
-          	</colgroup>
-          	<tbody>
-          		<tr>
-          			<td class="xl42" style="border-bottom:none; border-left:none; border-right:none; border-top:none; height:300px; padding-left:1px; padding-right:1px; padding-top:1px; text-align:left; vertical-align:top; white-space:normal; width:228px"><span style="font-size:16px"><span style="font-family:Arial,sans-serif"><span style="color:black"><span style="font-weight:400"><span style="font-style:normal"><span style="text-decoration:none">T&auml;ss&auml; tarkoitetaan festivaalia tai tapahtumaa, joka tapahtuu tiiviin ajanjakson sis&auml;ll&auml; ja on ohjelmaltaan ja kestoltaan laajempi kuin yksitt&auml;inen konsertti, esitys tms.&nbsp; Festivaali tai tapahtuma sis&auml;lt&auml;&auml; useampia eri ohjelmasis&auml;lt&ouml;j&auml;, esim. esityksi&auml;, joiden v&auml;liss&auml; yleis&ouml; voi my&ouml;s vaihtua. Esimerkiksi kaupunginosatapahtumat. Ei esimerkiksi esityssarjat. Festivaali tai tapahtuma voi olla toistuva tai kertaluonteinen.</span></span></span></span></span></span></td>
-          		</tr>
-          	</tbody>
-          </table>
+        '#wrapper_attributes':
+          class:
+            - webform-element-help--wrapper-short
+        '#help': 'Tässä tarkoitetaan festivaalia tai tapahtumaa, joka tapahtuu tiiviin ajanjakson sisällä ja on ohjelmaltaan ja kestoltaan laajempi kuin yksittäinen konsertti, esitys tms.  Festivaali tai tapahtuma sisältää useampia eri ohjelmasisältöjä, esim. esityksiä, joiden välissä yleisö voi myös vaihtua. Esimerkiksi kaupunginosatapahtumat. Ei esimerkiksi esityssarjat. Festivaali tai tapahtuma voi olla toistuva tai kertaluonteinen.'
         '#options':
           1: Kyllä
           0: Ei
@@ -310,7 +264,13 @@ elements: |-
         '#type': textarea
         '#title': 'Hankkeen tai toiminnan lyhyt esittelyteksti'
         '#description': 'Teksti voidaan julkaista tai sit&auml; voidaan k&auml;ytt&auml;&auml; esittelytekstin&auml; p&auml;&auml;t&ouml;ksen yhteydess&auml; sellaisenaan tai muokattuna. Max 700 merkki&auml;.'
-        '#maxlength': 699
+        '#maxlength': 700
+        '#counter_type': character
+        '#counter_maximum': 700
+        '#counter_maximum_message': '%d/700 merkkiä jäljellä'
+        '#attributes':
+          class:
+            - webform--large
         '#states':
           visible:
             ':input[name="kyseessa_on_festivaali_tai_tapahtuma"]':
@@ -318,11 +278,6 @@ elements: |-
     muut_samaan_tarkoitukseen_myonnetyt_avustukset:
       '#type': webform_section
       '#title': 'Muut samaan tarkoitukseen myönnetyt avustukset'
-      '#states':
-        visible:
-          ':input[name="avustukset_summa"]':
-            value:
-              greater_equal: '5000'
       info_muut_samaan_tarkoitukseen_myonnetty:
         '#type': processed_text
         '#text': |
@@ -378,22 +333,34 @@ elements: |-
             '#type': textfield
             '#required': true
             '#title': 'Myöntäjän nimi'
+            '#attributes':
+              class:
+                - webform--large
             '#help': 'Mikä taho avustusta on myöntänyt (esim. ministeriön nimi)'
           year:
             '#type': textfield
             '#required': true
             '#title': Vuosi
+            '#attributes':
+              class:
+                - webform--small
             '#maxlength': 4
             '#pattern': '^[0-9]*$'
             '#pattern_error': 'Vain numeroita'
           amount:
             '#type': textfield
+            '#attributes':
+              class:
+                - webform--small
             '#required': true
             '#title': 'Myönnetyn avustuksen summa'
             '#input_mask': '''alias'': ''currency'', ''prefix'': '''', ''suffix'': ''€'',''groupSeparator'': '' '',''radixPoint'':'','''
           purpose:
             '#type': textarea
             '#title': 'Kuvaus käyttötarkoituksesta'
+            '#attributes':
+              class:
+                - webform--large
             '#help': 'Anna lyhyt kuvaus, mihin tarkoitukseen avustus on myönnetty?'
             '#maxlength': 1000
             '#counter_type': character
@@ -410,10 +377,11 @@ elements: |-
       jasenmaara_fieldset:
         '#type': fieldset
         '#title': Jäsenmäärä
-        '#help': 'Jos yhteis&ouml;ll&auml; on j&auml;seni&auml;, merkitse ne t&auml;h&auml;n.'
+        '#help': 'Jos yhteisöllä on jäseniä, merkitse ne tähän.'
         '#attributes':
           class:
             - grants-fieldset
+            - grants-fieldset-short
         members_applicant_person_global:
           '#type': number
           '#title': 'Henkilöjäseniä yhteensä'
@@ -422,6 +390,9 @@ elements: |-
           '#pattern': '^[0-9]*$'
           '#pattern_error': 'Vain numeroita'
           '#size': 16
+          '#attributes':
+            class:
+              - webform--small
         members_applicant_person_local:
           '#type': number
           '#title': 'Helsinkiläisiä henkilöjäseniä yhteensä'
@@ -430,11 +401,9 @@ elements: |-
           '#pattern': '^[0-9]*$'
           '#pattern_error': 'Vain numeroita'
           '#size': 16
-        break_markup_0:
-          '#type': webform_markup
-          '#wrapper_attributes':
+          '#attributes':
             class:
-              - fieldset-break
+              - webform--small
         members_applicant_community_global:
           '#type': number
           '#title': Yhteisöjäseniä
@@ -443,6 +412,9 @@ elements: |-
           '#pattern': '^[0-9]*$'
           '#pattern_error': 'Vain numeroita'
           '#size': 16
+          '#attributes':
+            class:
+              - webform--small
         members_applicant_community_local:
           '#type': number
           '#title': 'Helsinkiläisiä yhteisöjäseniä yhteensä'
@@ -451,41 +423,50 @@ elements: |-
           '#pattern': '^[0-9]*$'
           '#pattern_error': 'Vain numeroita'
           '#size': 16
+          '#attributes':
+            class:
+              - webform--small
     henkilosto_hankkeessa_jolle_avustusta_haetaan:
       '#type': webform_section
       '#title': 'Henkilöstö hankkeessa, jolle avustusta haetaan'
       henkilosto_hankkeessa:
         '#type': fieldset
         '#title': 'Henkilöstö hankkeessa'
-        '#help': 'Henkil&ouml;st&ouml;&ouml;n voi sis&auml;llytt&auml;&auml; muitakin kuin palkattuja ty&ouml;ntekij&ouml;it&auml;, mm. palkkioilla tai muilla korvauksilla ty&ouml;skentelevi&auml; tai ostopalveluna ostettavaa ty&ouml;t&auml;. Kokoaikaiset ty&ouml;ntekij&auml;t voivat sis&auml;lt&auml;&auml; my&ouml;s m&auml;&auml;r&auml;aikaisia ty&ouml;ntekij&ouml;it&auml;, jos n&auml;m&auml; ty&ouml;skentelev&auml;t t&auml;ysp&auml;iv&auml;isesti. Henkil&ouml;ty&ouml;vuosi kuvaa kokoaikaiseksi muutetun henkil&ouml;n ty&ouml;panosta. Esimerkiksi 6kk kokop&auml;iv&auml;isesti ty&ouml;skentelev&auml;st&auml; henkil&ouml;st&auml; voi laskea muodostuvan 0,5 henkil&ouml;ty&ouml;vuotta. Vastaavasti koko vuoden osa-aikaisesti 30% ty&ouml;m&auml;&auml;r&auml;&auml; tekev&auml;st&auml; henkil&ouml;st&auml; voi laskea muodostuvan 0,3 henkil&ouml;ty&ouml;vuotta. Kyseess&auml; on arvio, joka kuvaa suuntaa-antavasti projektiin osallistuvan henkil&ouml;st&ouml;n ty&ouml;panosta.'
+        '#help': 'Henkilöstöön voi sisällyttää muitakin kuin palkattuja työntekijöitä, mm. palkkioilla tai muilla korvauksilla työskenteleviä tai ostopalveluna ostettavaa työtä. Kokoaikaiset työntekijät voivat sisältää myös määräaikaisia työntekijöitä, jos nämä työskentelevät täyspäiväisesti. Henkilötyövuosi kuvaa kokoaikaiseksi muutetun henkilön työpanosta. Esimerkiksi 6kk kokopäiväisesti työskentelevästä henkilöstä voi laskea muodostuvan 0,5 henkilötyövuotta. Vastaavasti koko vuoden osa-aikaisesti 30% työmäärää tekevästä henkilöstä voi laskea muodostuvan 0,3 henkilötyövuotta. Jos toimitatte tietoja henkilötyövuosistanne valtiolle tai muun tahon tilastointiin, niin käyttäkää tässä samaa laskentatapaa jos mahdollista.'
         '#attributes':
           class:
             - grants-fieldset
+            - grants-fieldset-short
         kokoaikainen_henkilosto:
           '#type': number
           '#title': 'Kokoaikaisia: Henkilöstö'
+          '#attributes':
+            class:
+              - webform--small
         kokoaikainen_henkilotyovuosia:
           '#type': number
           '#title': 'Kokoaikaisia: Henkilötyövuosia'
-        break_markup_1:
-          '#type': webform_markup
-          '#wrapper_attributes':
+          '#attributes':
             class:
-              - fieldset-break
+              - webform--small
         osa_aikainen_henkilosto:
           '#type': number
           '#title': 'Osa-aikaisia: Henkilöstö'
+          '#attributes':
+            class:
+              - webform--small
         osa_aikainen_henkilotyovuosia:
           '#type': number
           '#title': 'Osa-aikaisia: Henkilötyövuosia'
-        break_markup_2:
-          '#type': webform_markup
-          '#wrapper_attributes':
+          '#attributes':
             class:
-              - fieldset-break
+              - webform--small
         vapaaehtoinen_henkilosto:
           '#type': number
           '#title': 'Vapaaehtoinen henkilöstö'
+          '#attributes':
+            class:
+              - webform--small
   4_suunniteltu_toiminta:
     '#type': webform_wizard_page
     '#title': '4. Suunniteltu toiminta'
@@ -521,6 +502,12 @@ elements: |-
     aikataulu:
       '#type': webform_section
       '#title': Aikataulu
+      festivaalin_tai_tapahtuman_kohdalla_tapahtuman_paivamaarat:
+        '#type': textfield
+        '#title': 'Festivaalin tai tapahtuman kohdalla tapahtuman päivämäärät'
+        '#attributes':
+          class:
+            - webform--large
       hanke_alkaa:
         '#type': datetime
         '#title': 'Hanke alkaa'
@@ -528,6 +515,9 @@ elements: |-
         '#date_date_format': d.m.Y
         '#date_year_range': '2023:2050'
         '#date_time_element': none
+        '#attributes':
+          class:
+            - webform--small
       hanke_loppuu:
         '#type': datetime
         '#title': 'Hanke loppuu'
@@ -535,15 +525,24 @@ elements: |-
         '#date_date_format': d.m.Y
         '#date_year_range': '2023:2050'
         '#date_time_element': none
+        '#attributes':
+          class:
+            - webform--small
     hankekuvaus:
       '#type': webform_section
       '#title': Hankekuvaus
       laajempi_hankekuvaus:
         '#type': textarea
         '#title': 'Laajempi hankekuvaus'
+        '#attributes':
+          class:
+            - webform--large
         '#description': 'Kerro hankkeesta tiiviisti. Esim. miksi, mit&auml;, kenelle, miten ja mitk&auml; ovat tavoitteet.'
       festivaalin_tai_tapahtuman_paivamaarat:
         '#type': textarea
+        '#attributes':
+          class:
+            - webform--large
         '#title': 'Festivaalin tai tapahtuman päivämäärät'
   5_toiminnan_lahtokohdat:
     '#type': webform_wizard_page
@@ -558,6 +557,10 @@ elements: |-
         '#title': 'Kuvaa toiminnan taiteellisia lähtökohtia ja tavoitteita, taiteellista ammattimaisuutta sekä asemaa taiteen kentällä.'
         '#maxlength': 1000
         '#counter_type': character
+        '#help': 'Voit nostaa myös esiin esimerkisksi keskeisiä palkintoja tai muita noteerauksia.'
+        '#attributes':
+          class:
+            - webform--large
         '#counter_maximum': 1000
         '#counter_maximum_message': '%d/1000 merkkiä jäljellä'
       toiminta_tasa_arvo:
@@ -565,6 +568,9 @@ elements: |-
         '#title': 'Miten monimuotoisuus ja tasa-arvo toteutuu ja näkyy toiminnan järjestäjissä ja organisaatioissa sekä toiminnan sisällöissä? Minkälaisia toimenpiteitä, resursseja ja osaamista on asian edistämiseksi?'
         '#maxlength': 1000
         '#counter_type': character
+        '#attributes':
+          class:
+            - webform--large
         '#counter_maximum': 1000
         '#counter_maximum_message': '%d/1000 merkkiä jäljellä'
     toiminnan_tavoittavuus:
@@ -576,11 +582,17 @@ elements: |-
         '#maxlength': 1000
         '#counter_type': character
         '#counter_maximum': 1000
+        '#attributes':
+          class:
+            - webform--large
         '#counter_maximum_message': '%d/1000 merkkiä jäljellä'
       toiminta_yhteisollisyys:
         '#type': textarea
         '#title': 'Miten toiminta vahvistaa yhteisöllisyyttä, verkostomaista yhteistyöskentelyä ja miten kaupunkilaisten on mahdollista osallistua toiminnan eri vaiheisiin? Minkälaisia toimenpiteitä, resursseja ja osaamista on asian edistämiseksi?'
         '#maxlength': 1000
+        '#attributes':
+          class:
+            - webform--large
         '#counter_type': character
         '#counter_maximum': 1000
         '#counter_maximum_message': '%d/1000 merkkiä jäljellä'
@@ -588,6 +600,9 @@ elements: |-
         '#type': textarea
         '#title': 'Keitä toiminnalla tavoitellaan? Miten kyseiset kohderyhmät aiotaan tavoittaa ja mitä osaamista näiden kanssa työskentelyyn on?'
         '#maxlength': 1000
+        '#attributes':
+          class:
+            - webform--large
         '#counter_type': character
         '#counter_maximum': 1000
         '#counter_maximum_message': '%d/1000 merkkiä jäljellä'
@@ -598,6 +613,9 @@ elements: |-
         '#type': textarea
         '#title': 'Kuvaa toiminnan järjestämisen ammattimaisuutta ja organisoimista'
         '#maxlength': 1000
+        '#attributes':
+          class:
+            - webform--large
         '#counter_type': character
         '#counter_maximum': 1000
         '#counter_maximum_message': '%d/1000 merkkiä jäljellä'
@@ -606,6 +624,9 @@ elements: |-
         '#title': 'Miten ekologisuus huomioidaan toiminnan järjestämisessä? Minkälaisia toimenpiteitä, resursseja ja osaamista on asian edistämiseksi?'
         '#maxlength': 1000
         '#counter_type': character
+        '#attributes':
+          class:
+            - webform--large
         '#counter_maximum': 1000
         '#counter_maximum_message': '%d/1000 merkkiä jäljellä'
       toiminta_yhteistyokumppanit:
@@ -613,6 +634,9 @@ elements: |-
         '#title': 'Nimeä keskeisimmät yhteistyökumppanit ja kuvaa yhteistyön muotoja ja ehtoja.'
         '#help': 'Nime&auml; maksimissaan noin viisi yhteisty&ouml;kumppania.'
         '#maxlength': 1000
+        '#attributes':
+          class:
+            - webform--large
         '#counter_type': character
         '#counter_maximum': 1000
         '#counter_maximum_message': '%d/1000 merkkiä jäljellä'
@@ -676,6 +700,9 @@ elements: |-
       '#title': 'Muu huomioitava panostus'
       sisaltyyko_toiminnan_toteuttamiseen_jotain_muuta_rahanarvoista_p:
         '#type': textarea
+        '#attributes':
+          class:
+            - webform--large
         '#title': 'Sisältyykö toiminnan toteuttamiseen jotain muuta rahanarvoista panosta tai vaihtokauppaa, joka ei käy ilmi budjetista?'
   lisatiedot_ja_liitteet:
     '#type': webform_wizard_page
@@ -689,6 +716,9 @@ elements: |-
         '#help': 'T&auml;h&auml;n voit tarvittaessa kirjoittaa lis&auml;tietoja tai muita perusteluja hakemukseen liittyen tai ilmoittaa perustietoihin tulleista muutoksista&nbsp;'
         '#counter_type': character
         '#maxlength': 5000
+        '#attributes':
+          class:
+            - webform--large
         '#counter_maximum': 5000
         '#counter_maximum_message': '%d/5000 merkkiä jäljellä'
         '#cols': 63
@@ -740,6 +770,9 @@ elements: |-
       extra_info:
         '#type': textarea
         '#title': 'Lisäselvitys liitteistä'
+        '#attributes':
+          class:
+            - webform--large
         '#counter_type': character
         '#maxlength': 5000
         '#counter_maximum': 5000

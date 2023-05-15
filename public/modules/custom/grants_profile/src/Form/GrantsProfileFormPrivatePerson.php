@@ -242,35 +242,22 @@ class GrantsProfileFormPrivatePerson extends FormBase {
 
     $fieldValue = $formState->getValue($fieldName);
 
-    if ($fieldName == 'bankAccountWrapper') {
+    if ($fieldName == 'bankAccountWrapper' && $fieldValue[$deltaToRemove]['bank']['confirmationFileName']) {
       $attachmentDeleteResults = self::deleteAttachmentFile($fieldValue[$deltaToRemove]['bank'], $formState);
 
       if ($attachmentDeleteResults) {
         \Drupal::messenger()
           ->addStatus('Bank account & verification attachment deleted.');
-
-        // Remove item from items.
-        unset($fieldValue[$deltaToRemove]);
-        $formState->setValue($fieldName, $fieldValue);
-        $formState->setRebuild();
       }
       else {
         \Drupal::messenger()
           ->addError('Attachment deletion failed, error has been logged. Please contact customer support');
-
-        // Remove item from items.
-        unset($fieldValue[$deltaToRemove]);
-        $formState->setValue($fieldName, $fieldValue);
-        $formState->setRebuild();
-
       }
     }
-    else {
-      // Remove item from items.
-      unset($fieldValue[$deltaToRemove]);
-      $formState->setValue($fieldName, $fieldValue);
-      $formState->setRebuild();
-    }
+    // Remove item from items.
+    unset($fieldValue[$deltaToRemove]);
+    $formState->setValue($fieldName, $fieldValue);
+    $formState->setRebuild();
 
   }
 
@@ -401,6 +388,7 @@ class GrantsProfileFormPrivatePerson extends FormBase {
     }
 
     if (array_key_exists('bankAccountWrapper', $input)) {
+      $bankAccountArrayKeys = array_keys($input["bankAccountWrapper"]);
       $values["bankAccountWrapper"] = $input["bankAccountWrapper"];
     }
 
@@ -461,7 +449,7 @@ class GrantsProfileFormPrivatePerson extends FormBase {
             $errorMesg = 'You must add one bank account';
           }
           else {
-            $propertyPath = 'bankAccountWrapper][' . $propertyPathArray[1] . '][bank][' . $propertyPathArray[2];
+            $propertyPath = 'bankAccountWrapper][' . $bankAccountArrayKeys[$propertyPathArray[1]] . '][bank][' . $propertyPathArray[2];
           }
 
         }

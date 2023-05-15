@@ -9,7 +9,9 @@ fieldset.grants-fieldset {
     max-width: var(--webform-element-width--input-large);
   }
 }
-table[data-drupal-selector="edit-tila-items"] td > .fieldgroup {
+table[data-drupal-selector="edit-tila-items"] td > .fieldgroup,
+table[data-drupal-selector="edit-budget-other-cost-items"] td > .fieldgroup,
+table[data-drupal-selector="edit-budget-other-income-items"] td > .fieldgroup {
   border-width: 2px;
   padding: var(--spacing-s);
   margin-top: var(--spacing-layout-2-xs);
@@ -25,3 +27,4 @@ table[data-drupal-selector="edit-tila-items"] td > .fieldgroup {
     padding-right: var(--spacing-layout-2-xs);
   }
 }
+

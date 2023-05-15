@@ -509,7 +509,7 @@ elements: |-
       '#type': webform_section
       '#title': 'Toiminnan kuvaus'
       business_purpose:
-        '#type': textfield
+        '#type': textarea
         '#title': 'Toiminnan kuvaus'
         '#help': 'Tieto haetaan omat tiedot -osiosta'
       community_practices_business:
@@ -520,7 +520,7 @@ elements: |-
           0: Ei
         '#options_display': side_by_side
         '#options_description_display': help
-        '#required': true
+        '#required': false
     ensimmainen_otsikko:
       '#type': webform_section
       '#title': Jäsenmaksut

@@ -13,7 +13,7 @@
 #}
 {% apply spaceless %}
   <div class="hds-text-input__input-wrapper">
-    <input {{ attributes.setAttribute('type', 'text').setAttribute('title', 'This value should be a number'|t).setAttribute('pattern', '[0-9]*').setAttribute('inputmode', 'numeric').addClass('hds-text-input__input') }} />
+    <input {{ attributes.setAttribute('type', 'text').setAttribute('title', 'This value should be a number'|t).setAttribute('pattern', '[0-9]*').setAttribute('inputmode', 'numeric').addClass('hds-text-input__input', 'webform--small') }} />
   </div>
   {{ children }}
 {% endapply %}

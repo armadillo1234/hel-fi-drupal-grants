@@ -31,7 +31,7 @@ statusStrings:
     DRAFT: Draft
     SENT: Sent
     SUBMITTED: Submitted
-    RECEIVED: Received
+    RECEIVED: Mottagits
     PENDING: Pending
     PROCESSING: Processing
     READY: Ready

@@ -57,3 +57,10 @@ msgstr "Tilan nimi"
 msgid "Total Rent"
 msgstr "Kokonaisvuokra"
 
+msgctxt "grants_premises"
+msgid "Yes"
+msgstr "Kyllä"
+
+msgctxt "grants_premises"
+msgid "No"
+msgstr "Ei"

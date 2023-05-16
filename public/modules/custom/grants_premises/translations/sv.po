@@ -57,5 +57,10 @@ msgstr "Tilan nimi"
 msgid "Total Rent"
 msgstr "Total Hyra"
 
+msgctxt "grants_premises"
+msgid "Yes"
+msgstr "Ja"
 
-
+msgctxt "grants_premises"
+msgid "No"
+msgstr "Nej"

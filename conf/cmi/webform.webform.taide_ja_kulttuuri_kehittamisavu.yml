@@ -477,13 +477,14 @@ elements: |-
       '#title': 'Yleisölle avoin toiminta Helsingissä toteutetaan'
       tila:
         '#type': premises_composite
-        '#title': Tila
+        '#title': 'Tilat'
         '#multiple': true
-        '#multiple__min_items': 1
+        '#title_display': before
+        '#multiple__min_items': 0
         '#multiple__empty_items': 0
         '#multiple__sorting': false
-        '#multiple__operations': false
-        '#multiple__add_more': false
+        '#multiple__add': false
+        '#multiple__add_more_input': false
         '#premiseAddress__access': false
         '#location__access': false
         '#streetAddress__access': false
@@ -502,12 +503,12 @@ elements: |-
     aikataulu:
       '#type': webform_section
       '#title': Aikataulu
-      festivaalin_tai_tapahtuman_kohdalla_tapahtuman_paivamaarat:
-        '#type': textfield
-        '#title': 'Festivaalin tai tapahtuman kohdalla tapahtuman päivämäärät'
+      festivaalin_tai_tapahtuman_paivamaarat:
+        '#type': textarea
         '#attributes':
           class:
             - webform--large
+        '#title': 'Festivaalin tai tapahtuman kohdalla tapahtuman päivämäärät'
       hanke_alkaa:
         '#type': datetime
         '#title': 'Hanke alkaa'
@@ -538,12 +539,6 @@ elements: |-
           class:
             - webform--large
         '#description': 'Kerro hankkeesta tiiviisti. Esim. miksi, mit&auml;, kenelle, miten ja mitk&auml; ovat tavoitteet.'
-      festivaalin_tai_tapahtuman_paivamaarat:
-        '#type': textarea
-        '#attributes':
-          class:
-            - webform--large
-        '#title': 'Festivaalin tai tapahtuman päivämäärät'
   5_toiminnan_lahtokohdat:
     '#type': webform_wizard_page
     '#title': '5. Toiminnan lähtökohdat'
@@ -648,9 +643,12 @@ elements: |-
     talousarvio:
       '#type': webform_section
       '#title': Talousarvio
-      organisaatio_kuuluu_valtionosuusjarjestelmaan:
-        '#type': checkbox
+      organisaatio_kuuluu_valtionosuusjarjestelmaan_vos_:
+        '#type': radios
         '#title': 'Organisaatio kuuluu valtionosuusjärjestelmään (VOS)'
+        '#options':
+          1: Kyllä
+          0: Ei
     tulot:
       '#type': webform_section
       '#title': 'Suunnitellut tulot'

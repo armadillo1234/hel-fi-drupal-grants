@@ -33,6 +33,7 @@ class PremisesComposite extends WebformCompositeBase {
    */
   public static function getCompositeElements(array $element): array {
     $elements = [];
+    $tOpts = ['context' => 'grants_premises'];
 
     $elements['premiseName'] = [
       '#type' => 'textfield',
@@ -119,16 +120,16 @@ class PremisesComposite extends WebformCompositeBase {
     $elements['isOwnedByApplicant'] = [
       '#type' => 'radios',
       '#options' => [
-        'true' => t('Yes'),
-        'false' => t('No'),
+        1 => t('Yes', [], $tOpts),
+        0 => t('No', [], $tOpts),
       ],
       '#title' => t('Applicant owns property'),
     ];
     $elements['isOwnedByCity'] = [
       '#type' => 'radios',
       '#options' => [
-        TRUE => t('Yes'),
-        FALSE => t('No'),
+        1 => t('Yes', [], $tOpts),
+        0 => t('No', [], $tOpts),
       ],
       '#title' => t('City owns the property'),
     ];

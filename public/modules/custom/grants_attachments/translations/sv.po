@@ -1,0 +1,19 @@
+# Swedish translation of City of Helsinki Grants Attachment Module
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2022-01-17 16:58+0300\n"
+"PO-Revision-Date: 2022-10-12 10:58+0300\n"
+"Last-Translator: Petri Leinonen <ext.petri.leinonen@hel.fi>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Attachment will be delivered at later time"
+msgstr "Bilagan skickas senare"
+
+msgid "Attachment already delivered"
+msgstr "Bilagan har lämnats in tidigare"

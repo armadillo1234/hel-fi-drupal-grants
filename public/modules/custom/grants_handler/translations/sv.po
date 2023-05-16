@@ -85,6 +85,47 @@ msgstr "Du måste ha ett bankkonto sparat i din profil."
 msgid "You must have grants profile created."
 msgstr "Du måste ha en applikationsprofil skapad."
 
+msgid "You can send a message to the handler of the application or provide a missing attachment"
+msgstr "Du kan skicka ett meddelande till hanteraren av applikationen eller lägg till bilaga"
+
+msgid "Sent messages"
+msgstr "Meddelanden"
+
+msgid "Add attachment to your message"
+msgstr "Lägg till bilaga till ditt meddelande"
+
+msgid "Add a file"
+msgstr "Lägg till bilaga"
+
+msgid "Attachment description"
+msgstr "Beskrivning av bilagan"
+
+msgid "Print application"
+msgstr "Visa ansökan"
+
+msgid "Copy application"
+msgstr "Använd som mall"
+
+msgid "Application number"
+msgstr "Ansökningsnummer"
+
+msgid "Application statuses"
+msgstr "Status"
+
+msgid "Application attachments"
+msgstr "Bilagor"
+
+msgid "Sent date"
+msgstr "Sänd"
+
+msgid "Handler information"
+msgstr "Händelser"
+
+msgid "Edit application"
+msgstr "Uppdatera"
+
+msgid "New application"
+msgstr "Ny ansökan"
 msgid "You do not have the necessary authorizations to make an application."
 msgstr "Du har inte de nödvändiga behörigheterna för att göra en ansökan."
 

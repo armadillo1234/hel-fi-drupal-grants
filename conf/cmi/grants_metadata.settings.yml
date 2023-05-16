@@ -61,6 +61,16 @@ third_party_options:
         fi: 'Taide ja kulttuuri: toiminta-avustus'
         en: 'EN Taide ja kulttuuri: toiminta-avustus'
         sv: 'SV Taide ja kulttuuri: toiminta-avustus'
+    56:
+      id: LIIKUNTAYLEIS
+      code: LIIKUNTAYLEIS
+      dataDefinition:
+        definitionClass: \Drupal\grants_metadata\TypedData\Definition\LiikuntaYleisDefinition
+        definitionId: grants_metadata_liikuntayleis
+      labels:
+        fi: 'Liikunta yleisavustus'
+        en: 'EN Liikunta yleisavustus'
+        sv: 'SV Liikunta yleisavustus'
   application_statuses:
     DRAFT: DRAFT
     SENT: SENT

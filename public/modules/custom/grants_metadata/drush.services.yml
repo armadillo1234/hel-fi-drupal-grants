@@ -1,0 +1,6 @@
+services:
+  grants_metadata.commands:
+    class: \Drupal\grants_metadata\Commands\GrantsMetadataCommands
+    tags:
+      - { name: drush.command }
+    arguments: ['@helfi_atv.atv_service']

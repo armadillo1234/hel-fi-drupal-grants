@@ -1,0 +1,11 @@
+{
+    "name": "helfi/grants_metadata",
+    "type": "drupal-drush",
+    "extra": {
+        "drush": {
+            "services": {
+                "drush.services.yml": "^10"
+            }
+        }
+    }
+}

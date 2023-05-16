@@ -61,6 +61,16 @@ third_party_options:
         fi: 'Taide ja kulttuuri: toiminta-avustus'
         en: 'EN Taide ja kulttuuri: toiminta-avustus'
         sv: 'SV Taide ja kulttuuri: toiminta-avustus'
+    65:
+      id: NUORLOMALEIR
+      code: NUORLOMALEIR
+      dataDefinition:
+        definitionClass: Drupal\grants_metadata\TypedData\Definition\KuvaToimintaDefinition
+        definitionId: grants_metadata_kuvatoiminta
+      labels:
+        fi: 'Muoriso loma / leiri'
+        en: 'EN Muoriso loma / leiri'
+        sv: 'SV Muoriso loma / leiri'
   application_statuses:
     DRAFT: DRAFT
     SENT: SENT

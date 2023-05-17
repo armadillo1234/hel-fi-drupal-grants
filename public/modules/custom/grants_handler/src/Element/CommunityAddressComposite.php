@@ -45,6 +45,10 @@ class CommunityAddressComposite extends WebformCompositeBase {
       ],
     ];
 
+    if (isset($element['#help'])) {
+      $elements['community_address_select']['#help'] = $element['#help'];
+    }
+
     $elements['community_street'] = [
       '#type' => 'hidden',
       '#title' => t('Street address'),

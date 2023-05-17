@@ -185,9 +185,6 @@ elements: |-
     osoite:
       '#type': webform_section
       '#title': Osoite
-      '#required': true
-      '#description': 'Valitse osoite, osoitteita ylläpidetään omissa tiedoissa.'
-      '#help': 'Jos haluat lisätä, poistaa tai muuttaa osoitetietoa tallenna hakemus luonnokseksi ja siirry ylläpitämään osoitetietoa omiin tietoihin.'
       '#states':
         visible:
           ':input[name="applicant_type"]':
@@ -195,6 +192,8 @@ elements: |-
       community_address:
         '#type': community_address_composite
         '#title': 'Yhteisön osoite'
+        '#description': 'Valitse osoite, osoitteita ylläpidetään omissa tiedoissa.'
+        '#help': 'Jos haluat lisätä, poistaa tai muuttaa osoitetietoa tallenna hakemus luonnokseksi ja siirry ylläpitämään osoitetietoa omiin tietoihin.'
         '#states':
           required:
             ':input[name="applicant_type"]':
@@ -205,20 +204,18 @@ elements: |-
     tilinumero:
       '#type': webform_section
       '#title': Tilinumero
-      '#description': 'Valitse tilinumero, tilinumeroita ylläpidetään omissa tiedoissa. '
-      '#help': 'Jos haluat lisätä, poistaa tai muuttaa tilinumerotietoa tallenna hakemus luonnokseksi ja siirry ylläpitämään tilinumerotietoa omiin tietoihin.'
       bank_account:
         '#type': bank_account_composite
         '#title': Tilinumero
         '#required': true
+        '#description': 'Valitse tilinumero, tilinumeroita ylläpidetään omissa tiedoissa. '
+        '#help': 'Jos haluat lisätä, poistaa tai muuttaa tilinumerotietoa tallenna hakemus luonnokseksi ja siirry ylläpitämään tilinumerotietoa omiin tietoihin.'
         '#attributes':
           class:
             - webform--medium
     toiminnasta_vastaavat_henkilot:
       '#type': webform_section
       '#title': 'Toiminnasta vastaavat henkilöt'
-      '#description': 'Valitse toiminnasta vastaavat henkilöt, henkiöitä ylläpidetään omissa tiedoissa.'
-      '#help': 'Jos haluat lisätä, poistaa tai muuttaa henkilöitä tallenna hakemus luonnokseksi ja siirry ylläpitämään henkilöiden tietoja omiin tietoihin.'
       '#states':
         visible:
           - ':input[name="applicant_type"]':
@@ -228,6 +225,8 @@ elements: |-
               value: unregistered_community
       community_officials:
         '#type': community_officials_composite
+        '#description': 'Valitse toiminnasta vastaavat henkilöt, henkiöitä ylläpidetään omissa tiedoissa.'
+        '#help': 'Jos haluat lisätä, poistaa tai muuttaa henkilöitä tallenna hakemus luonnokseksi ja siirry ylläpitämään henkilöiden tietoja omiin tietoihin.'
         '#title': 'Yhteisön vastaavat henkilöt'
         '#multiple': true
         '#multiple__item_label': henkilö

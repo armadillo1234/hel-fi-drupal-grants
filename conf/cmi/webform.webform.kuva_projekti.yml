@@ -228,6 +228,7 @@ elements: |-
         '#description': 'Valitse toiminnasta vastaavat henkilöt, henkiöitä ylläpidetään omissa tiedoissa.'
         '#help': 'Jos haluat lisätä, poistaa tai muuttaa henkilöitä tallenna hakemus luonnokseksi ja siirry ylläpitämään henkilöiden tietoja omiin tietoihin.'
         '#title': 'Valitse toiminnasta vastaavat henkilöt'
+        '#required': true
         '#multiple': true
         '#multiple__item_label': henkilö
         '#multiple__no_items_message': 'Ei toiminnasta vastaavia henkil&ouml;it&auml;. Lis&auml;&auml; uusi henkil&ouml; alta.'

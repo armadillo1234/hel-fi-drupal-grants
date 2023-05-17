@@ -12,48 +12,80 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+
+msgctxt "grants_premises"
 msgid "City owns the property"
-msgstr "Kaupunki omistaa tilan"
+msgstr "Staden äger fastigheten"
 
+msgctxt "grants_premises"
 msgid "Applicant owns property"
-msgstr "Hakija omistaa tilan"
+msgstr "Sökande äger fastighet"
 
+msgctxt "grants_premises"
 msgid "Is other use"
-msgstr "On muuta käyttöä"
+msgstr "Är annan användning"
 
+msgctxt "grants_premises"
+msgid "Post Code"
+msgstr "Postinumero"
+
+msgctxt "grants_premises"
 msgid "Is premise free"
-msgstr "Tila on vapaa"
+msgstr "Är premissfritt"
 
+msgctxt "grants_premises"
 msgid "Rent time end"
-msgstr "Vuokra-aika päättyy"
+msgstr "Hyrestiden slut"
 
+msgctxt "grants_premises"
 msgid "Rent time begin"
-msgstr "Vuokra-aika alkaa"
+msgstr "Hyrestiden börjar"
 
-msgid "Special Students"
-msgstr "Erityisopiskelijat"
-
+msgctxt "grants_premises"
 msgid "Personnel Count"
-msgstr "Henkilöstön määrä"
+msgstr "Antal personal"
 
+msgctxt "grants_premises"
 msgid "Special Groups"
-msgstr "Erityisryhmät"
+msgstr "Specialgrupper"
 
+msgctxt "grants_premises"
 msgid "Group Count"
-msgstr "Ryhmien määrä"
+msgstr "Gruppräkning"
 
+msgctxt "grants_premises"
 msgid "Special Students"
-msgstr "Erityisopiskelijat"
+msgstr "Specialstudenter"
 
+msgctxt "grants_premises"
 msgid "Student Count"
-msgstr "Opiskelijamäärä"
+msgstr "Studenträkning"
 
-msgid "Premise Address"
+msgctxt "grants_premises"
+msgid "Förutsättningsadress"
 msgstr "Tilan osoite"
 
-msgid "Premise name"
-msgstr "Tilan nimi"
+msgctxt "grants_premises"
+msgid "Premisstyp"
+msgstr "Tilan tyyppi"
 
+msgctxt "grants_premises"
+msgid "Premise name"
+msgstr "Premissnamn"
+
+msgctxt "grants_premises"
+msgid "Exhibition space"
+msgstr "Utställningslokal"
+
+msgctxt "grants_premises"
+msgid "Performance space"
+msgstr "Prestandautrymme"
+
+msgctxt "grants_premises"
+msgid "A separate practice space or other space for artistic work"
+msgstr "Ett separat övningsutrymme eller annat utrymme för konstnärligt arbete"
+
+msgctxt "grants_premises"
 msgid "Total Rent"
 msgstr "Total Hyra"
 

@@ -12,48 +12,71 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgctxt "grants_premises"
 msgid "City owns the property"
 msgstr "Kaupunki omistaa tilan"
 
+msgctxt "grants_premises"
+msgid "Post Code"
+msgstr "Postinumero"
+
+msgctxt "grants_premises"
 msgid "Applicant owns property"
 msgstr "Hakija omistaa tilan"
 
+msgctxt "grants_premises"
 msgid "Is other use"
 msgstr "On muuta käyttöä"
 
+msgctxt "grants_premises"
 msgid "Is premise free"
 msgstr "Tila on vapaa"
 
+msgctxt "grants_premises"
 msgid "Rent time end"
 msgstr "Vuokra-aika päättyy"
 
+msgctxt "grants_premises"
 msgid "Rent time begin"
 msgstr "Vuokra-aika alkaa"
 
+msgctxt "grants_premises"
 msgid "Special Students"
 msgstr "Erityisopiskelijat"
 
+msgctxt "grants_premises"
 msgid "Personnel Count"
 msgstr "Henkilöstön määrä"
 
+msgctxt "grants_premises"
 msgid "Special Groups"
 msgstr "Erityisryhmät"
 
+msgctxt "grants_premises"
 msgid "Group Count"
 msgstr "Ryhmien määrä"
 
+msgctxt "grants_premises"
 msgid "Special Students"
 msgstr "Erityisopiskelijat"
 
+msgctxt "grants_premises"
 msgid "Student Count"
 msgstr "Opiskelijamäärä"
 
+msgctxt "grants_premises"
 msgid "Premise Address"
 msgstr "Tilan osoite"
 
+msgctxt "grants_premises"
+msgid "Premise type"
+msgstr "Tilan tyyppi"
+
+msgctxt "grants_premises"
 msgid "Premise name"
 msgstr "Tilan nimi"
 
+msgctxt "grants_premises"
 msgid "Total Rent"
 msgstr "Kokonaisvuokra"
 
@@ -64,3 +87,15 @@ msgstr "Kyllä"
 msgctxt "grants_premises"
 msgid "No"
 msgstr "Ei"
+
+msgctxt "grants_premises"
+msgid "Exhibition space"
+msgstr "Näyttelytila"
+
+msgctxt "grants_premises"
+msgid "Performance space"
+msgstr "Esitystila"
+
+msgctxt "grants_premises"
+msgid "A separate practice space or other space for artistic work"
+msgstr "Erillinen harjoittelutila tai muu taiteellisen työskentelyn tila"

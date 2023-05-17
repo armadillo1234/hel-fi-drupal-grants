@@ -480,8 +480,8 @@ elements: |-
         '#rentTimeBegin__access': false
         '#rentTimeEnd__access': false
         '#free__access': false
-        '#isOthersUse__access': false
-        '#isOwnedByApplicant__access': false
+        '#isOthersUse__title': 'Tilaa tarjotaan muiden käyttöön (ilmaiseksi tai vuokralla)'
+        '#isOwnedByApplicant__title': 'Tila on omassa omistuksessa'
   4_toiminta:
     '#type': webform_wizard_page
     '#title': '4. Toiminta'
@@ -765,8 +765,8 @@ elements: |-
         '#rentTimeBegin__access': false
         '#rentTimeEnd__access': false
         '#free__access': false
-        '#isOthersUse__access': false
-        '#isOwnedByApplicant__access': false
+        '#isOthersUse__title': 'Tilaa tarjotaan muiden käyttöön (ilmaiseksi tai vuokralla)'
+        '#isOwnedByApplicant__title': 'Tila on omassa omistuksessa'
   5_toiminnan_lahtokohdat:
     '#type': webform_wizard_page
     '#title': '5. Toiminnan lähtökohdat'

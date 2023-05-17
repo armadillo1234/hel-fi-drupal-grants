@@ -47,7 +47,11 @@ class GrantsPremisesService {
         $itemValue = AtvSchema::getItemValue($valueTypes, $item->getValue(), $defaultValue, $valueCallback);
 
         // Process boolean values separately.
-        if ($itemName == 'isOwnedByCity' || $itemName == 'isOwnedByApplicant') {
+        if (
+          $itemName == 'isOwnedByCity' ||
+          $itemName == 'isOthersUse' ||
+          $itemName == 'isOwnedByApplicant'
+        ) {
           $itemValues[] = [
             'ID' => $itemName,
             'label' => $itemDefinition->getLabel(),

@@ -174,8 +174,12 @@ class KuvaToimintaDefinition extends ComplexDataDefinitionBase {
         ])
         ->setSetting('fieldsForApplication', [
           'premiseName',
-          'isOwnedByCity',
+          'premiseType',
+          'isOthersUse',
+          'premiseName',
+          'isOwnedByApplicant',
           'postCode',
+          'isOwnedByCity'
         ]);
 
       $info['tapahtuma_tai_esityspaivien_maara_helsingissa'] = DataDefinition::create('integer')
@@ -780,8 +784,12 @@ class KuvaToimintaDefinition extends ComplexDataDefinitionBase {
         ])
         ->setSetting('fieldsForApplication', [
           'premiseName',
-          'isOwnedByCity',
+          'premiseType',
+          'isOthersUse',
+          'premiseName',
+          'isOwnedByApplicant',
           'postCode',
+          'isOwnedByCity'
         ]);
 
       /* Toiminnan lähtökohdat */

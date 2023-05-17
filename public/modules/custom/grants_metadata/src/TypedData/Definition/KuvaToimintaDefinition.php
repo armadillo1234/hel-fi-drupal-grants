@@ -917,7 +917,6 @@ class KuvaToimintaDefinition extends ComplexDataDefinitionBase {
 
       $info['members_applicant_person_local'] = DataDefinition::create('integer')
         ->setLabel('Helsinkiläisiä henkilöjäseniä yhteensä')
-        ->setSetting('defaultValue', "")
         ->setSetting('jsonPath', [
           'compensation',
           'communityInfo',
@@ -934,7 +933,6 @@ class KuvaToimintaDefinition extends ComplexDataDefinitionBase {
 
       $info['members_applicant_person_global'] = DataDefinition::create('integer')
         ->setLabel('Henkilöjäseniä yhteensä')
-        ->setSetting('defaultValue', "")
         ->setSetting('jsonPath', [
           'compensation',
           'communityInfo',
@@ -951,7 +949,6 @@ class KuvaToimintaDefinition extends ComplexDataDefinitionBase {
 
       $info['members_applicant_community_local'] = DataDefinition::create('integer')
         ->setLabel('Helsinkiläisiä yhteisöjäseniä yhteensä')
-        ->setSetting('defaultValue', "")
         ->setSetting('jsonPath', [
           'compensation',
           'communityInfo',
@@ -996,8 +993,7 @@ class KuvaToimintaDefinition extends ComplexDataDefinitionBase {
         ->setSetting('typeOverride', [
           'dataType' => 'string',
           'jsonType' => 'int',
-        ])
-        ->setSetting('defaultValue', 0);
+        ]);
 
       $info['osa_aikainen_henkilotyovuosia'] = DataDefinition::create('integer')
         ->setLabel('Osa-aikaisten henkilötyövuodet')
@@ -1013,8 +1009,7 @@ class KuvaToimintaDefinition extends ComplexDataDefinitionBase {
         ->setSetting('typeOverride', [
           'dataType' => 'string',
           'jsonType' => 'int',
-        ])
-        ->setSetting('defaultValue', 0);
+        ]);
 
       $info['organisaatio_kuuluu_valtionosuusjarjestelmaan_vos_'] = DataDefinition::create('boolean')
         ->setLabel('Organisaatio kuuluu valtionosuusjärjestelmään (VOS).')

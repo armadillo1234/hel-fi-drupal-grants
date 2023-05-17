@@ -387,6 +387,9 @@ class AtvSchema {
       $jsonPath = $definition->getSetting('jsonPath');
       $requiredInJson = $definition->getSetting('requiredInJson');
       $defaultValue = $definition->getSetting('defaultValue');
+      // What to do with empty values.
+      $itemSkipEmpty = $definition->getSetting('skipEmptyValue');
+
 
       $valueCallback = $definition->getSetting('valueCallback');
       $fullItemValueCallback = $definition->getSetting('fullItemValueCallback');
@@ -560,6 +563,15 @@ class AtvSchema {
 
       $itemTypes = self::getJsonTypeForDataType($definition);
       $itemValue = self::getItemValue($itemTypes, $value, $defaultValue, $valueCallback);
+
+      if ($propertyType == 'integer' ||
+        $propertyType == 'double' ||
+        $propertyType == 'float') {
+
+        if ($itemValue === '0' && $defaultValue === null) {
+          continue;
+        }
+      }
 
       switch ($numberOfItems) {
         case 4:
@@ -990,7 +1002,7 @@ class AtvSchema {
     }
 
     // If value is null, try to set default value from config.
-    if (is_null($itemValue)) {
+    if (is_null($itemValue) && $defaultValue !== null) {
       $itemValue = $defaultValue;
     }
 

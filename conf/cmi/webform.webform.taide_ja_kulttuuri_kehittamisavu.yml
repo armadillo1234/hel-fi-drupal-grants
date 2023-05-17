@@ -191,7 +191,7 @@ elements: |-
         '#attributes':
           class:
             - webform--large
-        '#help': Täytä vuodet vain tästä eteenpäin haettavan avustuskauden osalta. Älä kirjaa saman tai aikaisemman avustuskauden aikaisempia vuosia.'
+        '#help': 'Täytä vuodet vain tästä eteenpäin haettavan avustuskauden osalta. Älä kirjaa saman tai aikaisemman avustuskauden aikaisempia vuosia.'
         '#states':
           visible:
             ':input[name="kyseessa_on_monivuotinen_avustus"]':

@@ -36,7 +36,7 @@ Do Company Login Process With Tunnistamo
     ELSE
       Go To Omat tiedot
     END
-    Logged In Company Page Should Be Open
+    Logged In Oma Asiointi Page Should Be Open
 
 Do Unregistered Community Login Process With Tunnistamo
     Go To Login Page
@@ -50,7 +50,7 @@ Do Unregistered Community Login Process With Tunnistamo
     ELSE
       Go To Omat tiedot
     END
-    Logged In Unregistered Community Page Should Be Open
+    Logged In Oma Asiointi Page Should Be Open
 
 Do Private Person Login Process With Tunnistamo
     Go To Login Page
@@ -64,7 +64,7 @@ Do Private Person Login Process With Tunnistamo
     ELSE
       Go To Omat tiedot
     END
-    Logged In Private Person Page Should Be Open
+    Logged In Oma Asiointi Page Should Be Open
 
 Go To Login Page
     Click          .profile__login-link
@@ -97,7 +97,7 @@ Do Company Selection
     Choose Company Profile With Tunnistamo
 
 Do Unregistered Community Selection
-    Select Options By    [data-drupal-selector="edit-unregistered-community-selection"]    index    1
+    Select Options By    [data-drupal-selector="edit-unregistered-community-selection"]    index    2
     Click             \#edit-unregistered-community .form-submit
 
 Do Private Person Selection
@@ -107,13 +107,5 @@ Choose Company Role
     Click             \#edit-registered-community .form-submit
     Wait For Condition    Title           ==    Suomi.fi-valtuudet
 
-Logged In Company Page Should Be Open
-    Get Title           ==    Näytä oma profiili | ${SITE_NAME}
-    Get Text          .grants-profile-company-name      *=    ${TUNNISTAMO_COMPANY_NAME}
-
-Logged In Unregistered Community Page Should Be Open
-    Get Title           ==    Näytä oma profiili | ${SITE_NAME}
-
-Logged In Private Person Page Should Be Open
-    Get Title           ==    Näytä oma profiili | ${SITE_NAME}
-    Get Text          h1      *=    ${TUNNISTAMO_PERSON_NAME}
+Logged In Oma Asiointi Page Should Be Open
+    Get Text          \#keskeneraiset-hakemukset      *=    Keskeneräiset hakemukset

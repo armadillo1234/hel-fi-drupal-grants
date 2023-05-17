@@ -194,7 +194,7 @@ class GrantsMandateController extends ControllerBase implements ContainerInjecti
     }
 
     // Redirect user to grants profile page.
-    $redirectUrl = Url::fromRoute('grants_profile.show');
+    $redirectUrl = Url::fromRoute('grants_oma_asiointi.front');
     return new RedirectResponse($redirectUrl->toString());
   }
 

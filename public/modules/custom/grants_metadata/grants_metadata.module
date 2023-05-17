@@ -253,7 +253,7 @@ function grants_metadata_form_alter(&$form, FormStateInterface $form_state, $for
       '#multiple' => TRUE,
     ];
 
-    $language =  \Drupal::languageManager()->getCurrentLanguage()->getId();
+    $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
 
     // Load the taxonomy terms.
     $terms = \Drupal::entityTypeManager()
@@ -262,11 +262,10 @@ function grants_metadata_form_alter(&$form, FormStateInterface $form_state, $for
         'vid' => 'avustuslaji',
       ]);
 
-
     // Build options list.
     $termOptions = [];
     foreach ($terms as $term) {
-      if ($term->hasTranslation($language)){
+      if ($term->hasTranslation($language)) {
         $translated_term = \Drupal::service('entity.repository')->getTranslationFromContext($term, $language);
         $termOptions[$term->id()] = $translated_term->label();
       }
@@ -294,7 +293,7 @@ function grants_metadata_form_alter(&$form, FormStateInterface $form_state, $for
     // Build options list.
     $termOptions = [];
     foreach ($terms as $term) {
-      if ($term->hasTranslation($language)){
+      if ($term->hasTranslation($language)) {
         $translated_term = \Drupal::service('entity.repository')->getTranslationFromContext($term, $language);
         $termOptions[$term->id()] = $translated_term->label();
       }

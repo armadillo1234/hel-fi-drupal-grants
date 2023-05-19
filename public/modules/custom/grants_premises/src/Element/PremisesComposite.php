@@ -45,7 +45,7 @@ class PremisesComposite extends WebformCompositeBase {
       '#type' => 'select',
       '#title' => t('Premise type', [], $tOpts),
       '#access' => TRUE,
-      '#options' => self::getTilaTypes()
+      '#options' => self::getTilaTypes(),
     ];
 
     $elements['premiseAddress'] = [
@@ -205,13 +205,19 @@ class PremisesComposite extends WebformCompositeBase {
 
   }
 
-  public static function getTilaTypes(){
+  /**
+   * Get tila types.
+   *
+   * @return array
+   *  Translated tila types.
+   */
+  public static function getTilaTypes() {
     $tOpts = ['context' => 'grants_premises'];
     return [
       'Näyttelytila' => t('Exhibition space', [], $tOpts),
       'Esitystila' => t('Performance space', [], $tOpts),
       'Erillinen harjoittelutila tai muu taiteellisen työskentelyn tila' =>
-        t('A separate practice space or other space for artistic work', [], $tOpts),
+      t('A separate practice space or other space for artistic work', [], $tOpts),
 
     ];
   }

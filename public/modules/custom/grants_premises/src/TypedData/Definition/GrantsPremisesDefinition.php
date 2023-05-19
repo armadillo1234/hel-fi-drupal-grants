@@ -122,7 +122,7 @@ class GrantsPremisesDefinition extends ComplexDataDefinitionBase {
       $info['isOwnedByApplicant'] = DataDefinition::create('boolean')
         ->setLabel('description')
         ->setSetting('jsonPath', [
-          'rentTimeEnd',
+          'isOwnedByApplicant',
         ])
         ->setSetting('typeOverride', [
           'dataType' => 'string',
@@ -131,7 +131,7 @@ class GrantsPremisesDefinition extends ComplexDataDefinitionBase {
       $info['isOwnedByCity'] = DataDefinition::create('boolean')
         ->setLabel('Kyseessä on kaupungin omistama tila')
         ->setSetting('jsonPath', [
-          'rentTimeEnd',
+          'isOwnedByCity',
         ])
         ->setSetting('typeOverride', [
           'dataType' => 'string',

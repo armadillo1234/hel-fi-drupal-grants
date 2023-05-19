@@ -390,7 +390,6 @@ class AtvSchema {
       // What to do with empty values.
       $itemSkipEmpty = $definition->getSetting('skipEmptyValue');
 
-
       $valueCallback = $definition->getSetting('valueCallback');
       $fullItemValueCallback = $definition->getSetting('fullItemValueCallback');
 
@@ -568,7 +567,14 @@ class AtvSchema {
         $propertyType == 'double' ||
         $propertyType == 'float') {
 
-        if ($itemValue === '0' && $defaultValue === null) {
+        // Leave zero values out of json.
+        if ($itemValue === '0' && $defaultValue === NULL) {
+          continue;
+        }
+      }
+      else {
+        // Also remove other empty valued fields.
+        if ($itemValue === '' && $defaultValue === NULL) {
           continue;
         }
       }
@@ -1002,7 +1008,7 @@ class AtvSchema {
     }
 
     // If value is null, try to set default value from config.
-    if (is_null($itemValue) && $defaultValue !== null) {
+    if (is_null($itemValue) && $defaultValue !== NULL) {
       $itemValue = $defaultValue;
     }
 

@@ -227,10 +227,13 @@ class GrantsHandler extends WebformHandlerBase {
    * @param string|null $value
    *   Value to be converted.
    *
-   * @return float
+   * @return float|null
    *   Floated value.
    */
-  public static function convertToInt(?string $value = ''): float {
+  public static function convertToInt(?string $value = ''): ?float {
+    if (is_null($value)) {
+      return NULL;
+    }
     $value = str_replace(['€', ',', ' ', '_'], ['', '.', '', ''], $value);
     $value = (int) $value;
     return $value;
@@ -305,6 +308,11 @@ class GrantsHandler extends WebformHandlerBase {
    */
   protected function massageFormValuesFromWebform(WebformSubmission $webform_submission): mixed {
     $values = $webform_submission->getData();
+
+    if (isset($this->formStateTemp)) {
+      $formValues = $this->formStateTemp->getValues();
+    }
+
     $this->setFromThirdPartySettings($webform_submission->getWebform());
 
     if (isset($this->applicationType) && $this->applicationType != '') {
@@ -315,9 +323,22 @@ class GrantsHandler extends WebformHandlerBase {
     }
 
     if (isset($values['community_address']) && $values['community_address'] !== NULL) {
-      $values += $values['community_address'];
+
+      // $values += $values['community_address'];
       unset($values['community_address']);
       unset($values['community_address_select']);
+
+      if (isset($formValues["community_address"]["community_street"]) && !empty($formValues["community_address"]["community_street"])) {
+        $values["community_street"] = $formValues["community_address"]["community_street"];
+      }
+      if (isset($formValues["community_address"]["community_city"]) && !empty($formValues["community_address"]["community_city"])) {
+        $values["community_city"] = $formValues["community_address"]["community_city"];
+      }
+      if (isset($formValues["community_address"]["community_post_code"]) && !empty($formValues["community_address"]["community_post_code"])) {
+        $values["community_post_code"] = $formValues["community_address"]["community_post_code"];
+      }
+      $values["community_country"] = 'Suomi';
+
     }
 
     if (isset($values['bank_account']) && $values['bank_account'] !== NULL) {

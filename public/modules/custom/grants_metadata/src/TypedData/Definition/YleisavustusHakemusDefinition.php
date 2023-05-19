@@ -119,6 +119,38 @@ class YleisavustusHakemusDefinition extends ComplexDataDefinitionBase {
           'explanation',
         ]);
 
+      $info['fee_person'] = DataDefinition::create('float')
+        ->setLabel('Fee Person')
+        ->setSetting('jsonPath', [
+          'compensation',
+          'activitiesInfoArray',
+          'feePerson',
+        ])
+        ->setSetting('valueCallback', [
+          '\Drupal\grants_handler\Plugin\WebformHandler\GrantsHandler',
+          'convertToFloat',
+        ])
+        ->setSetting('typeOverride', [
+          'dataType' => 'string',
+          'jsonType' => 'float',
+        ]);
+
+      $info['fee_community'] = DataDefinition::create('float')
+        ->setLabel('Fee Community')
+        ->setSetting('jsonPath', [
+          'compensation',
+          'activitiesInfoArray',
+          'feeCommunity',
+        ])
+        ->setSetting('valueCallback', [
+          '\Drupal\grants_handler\Plugin\WebformHandler\GrantsHandler',
+          'convertToFloat',
+        ])
+        ->setSetting('typeOverride', [
+          'dataType' => 'string',
+          'jsonType' => 'float',
+        ]);
+
     }
     return $this->propertyDefinitions;
   }

@@ -264,3 +264,6 @@ msgstr "Personligt bankkonto"
 msgctxt "Profile Address"
 msgid "Country"
 msgstr "Land"
+
+msgid "You can add an account only once."
+msgstr "SV You can add an account only once."

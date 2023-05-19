@@ -502,3 +502,6 @@ msgstr "Tiedot on haettu Helsinki-profiilistasi. Sinun pitää siirtyä Helsinki
 
 msgid "By completing your own information, you will facilitate your dealings with grants. Based on the information, we can find grants that are more suitable for you or your community. In addition, filling out applications will be faster in the future."
 msgstr "Täydentämällä omat tiedot helpotat asiointiasi avustuksiin liittyen. Tietojen perusteella löydämme paremmin sinulle tai yhteisöllesi sopivat avustukset. Lisäksi hakemusten täyttäminen käy jatkossa nopeammin."
+
+msgid "You can add an account only once."
+msgstr "Voit lisätä tilin vain kerran."

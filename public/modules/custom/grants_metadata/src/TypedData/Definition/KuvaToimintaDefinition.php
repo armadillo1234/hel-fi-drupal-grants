@@ -251,36 +251,6 @@ class KuvaToimintaDefinition extends ComplexDataDefinitionBase {
           'otherKeyActivities',
         ]);
 
-      $info['kyseessa_on_festivaali_tai_tapahtuma'] = DataDefinition::create('boolean')
-        ->setLabel('Kyseessä on festivaali.')
-        ->setSetting('jsonPath', [
-          'compensation',
-          'activityInfo',
-          'plannedActivityInfoArray',
-          'isEventOrFestival',
-        ])
-        ->setSetting('typeOverride', [
-          'dataType' => 'string',
-          'jsonType' => 'bool',
-        ]);
-
-      $info['tapahtuma_tai_esityspaivien_maara_helsingissa_toteutuneet'] = DataDefinition::create('integer')
-        ->setLabel('Tapahtuma- tai esityspäivien määrä Helsingissä.')
-        ->setSetting('jsonPath', [
-          'compensation',
-          'activityInfo',
-          'realizedActivityInfoArray',
-          'eventDaysCountHki',
-        ])
-        ->setSetting('valueCallback', [
-          '\Drupal\grants_handler\Plugin\WebformHandler\GrantsHandler',
-          'convertToInt',
-        ])
-        ->setSetting('typeOverride', [
-          'dataType' => 'string',
-          'jsonType' => 'int',
-        ]);
-
       /* Esitykset */
       $info['esitykset_maara_helsingissa'] = DataDefinition::create('integer')
         ->setLabel('Määrä Helsingissä.')

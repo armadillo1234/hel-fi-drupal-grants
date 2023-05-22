@@ -7,7 +7,7 @@ dependencies:
     - grants_metadata
 third_party_settings:
   grants_metadata:
-    applicationType: KUVATOIMINTA
+    applicationType: KUVATOIM
     applicationTypeID: '47'
     applicantTypes:
       registered_community: registered_community
@@ -407,7 +407,7 @@ elements: |-
       '#title': 'Henkilöstö edellisenä päättyneenä tilivuonna'
       henkilosto:
         '#type': fieldset
-        '#title': 'Henkilöstö'
+        '#title': Henkilöstö
         '#help': 'Henkilöstöön voi sisällyttää muitakin kuin palkattuja työntekijöitä, mm. palkkioilla tai muilla korvauksilla työskenteleviä tai ostopalveluna ostettavaa työtä. Kokoaikaiset työntekijät voivat sisältää myös määräaikaisia työntekijöitä, jos nämä työskentelevät täyspäiväisesti. Henkilötyövuosi kuvaa kokoaikaiseksi muutetun henkilön työpanosta. Esimerkiksi 6kk kokopäiväisesti työskentelevästä henkilöstä voi laskea muodostuvan 0,5 henkilötyövuotta. Vastaavasti koko vuoden osa-aikaisesti 30% työmäärää tekevästä henkilöstä voi laskea muodostuvan 0,3 henkilötyövuotta. Jos toimitatte tietoja henkilötyövuosistanne valtiolle tai muun tahon tilastointiin, niin käyttäkää tässä samaa laskentatapaa jos mahdollista.'
         '#attributes':
           class:
@@ -619,13 +619,6 @@ elements: |-
           <h3>Toteutuneet m&auml;&auml;r&auml;t</h3>
 
           <p>Sy&ouml;t&auml; tiedot koskien omaa toimintaa edellisen&auml; p&auml;&auml;ttyneen&auml; vuonna. Sy&ouml;t&auml; tiedot vain fyysisten esitysten, n&auml;yttelyiden ja ty&ouml;pajojen osalta, &auml;l&auml; laske mukaan pelk&auml;st&auml;&auml;n digitaalisina toteutettuja ohjelmasis&auml;lt&ouml;j&auml;.</p>
-      tapahtuma_tai_esityspaivien_maara_helsingissa_toteutuneet:
-        '#type': number
-        '#title': 'Tapahtuma- tai esityspäivien määrä Helsingissä'
-        '#required': true
-        '#attributes':
-          class:
-            - webform--small
       esityspaivien_maara_helsingissa_toteutuneet_fieldset:
         '#type': fieldset
         '#title': 'Esityspäivien määrä Helsingissä'

@@ -271,4 +271,38 @@ abstract class GrantsProfileFormBase extends FormBase {
     }
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state): array {
+    $form['actions'] = [
+        '#type' => 'actions',
+      ];
+      $form['actions']['submit'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Save own information'),
+      ];
+
+    $form['actions']['submit_cancel'] = [
+    '#type' => 'submit',
+    '#value' => $this->t('Cancel'),
+    '#attributes' => ['class' => ['button']],
+    '#weight' => 10,
+    '#submit' => ['Drupal\grants_profile\Form\GrantsProfileFormBase::formCancelCallback'],
+    ];
+    return $form;
+  }
+
+  /**
+   * Cancel form edit callback
+   *
+   * @param array $form
+   *   Form.
+   * @param \Drupal\Core\Form\FormStateInterface $formState
+   *   Form state.
+   */
+  public static function formCancelCallback(array &$form, FormStateInterface &$form_state) {
+    $route_name = 'grants_profile.show';
+    $form_state->setRedirect($route_name);
+  }
 }

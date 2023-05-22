@@ -98,7 +98,7 @@ class GrantsProfileFormPrivatePerson extends GrantsProfileFormBase {
    * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
-
+    $form = parent::buildForm($form, $form_state);
     $selectedRoleData = $this->grantsProfileService->getSelectedRoleData();
 
     // Load grants profile.
@@ -206,14 +206,6 @@ class GrantsProfileFormPrivatePerson extends GrantsProfileFormBase {
     ];
 
     $this->addbankAccountBits($form, $form_state, $grantsProfileContent['bankAccounts'], $newItem);
-
-    $form['actions'] = [
-      '#type' => 'actions',
-    ];
-    $form['actions']['submit'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Save own information'),
-    ];
 
     $form['#profilecontent'] = $grantsProfileContent;
     $form['#helsinkiprofilecontent'] = $helsinkiProfileContent;

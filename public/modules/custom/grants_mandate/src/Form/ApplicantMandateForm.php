@@ -239,7 +239,7 @@ class ApplicantMandateForm extends FormBase {
           $this->grantsProfileService->setSelectedRoleData($selectedProfileData);
 
           // Redirect user to grants profile page.
-          $redirectUrl = Url::fromRoute('grants_profile.show');
+          $redirectUrl = Url::fromRoute('grants_oma_asiointi.front');
         }
 
         $redirect = new TrustedRedirectResponse($redirectUrl->toString());
@@ -257,7 +257,7 @@ class ApplicantMandateForm extends FormBase {
         $this->grantsProfileService->setSelectedRoleData($selectedProfileData);
 
         // Redirect user to grants profile page.
-        $redirectUrl = Url::fromRoute('grants_profile.show');
+        $redirectUrl = Url::fromRoute('grants_oma_asiointi.front');
         $redirect = new TrustedRedirectResponse($redirectUrl->toString());
         $form_state->setResponse($redirect);
 

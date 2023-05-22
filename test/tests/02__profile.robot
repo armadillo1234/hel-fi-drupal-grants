@@ -17,26 +17,18 @@ Update Company Bank Account
     Open Browser To Home Page
     Accept Cookies Banner
     Do Company Login Process With Tunnistamo
+    Go To Profile Page
     Open Edit Form
     Add New Bank Account
     Open Edit Form
     Remove New Bank Account
     [Teardown]    Close Browser
 
-Update Company Email
-    Open Browser To Home Page
-    Accept Cookies Banner
-    Do Company Login Process With Tunnistamo
-    Open Edit Form
-    Change Company Email To Temporary
-    Open Edit Form
-    Revert Company Email
-    [Teardown]    Close Browser
-
 Update Company Website
     Open Browser To Home Page
     Accept Cookies Banner
     Do Company Login Process With Tunnistamo
+    Go To Profile Page
     Open Edit Form
     Change Company Website To Temporary
     Open Edit Form
@@ -51,6 +43,7 @@ Update Unregistered Company Bank Account
     Open Browser To Home Page
     Accept Cookies Banner
     Do Unregistered Community Login Process With Tunnistamo
+    Go To Profile Page
     Open Edit Form
     Add New Bank Account
     Open Edit Form
@@ -61,6 +54,7 @@ Update Unregistered Community Name
     Open Browser To Home Page
     Accept Cookies Banner
     Do Unregistered Community Login Process With Tunnistamo
+    Go To Profile Page
     Open Edit Form
     Change Company Name To Temporary
     Open Edit Form
@@ -75,6 +69,7 @@ Update Private Person Bank Account
     Open Browser To Home Page
     Accept Cookies Banner
     Do Private Person Login Process With Tunnistamo
+    Go To Profile Page
     Open Edit Form
     Add New Bank Account
     Open Edit Form
@@ -85,6 +80,7 @@ Update Private Person Address
     Open Browser To Home Page
     Accept Cookies Banner
     Do Private Person Login Process With Tunnistamo
+    Go To Profile Page
     Open Edit Form
     Change Address To Temporary
     Open Edit Form
@@ -95,6 +91,7 @@ Update Private Person Phone
     Open Browser To Home Page
     Accept Cookies Banner
     Do Private Person Login Process With Tunnistamo
+    Go To Profile Page
     Open Edit Form
     Change Phone To Temporary
     Open Edit Form
@@ -102,6 +99,11 @@ Update Private Person Phone
     [Teardown]    Close Browser
 
 *** Keywords ***
+
+Go To Profile Page
+    Click           a[data-drupal-link-system-path="oma-asiointi/hakuprofiili"]
+    Wait Until Network Is Idle
+    Get Title           ==    Näytä oma profiili | ${SITE_NAME}
 
 Open Edit Form
     Click           a[data-drupal-selector="profile-edit-link"]
@@ -173,22 +175,6 @@ Revert Phone
     Get Title           ==    Näytä oma profiili | ${SITE_NAME}
     # Phone is not displayed on profile page
     # Get Text    .grants-profile--extrainfo    not contains    ${INPUT_TEMP_PHONE}
-
-Change Company Email To Temporary
-    ${input} =     Get Text      input[data-drupal-selector="edit-companyemailwrapper-companyemail"]
-    Set Test Variable     ${old_email_input}    ${input}
-    Type Text        input[data-drupal-selector="edit-companyemailwrapper-companyemail"]      ${INPUT_TEMP_EMAIL}
-    Click           \#edit-actions-submit
-    Get Title           ==    Näytä oma profiili | ${SITE_NAME}
-    # Email is not displayed on profile page
-    # Get Text    .grants-profile--extrainfo    *=    ${INPUT_TEMP_EMAIL}
-
-Revert Company Email
-    Type Text        input[data-drupal-selector="edit-companyemailwrapper-companyemail"]      ${old_email_input}
-    Click           \#edit-actions-submit
-    Get Title           ==    Näytä oma profiili | ${SITE_NAME}
-    # Email is not displayed on profile page
-    # Get Text    .grants-profile--extrainfo    not contains    ${INPUT_TEMP_EMAIL}
 
 Change Company Website To Temporary
     ${input} =     Get Text      input[data-drupal-selector="edit-companyhomepagewrapper-companyhomepage"]

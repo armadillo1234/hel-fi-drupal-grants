@@ -97,16 +97,6 @@ class GrantsProfileFormRegisteredCommunity extends GrantsProfileFormBase {
     ];
     $form['companyNameShortWrapper']['companyNameShort']['#attributes']['class'][] = 'webform--large';
 
-    $form['companyEmailWrapper'] = [
-      '#type' => 'webform_section',
-      '#title' => $this->t('Community email'),
-    ];
-    $form['companyEmailWrapper']['companyEmail'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Community email'),
-      '#default_value' => $grantsProfileContent['companyEmail'],
-    ];
-
     $form['companyHomePageWrapper'] = [
       '#type' => 'webform_section',
       '#title' => $this->t('Website address'),
@@ -332,7 +322,6 @@ class GrantsProfileFormRegisteredCommunity extends GrantsProfileFormBase {
 
     $grantsProfileContent["foundingYear"] = $values["foundingYearWrapper"]["foundingYear"];
     $grantsProfileContent["companyNameShort"] = $values["companyNameShortWrapper"]["companyNameShort"];
-    $grantsProfileContent["companyEmail"] = $values["companyEmailWrapper"]["companyEmail"];
     $grantsProfileContent["companyHomePage"] = $values["companyHomePageWrapper"]["companyHomePage"];
     $grantsProfileContent["businessPurpose"] = $values["businessPurposeWrapper"]["businessPurpose"];
 

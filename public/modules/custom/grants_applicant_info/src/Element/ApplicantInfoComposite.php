@@ -262,7 +262,7 @@ class ApplicantInfoComposite extends WebformCompositeBase {
       '#type' => 'textfield',
       '#title' => t('Municipality where the association is based (domicile)'),
       '#readonly' => TRUE,
-      '#required' => TRUE,
+      '#required' => FALSE,
       '#value' => $profileContent["companyHome"],
       '#default_value' => $profileContent["companyHome"],
       '#wrapper_attributes' => [
@@ -274,7 +274,7 @@ class ApplicantInfoComposite extends WebformCompositeBase {
       '#type' => 'textfield',
       '#title' => t('Abbreviated name'),
       '#readonly' => TRUE,
-      '#required' => TRUE,
+      '#required' => FALSE,
       '#value' => $profileContent["companyNameShort"],
       '#default_value' => $profileContent["companyNameShort"],
       '#wrapper_attributes' => [
@@ -285,7 +285,7 @@ class ApplicantInfoComposite extends WebformCompositeBase {
       '#type' => 'textfield',
       '#title' => t('Year of establishment'),
       '#readonly' => TRUE,
-      '#required' => TRUE,
+      '#required' => FALSE,
       '#value' => $profileContent["foundingYear"],
       '#default_value' => $profileContent["foundingYear"],
       '#wrapper_attributes' => [

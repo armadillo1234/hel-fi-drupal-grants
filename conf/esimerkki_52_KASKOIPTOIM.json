@@ -1,0 +1,792 @@
+{
+  "compensation": {
+    "applicationInfoArray": [
+      {
+        "ID": "applicationType",
+        "label": "Hakemustyyppi",
+        "value": "KASKOIPTOIM",
+        "valueType": "string"
+      },
+      {
+        "ID": "applicationTypeID",
+        "label": "Hakemustyypin numero",
+        "value": "52",
+        "valueType": "int"
+      },
+      {
+        "ID": "formTimeStamp",
+        "label": "Hakemuksen/sanoman lähetyshetki",
+        "value": "2023-10-02T11:10:12.000",
+        "valueType": "datetime"
+      },
+      {
+        "ID": "applicationNumber",
+        "label": "Hakemusnumero",
+        "value": "KASKO-IPTOIM-J-TEST-PAAT-1",
+        "valueType": "string"
+      },
+      {
+        "ID": "status",
+        "label": "Tila",
+        "value": "Vastaanotettu",
+        "valueType": "string"
+      },
+      {
+        "ID": "actingYear",
+        "label": "Hakemusvuosi",
+        "value": "2023",
+        "valueType": "int"
+      }
+    ],
+    "currentAddressInfoArray": [
+      {
+        "ID": "contactPerson",
+        "label": "Yhteyshenkilö",
+        "value": "Teemu Testaushenkilö",
+        "valueType": "string"
+      },
+      {
+        "ID": "street",
+        "label": "Katuosoite",
+        "value": "Annankatu 18 Ö 905",
+        "valueType": "string"
+      },
+	  {
+        "ID": "phoneNumber",
+        "label": "Puhelinnumero",
+        "value": "+358404040404",
+        "valueType": "string"
+      },
+      {
+        "ID": "city",
+        "label": "Postitoimipaikka",
+        "value": "Helsinki",
+        "valueType": "string"
+      },
+      {
+        "ID": "postCode",
+        "label": "Postinumero",
+        "value": "00120",
+        "valueType": "string"
+      },
+      {
+        "ID": "country",
+        "label": "Maa",
+        "value": "Suomi",
+        "valueType": "string"
+      }
+    ],
+    "applicantInfoArray": [
+ {
+        "ID": "applicantType",
+        "label": "Hakijan tyyppi",
+        "value": "2",
+        "valueType": "string"
+      },
+      {
+        "ID": "companyNumber",
+        "label": "Y-Tunnus",
+        "value": "2188282-3",
+        "valueType": "string"
+      },
+      {
+        "ID": "communityOfficialName",
+        "label": "Yhteisön nimi",
+        "value": "J Testi testaus",
+        "valueType": "string"
+      },
+      {
+        "ID": "communityOfficialNameShort",
+        "label": "Yhteisön lyhenne",
+        "value": "JTT ry",
+        "valueType": "string"
+      },
+      {
+        "ID": "registrationDate",
+        "label": "Rekisteröimispäivä",
+        "value": "2023-01-01T00:00:00.000",
+        "valueType": "datetime"
+      },
+      {
+        "ID": "foundingYear",
+        "label": "Perustamisvuosi",
+        "value": "2023",
+        "valueType": "int"
+      },
+      {
+        "ID": "home",
+        "label": "Kotipaikka",
+        "value": "Tampere",
+        "valueType": "string"
+      },
+      {
+        "ID": "homePage",
+        "label": "www-sivut",
+        "value": "www.eioooooooeiooooo.ei",
+        "valueType": "string"
+      },
+      {
+        "ID": "email",
+        "label": "Sähköpostiosoite",
+        "value": "not@gonnahappen.noway",
+        "valueType": "string"
+      }
+    ],
+    "applicantOfficialsArray": [
+      [
+        {
+          "ID": "email",
+          "label": "Sähköposti",
+          "value": "teemu@ttry.fi",
+          "valueType": "string"
+        },
+        {
+          "ID": "role",
+          "label": "Rooli",
+          "value": "1",
+          "valueType": "string"
+        },
+        {
+          "ID": "name",
+          "label": "Nimi",
+          "value": "Teemu Testaushenkilö",
+          "valueType": "string"
+        },
+        {
+          "ID": "phone",
+          "label": "Puhelinnumero",
+          "value": "09-616527788",
+          "valueType": "string"
+        }
+      ]
+    ],
+    "bankAccountArray": [
+      {
+        "ID": "accountNumber",
+        "label": "Tilinumero",
+        "value": "FI9640231442000454",
+        "valueType": "string"
+      },
+	  {
+        "ID": "accountOwnerName",
+        "label": "Tilinomistajan nimi",
+        "value": "Matti Meikäläinen",
+        "valueType": "string"
+      },
+	  {
+        "ID": "socialSecurityNumber",
+        "label": "Henkilötunnus",
+        "value": "130501-3277",
+        "valueType": "string"
+      }
+    ],
+    "compensationInfo": {
+      "generalInfoArray": [
+        {
+          "ID": "totalAmount",
+          "label": "Haettavat avustukset yhteensä",
+          "value": "1000.00",
+          "valueType": "double"
+        },
+        {
+          "ID": "purpose",
+          "label": "Haetun avustuksen käyttötarkoitus",
+          "value": "Käyttötarkoituksenamme on se että ... kts. liite 10.",
+          "valueType": "string"
+        },
+        {
+          "ID": "compensationPreviousYear",
+          "label": "Olen saanut Helsingin kaupungilta avustusta samaan käyttötarkoitukseen edellisenä vuonna",
+          "value": "true",
+          "valueType": "bool"
+        },
+        {
+          "ID": "explanation",
+          "label": "Selvitys edellisen avustuksen käytöstä",
+          "value": "Perustelut.",
+          "valueType": "string"
+        }
+      ],
+      "compensationArray": [
+        [
+          {
+            "ID": "subventionType",
+            "label": "Avustuslaji",
+            "value": "1",
+            "valueType": "string"
+          },
+          {
+            "ID": "amount",
+            "label": "Euroa",
+            "value": "1000.00",
+            "valueType": "double"
+          }
+        ]
+      ]
+    },
+    "otherCompensationsInfo": {
+      "otherCompensationsArray": [
+        [
+          {
+            "ID": "issuer",
+            "label": "Myöntäjä",
+            "value": "5",
+            "valueType": "string"
+          },
+          {
+            "ID": "issuerName",
+            "label": "Myöntäjän nimi",
+            "value": "Joku Säätiö Sr.",
+            "valueType": "string"
+          },
+          {
+            "ID": "year",
+            "label": "Vuosi",
+            "value": "2021",
+            "valueType": "string"
+          },
+          {
+            "ID": "amount",
+            "label": "Euroa",
+            "value": "5200",
+            "valueType": "double"
+          },
+          {
+            "ID": "purpose",
+            "label": "Tarkoitus",
+            "value": "Matkakuluihin ja muihin ylimääräisiin menoihin.",
+            "valueType": "string"
+          }
+        ]
+      ],
+	  "otherCompensationsInfoArray": [
+		  {
+			"ID": "otherCompensationsTotal",
+			"label": "Muut saadut avustukset yhteensä",
+			"value": "5200.0",
+			"valueType": "double"
+		  }
+	  ]
+    },
+	"budgetInfo": {
+		"incomeGroupsArrayStatic": [
+			{
+				"incomeGroupName": "general",
+				"incomeRowsArrayStatic": [
+					{
+						"ID": "compensation",
+						"label": "Haettava avustus euroa",
+						"value": "2000.00",
+						"valueType": "double"
+					},
+					{
+						"ID": "customerFees",
+						"label": "Asiakasmaksut euroa",
+						"value": "500.00",
+						"valueType": "double"
+					},				
+					{
+						"ID": "donations",
+						"label": "Lahjoitukset euroa",
+						"value": "1500.00",
+						"valueType": "double"
+					}
+				],
+				"otherIncomeRowsArrayStatic": [
+					{
+						"ID": "kioskimyynti",
+						"label": "kioskimyynti",
+						"value": "500.00",
+						"valueType": "double"
+					},
+					{
+						"ID": "parkkiliput",
+						"label": "parkkiliput",
+						"value": "500.00",
+						"valueType": "double"
+					}
+				],
+				"groupsTotalSum": "5000.00"
+			}
+		],
+		"costGroupsArrayStatic": [
+			{
+				"costGroupName": "subventionUseCosts",
+				"costRowsArrayStatic": [
+					{
+						"ID": "salaries",
+						"label": "Palkat ja palkkiot euroina",
+						"value": "10000.00",
+						"valueType": "double"
+					},
+					{
+						"ID": "personnelSideCosts",
+						"label": "Henkilöstönsivukulut eura",
+						"value": "7500.00",
+						"valueType": "double"
+					},
+					{
+						"ID": "rentSum",
+						"label": "Vuokrat euroa",
+						"value": "2500.00",
+						"valueType": "double"
+					}
+				],
+				"otherCostRowsArrayStatic": [
+					{
+						"ID": "kioskimyynti",
+						"label": "kioskimyynti",
+						"value": "250.00",
+						"valueType": "double"
+					},
+					{
+						"ID": "parkkiliput",
+						"label": "parkkiliput",
+						"value": "100.00",
+						"valueType": "double"
+					}
+				],
+				"groupsTotalSum": "20350.00"
+			},
+			{
+				"costGroupName": "costsForMaterialsSuppliesAndGoods",
+				"costRowsArrayStatic": [
+					{
+						"ID": "snacks",
+						"label": "Välipalat euroa",
+						"value": "30",
+						"valueType": "double"
+					},
+					{
+						"ID": "materials",
+						"label": "Toiminnan materiaalit euroa",
+						"value": "70",
+						"valueType": "double"
+					},
+					{
+						"ID": "water",
+						"label": "Vesi euroa",
+						"value": "25",
+						"valueType": "double"
+					},
+					{
+						"ID": "electricity",
+						"label": "Sähkö euroa",
+						"value": "25",
+						"valueType": "double"
+					},
+					{
+						"ID": "heating",
+						"label": "Lämpö euroa",
+						"value": "50",
+						"valueType": "double"
+					}
+				],
+				"otherCostRowsArrayStatic": [
+					{
+						"ID": "lampoKorjaus",
+						"label": "Lämmön korjaus",
+						"value": "50",
+						"valueType": "double"
+					},
+					{
+						"ID": "vesivahinko",
+						"label": "Vesivahinko",
+						"value": "50",
+						"valueType": "double"
+					}
+				],
+				"groupsTotalSum": "300.00"
+			},
+			{
+				"costGroupName": "otherCosts",
+				"costRowsArrayStatic": [
+					{
+						"ID": "admin",
+						"label": "Hallinto- ja toimistokulut euroa",
+						"value": "1000.00",
+						"valueType": "double"
+					},
+					{
+						"ID": "accounting",
+						"label": "Kirjanpito- ja tilintarkastuspalvelut euroa",
+						"value": "500.00",
+						"valueType": "double"
+					},
+					{
+						"ID": "health",
+						"label": "Henkilökunnan työterveyspalvelut euroa",
+						"value": "500.00",
+						"valueType": "double"
+					}
+				],
+				"otherCostRowsArrayStatic": [
+					{
+						"ID": "muukulu1",
+						"label": "Muu kulu 1",
+						"value": "200",
+						"valueType": "double"
+					},
+					{
+						"ID": "muukulu2",
+						"label": "Muu kulu 2",
+						"value": "300",
+						"valueType": "double"
+					}
+				],
+				"groupsTotalSum": "2500.00"
+			},
+			{
+				"costGroupName": "costsForServicesAcquired",
+				"costRowsArrayStatic": [
+					{
+						"ID": "snacks",
+						"label": "Välipalat euroa",
+						"value": "50.00",
+						"valueType": "double"
+					},
+					{
+						"ID": "cleaning",
+						"label": "Siivouspalvelut euroa",
+						"value": "100.00",
+						"valueType": "double"
+					},
+					{
+						"ID": "premisesService",
+						"label": "Kiinteistön huoltukustannukset euroa",
+						"value": "30.00",
+						"valueType": "double"
+					},
+					{
+						"ID": "travel",
+						"label": "Matkat euroa",
+						"value": "200.00",
+						"valueType": "double"
+					}
+				],
+				"otherCostRowsArrayStatic": [
+					{
+						"ID": "matkanSivukulut",
+						"label": "Matkan sivukulut",
+						"value": "20.00",
+						"valueType": "double"
+					},
+					{
+						"ID": "korjaus",
+						"label": "Korjaus",
+						"value": "150.00",
+						"valueType": "double"
+					}
+				],
+				"groupsTotalSum": "450.00"
+			},
+			{
+				"costGroupName": "useOfCustomerFeeIncome",
+				"costRowsArrayStatic": [
+					{
+						"ID": "salaries",
+						"label": "Palkat ja palkkioteuroa",
+						"value": "500.00",
+						"valueType": "double"
+					},
+					{
+						"ID": "personnelSideCosts",
+						"label": "Henkilöstönsivukulut euroa",
+						"value": "500.00",
+						"valueType": "double"
+					},
+					{
+						"ID": "rentSum",
+						"label": "Vuokrat euroa",
+						"value": "500.00",
+						"valueType": "double"
+					},
+					{
+						"ID": "services",
+						"label": "Palvelujen ostot euroa",
+						"value": "500.00",
+						"valueType": "double"
+					},
+					{
+						"ID": "materials",
+						"label": "Aineet, tarvikkeet ja tavarat euroa",
+						"value": "500",
+						"valueType": "double"
+					}
+				],
+				"otherCostRowsArrayStatic": [
+					{
+						"ID": "muukulu1",
+						"label": "Muu kulu 1",
+						"value": "200",
+						"valueType": "double"
+					},
+					{
+						"ID": "muukulu2",
+						"label": "Muu kulu 2",
+						"value": "300",
+						"valueType": "double"
+					}
+				],
+				"groupsTotalSum": "3000.00"
+			}
+		]
+	},
+    "benefitsInfoArray": [
+      {
+        "ID": "premises",
+        "label": "Tilat, jotka kaupunki on antanut korvauksetta tai vuokrannut hakijan käyttöön (osoite, pinta-ala ja tiloista maksettava vuokra €/kk",
+        "value": "ei ole mitään tiloja kaupungilta käytössämme",
+        "valueType": "string"
+      },
+      {
+        "ID": "loans",
+        "label": "Kaupungilta saadut lainat ja/tai takaukset",
+        "value": "ei ole myöskään lainoja taikka takauksia",
+        "valueType": "string"
+      }
+    ],
+    "activitiesInfoArray": [
+      {
+        "ID": "businessPurpose",
+        "label": "Toiminnan tarkoitus",
+        "value": "Meidän toimintamme tarkoituksena on että ...",
+        "valueType": "string"
+      },
+      {
+        "ID": "communityPracticesBusiness",
+        "label": "Yhteisö harjoittaa liiketoimintaa",
+        "value": "false",
+        "valueType": "bool"
+      }
+    ],
+    "premisesInfo": {
+		"premisesArray": [
+			[
+				{
+					"ID": "location",
+					"label": "Toimipaikka",
+					"value": "Toimipaikka",
+					"valueType": "string"
+				},
+				{
+					"ID": "streetAddress",
+					"label": "Osoite",
+					"value": "KatuOsoite 123",
+					"valueType": "string"
+				},
+				{
+					"ID": "postCode",
+					"label": "Postinumero",
+					"value": "12034",
+					"valueType": "string"
+				},
+				{
+					"ID": "studentCount",
+					"label": "Oppilaiden lkm",
+					"value": "50",
+					"valueType": "int"
+				},
+				{
+					"ID": "specialStudents",
+					"label": "Joista erityisoppilaita",
+					"value": "2",
+					"valueType": "int"
+				},
+				{
+					"ID": "groupCount",
+					"label": "Ryhmien lkm",
+					"value": "4",
+					"valueType": "int"
+				},
+				{
+					"ID": "specialGroups",
+					"label": "Joista erityisoppilasryhmiä",
+					"value": "1",
+					"valueType": "int"
+				},
+				{
+					"ID": "personnelCount",
+					"label": "Henkilöstön lkm",
+					"value": "14",
+					"valueType": "int"
+				},
+				{
+					"ID": "totalRent",
+					"label": "Vuokra euroa",
+					"value": "2500.00",
+					"valueType": "double"
+				},
+				{
+					"ID": "rentTimeBegin",
+					"label": "Vuokra-aika alkaen",
+					"value": "2021-09-01T09:35:12.000",
+					"valueType": "datetime"
+				},
+				{
+					"ID": "rentTimeEnd",
+					"label": "Vuokra-aika päättyen",
+					"value": "2022-09-01T09:35:12.000",
+					"valueType": "datetime"
+				},
+				{
+					"ID": "free",
+					"label": "Maksuttomat tilat",
+					"value": "true",
+					"valueType": "bool"
+				}
+			],
+			[
+				{
+					"ID": "location",
+					"label": "Toimipaikka",
+					"value": "Toimipaikka 2",
+					"valueType": "string"
+				},
+				{
+					"ID": "streetAddress",
+					"label": "Osoite",
+					"value": "KatuOsoite 1234",
+					"valueType": "string"
+				},
+				{
+					"ID": "postCode",
+					"label": "Postinumero",
+					"value": "124234",
+					"valueType": "string"
+				},
+				{
+					"ID": "studentCount",
+					"label": "Oppilaiden lkm",
+					"value": "40",
+					"valueType": "int"
+				},
+				{
+					"ID": "specialStudents",
+					"label": "Joista erityisoppilaita",
+					"value": "1",
+					"valueType": "int"
+				},
+				{
+					"ID": "groupCount",
+					"label": "Ryhmien lkm",
+					"value": "3",
+					"valueType": "int"
+				},
+				{
+					"ID": "specialGroups",
+					"label": "Joista erityisoppilasryhmiä",
+					"value": "1",
+					"valueType": "int"
+				},
+				{
+					"ID": "personnelCount",
+					"label": "Henkilöstön lkm",
+					"value": "10",
+					"valueType": "int"
+				},
+				{
+					"ID": "totalRent",
+					"label": "Vuokra euroa",
+					"value": "2000.00",
+					"valueType": "double"
+				},
+				{
+					"ID": "rentTimeBegin",
+					"label": "Vuokra-aika alkaen",
+					"value": "2021-10-01T09:35:12.000",
+					"valueType": "datetime"
+				},
+				{
+					"ID": "rentTimeEnd",
+					"label": "Vuokra-aika päättyen",
+					"value": "2022-10-01T09:35:12.000",
+					"valueType": "datetime"
+				},
+				{
+					"ID": "free",
+					"label": "Maksuttomat tilat",
+					"value": "true",
+					"valueType": "bool"
+				}
+			]
+		],
+		"premiseSummaryArray": [
+			{
+				"ID": "premisesBaseInformation",
+				"label": "Perustiedot",
+				"value": "Perustietoi tässä näin",
+				"valueType": "string"
+			}
+		]
+	},
+	"additionalInformation": "Tällä kertaa ei ole muuta ilmoitettavaa tähän hakemukseen",
+    "senderInfoArray": [
+      {
+        "ID": "firstname",
+        "label": "Etunimi",
+        "value": "Kalle",
+        "valueType": "string"
+      },
+      {
+        "ID": "lastname",
+        "label": "Sukunimi",
+        "value": "Kasko",
+        "valueType": "string"
+      },
+      {
+        "ID": "personID",
+        "label": "Henkilötunnus",
+        "value": "171756-1234",
+        "valueType": "string"
+      },
+      {
+        "ID": "userID",
+        "label": "Käyttäjätunnus",
+        "value": "kaskokal",
+        "valueType": "string"
+      },
+      {
+        "ID": "email",
+        "label": "Sähköposti",
+        "value": "kalle.kasko@testiyhdistys.fi",
+        "valueType": "string"
+      }
+    ]
+  },
+  "attachmentsInfo": {
+    "attachmentsArray": [
+      [
+        {
+          "ID": "description",
+          "value": "Muu liite",
+          "valueType": "string"
+        },
+        {
+          "ID": "fileType",
+          "value": "1",
+          "valueType": "int"
+        },
+        {
+          "ID": "isDeliveredLater",
+          "value": "true",
+          "valueType": "bool"
+        },
+        {
+          "ID": "isIncludedInOtherFile",
+          "value": "false",
+          "valueType": "bool"
+        }
+      ]
+    ],
+    "generalInfoArray": [
+      {
+        "ID": "extraInfo",
+        "label": "Lisäselvitys liitteistä",
+        "value": "Tässä voi olla joku kaikkia liitteitä yhteisesti koskeva selvitys",
+        "valueType": "string"
+      }
+    ]
+  },
+  "formUpdate": false
+}

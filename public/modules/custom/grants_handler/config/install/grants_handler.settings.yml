@@ -24,9 +24,9 @@ statusStrings:
     DONE: Käsitelty
     REJECTED: Hylätty
     DELETED: Poistettu
-    CANCELED: Keskeytetty
-    CANCELLED: Keskeytetty
-    CLOSED: Suljettu
+    CANCELED: Peruttu
+    CANCELLED: Peruttu
+    CLOSED: Ratkaistu
   sv:
     DRAFT: Draft
     SENT: Sent

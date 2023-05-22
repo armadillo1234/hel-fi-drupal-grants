@@ -350,13 +350,13 @@ class KuvaKehaDefinition extends ComplexDataDefinitionBase {
           'otherValuables',
         ]);
 
-      $info['organisaatio_kuuluu_valtionosuusjarjestelmaan'] = DataDefinition::create('string')
+      $info['organisaatio_kuuluu_valtionosuusjarjestelmaan_vos_'] = DataDefinition::create('boolean')
         ->setLabel('Organisaatio kuului valtionosuusjärjestelmään (VOS)')
         ->setSetting('jsonPath', [
           'compensation',
           'budgetInfo',
           'budgetInfoArray',
-          'wasPartOfVOS',
+          'isPartOfVOS',
         ])
         ->setSetting('typeOverride', [
           'dataType' => 'string',

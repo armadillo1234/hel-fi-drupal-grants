@@ -1,0 +1,669 @@
+{
+  "compensation": {
+    "applicationInfoArray": [
+      {
+        "ID": "applicationType",
+        "label": "Hakemustyyppi",
+        "value": "NUORTOIMPALKKA",
+        "valueType": "string"
+      },
+      {
+        "ID": "applicationTypeID",
+        "label": "Hakemustyypin numero",
+        "value": "63",
+        "valueType": "int"
+      },
+      {
+        "ID": "formTimeStamp",
+        "label": "Hakemuksen/sanoman lähetyshetki",
+        "value": "2023-28-02T13:00:00.000",
+        "valueType": "datetime"
+      },
+      {
+        "ID": "applicationNumber",
+        "label": "Hakemusnumero",
+        "value": "NUORTOIMPALKKA-3",
+        "valueType": "string"
+      },
+      {
+        "ID": "status",
+        "label": "Tila",
+        "value": "Vastaanotettu",
+        "valueType": "string"
+      },
+      {
+        "ID": "actingYear",
+        "label": "Hakemusvuosi",
+        "value": "2023",
+        "valueType": "int"
+      }
+    ],
+    "currentAddressInfoArray": [
+      {
+        "ID": "contactPerson",
+        "label": "Yhteyshenkilö",
+        "value": "Teemu Testaushenkilö",
+        "valueType": "string"
+      },
+      {
+        "ID": "phoneNumber",
+        "label": "Puhelinnumero",
+        "value": "+358404040404",
+        "valueType": "string"
+      },
+      {
+        "ID": "street",
+        "label": "Katuosoite",
+        "value": "Annankatu 18 Ö 905",
+        "valueType": "string"
+      },
+      {
+        "ID": "city",
+        "label": "Postitoimipaikka",
+        "value": "Helsinki",
+        "valueType": "string"
+      },
+      {
+        "ID": "postCode",
+        "label": "Postinumero",
+        "value": "00120",
+        "valueType": "string"
+      },
+      {
+        "ID": "country",
+        "label": "Maa",
+        "value": "Suomi",
+        "valueType": "string"
+      }
+    ],
+    "applicantInfoArray": [
+      {
+        "ID": "applicantType",
+        "label": "Hakijan tyyppi",
+        "value": "2",
+        "valueType": "string"
+      },
+      {
+        "ID": "companyNumber",
+        "label": "Rekisterinumero",
+        "value": "123456-4",
+        "valueType": "string"
+      },
+      {
+        "ID": "communityOfficialName",
+        "label": "Yhteisön nimi",
+        "value": "Nuoriso Testi",
+        "valueType": "string"
+      },
+      {
+        "ID": "communityOfficialNameShort",
+        "label": "Yhteisön lyhenne",
+        "value": "NT ry",
+        "valueType": "string"
+      },
+      {
+        "ID": "registrationDate",
+        "label": "Rekisteröimispäivä",
+        "value": "2022-03-01T00:00:00.000",
+        "valueType": "datetime"
+      },
+      {
+        "ID": "foundingYear",
+        "label": "Perustamisvuosi",
+        "value": "2022",
+        "valueType": "int"
+      },
+      {
+        "ID": "home",
+        "label": "Kotipaikka",
+        "value": "Helsinki",
+        "valueType": "string"
+      },
+      {
+        "ID": "homePage",
+        "label": "www-sivut",
+        "value": "www.nopeNotExist.fi",
+        "valueType": "string"
+      },
+      {
+        "ID": "email",
+        "label": "Sähköpostiosoite",
+        "value": "nopeNotExist@nope-not-nope.fip",
+        "valueType": "string"
+      }
+    ],
+    "applicantOfficialsArray": [
+      [
+        {
+          "ID": "email",
+          "label": "Sähköposti",
+          "value": "jepjep@joojoo.joo",
+          "valueType": "string"
+        },
+        {
+          "ID": "role",
+          "label": "Rooli",
+          "value": "1",
+          "valueType": "string"
+        },
+        {
+          "ID": "name",
+          "label": "Nimi",
+          "value": "Teemu Testaushenkilö",
+          "valueType": "string"
+        },
+        {
+          "ID": "phone",
+          "label": "Puhelinnumero",
+          "value": "09-616527788",
+          "valueType": "string"
+        }
+      ]
+    ],
+    "bankAccountArray": [
+      {
+        "ID": "accountNumber",
+        "label": "Tilinumero",
+        "value": "FI9640231442000454",
+        "valueType": "string"
+      }
+    ],
+    "compensationInfo": { 
+      "generalInfoArray": [
+        {
+          "ID": "totalAmount",
+          "label": "Yhteensä euroa",
+          "value": "7000.00",
+          "valueType": "double"
+		},
+        {
+          "ID": "rentalApplied",
+          "label": "Hain vuokra-avustus",
+          "value": "true",
+          "valueType": "bool"
+		}
+
+      ],
+      "compensationArray": [
+        [
+          {
+            "ID": "subventionType",
+            "label": "Avustuslaji",
+            "value": "1",
+            "valueType": "string"
+          },
+          {
+            "ID": "amount",
+            "label": "Euroa",
+            "value": "2000.00",
+            "valueType": "float"
+          }
+        ],
+		[
+          {
+            "ID": "subventionType",
+            "label": "Avustuslaji",
+            "value": "2",
+            "valueType": "string"
+          },
+          {
+            "ID": "amount",
+            "label": "Euroa",
+            "value": "5000.00",
+            "valueType": "float"
+          }
+        ]
+      ]
+    },
+    "otherCompensationsInfo": {
+      "otherCompensationsArray": [
+        [
+          {
+            "ID": "issuer",
+            "label": "Myöntäjä",
+            "value": "5",
+            "valueType": "string"
+          },
+          {
+            "ID": "issuerName",
+            "label": "Myöntäjän nimi",
+            "value": "Joku Säätiö Sr.",
+            "valueType": "string"
+          },
+          {
+            "ID": "year",
+            "label": "Vuosi",
+            "value": "2021",
+            "valueType": "string"
+          },
+          {
+            "ID": "amount",
+            "label": "Euroa",
+            "value": "2800",
+            "valueType": "double"
+          },
+          {
+            "ID": "purpose",
+            "label": "Tarkoitus",
+            "value": "Matkakuluihin ja muihin ylimääräisiin menoihin.",
+            "valueType": "string"
+          }
+        ]
+      ],
+	  "otherAppliedCompensationsArray": [
+        [
+          {
+            "ID": "issuer",
+            "label": "Myöntäjä",
+            "value": "5",
+            "valueType": "string"
+          },
+          {
+            "ID": "issuerName",
+            "label": "Myöntäjän nimi",
+            "value": "Joku Säätiö Sr.",
+            "valueType": "string"
+          },
+          {
+            "ID": "year",
+            "label": "Vuosi",
+            "value": "2021",
+            "valueType": "string"
+          },
+          {
+            "ID": "amount",
+            "label": "Euroa",
+            "value": "3000.00",
+            "valueType": "double"
+          },
+          {
+            "ID": "purpose",
+            "label": "Tarkoitus",
+            "value": "Matkakuluihin ja muihin ylimääräisiin menoihin.",
+            "valueType": "string"
+          }
+        ]
+      ],
+	  "otherCompensationsInfoArray": [
+		  {
+			"ID": "otherCompensationsTotal",
+			"label": "Muut saadut avustukset yhteensä",
+			"value": "2800.0",
+			"valueType": "double"
+		  },
+		  {
+			"ID": "otherAppliedCompensationsTotal",
+			"label": "Muut haetut avustukset yhteensä",
+			"value": "3000.0",
+			"valueType": "double"
+		  }
+	  ]
+    },	
+	"activitiesInfoArray": [
+	  {
+        "ID": "membersAge0to6YearsGlobal",
+        "label": "0-6 -vuotiaat",
+        "value": "15",
+        "valueType": "int"
+      }, 
+      {
+        "ID": "membersAge0to6YearsLocal",
+        "label": "0-6 -vuotiaat, Helsinki",
+        "value": "3",
+        "valueType": "int"
+      },
+      {
+        "ID": "membersAge7to28YearsGlobal",
+        "label": "7-28 -vuotiaat",
+        "value": "40",
+        "valueType": "int"
+      },
+      {
+        "ID": "membersAge7to28YearsLocal",
+        "label": "7-28 -vuotiaat, Helsinki",
+        "value": "39",
+        "valueType": "int"
+      },
+      {
+        "ID": "membersOthersGlobal",
+        "label": "Muut jäsenet",
+        "value": "5",
+        "valueType": "int"
+      },
+      {
+        "ID": "membersOthersLocal",
+        "label": "Muut jäsenet, Helsinki",
+        "value": "2",
+        "valueType": "int"
+      },
+      {
+        "ID": "lastYearYoungPeopleParticipation",
+        "label": "Alle 29-vuotiaiden kaikki osallistumiskerrat edellisenä kalenterivuotena",
+        "value": "5000",
+        "valueType": "int"
+      },
+      {
+        "ID": "lastYearYoungPeopleParticipationDigital",
+        "label": "Joista alle 29-vuotiaiden digitaalisia osallistumiskertoja oli",
+        "value": "550",
+        "valueType": "int"
+      },
+      {
+        "ID": "youngPeopleParticipation",
+        "label": "Kuvaus nuorten osallistumisesta suunnitteluun ja päätöksentekoon",
+        "value": "Nuoret osallistuvat suuressa määrin erilaisin juttuihin suunnittelussa ja päätöksenteossa.",
+        "valueType": "string"
+      } 
+	],
+	"premisesInfo": {
+		"premisesArray": [
+			[
+				{
+					"ID": "location",
+					"label": "Toimipaikka",
+					"value": "Toimipaikka",
+					"valueType": "string"
+				},
+				{
+					"ID": "streetAddress",
+					"label": "Osoite",
+					"value": "KatuOsoite 123",
+					"valueType": "string"
+				},
+				{
+					"ID": "postCode",
+					"label": "Postinumero",
+					"value": "12034",
+					"valueType": "string"
+				}
+			],
+			[
+				{
+					"ID": "location",
+					"label": "Toimipaikka",
+					"value": "Toimipaikka 2",
+					"valueType": "string"
+				},
+				{
+					"ID": "streetAddress",
+					"label": "Osoite",
+					"value": "KatuOsoite 1234",
+					"valueType": "string"
+				},
+				{
+					"ID": "postCode",
+					"label": "Postinumero",
+					"value": "124234",
+					"valueType": "string"
+				}
+			]
+		],
+		"premiseSummaryArray": [
+			{
+				"ID": "digitalPremises",
+				"label": "Järjestimme toimintaa vain digitaalisessa ympäristössä",
+				"value": "true",
+				"valueType": "bool"
+			}
+		]
+	},
+	"membershipsInfo": {
+	  "membershipsArray": [
+	    [
+		  {
+		    "ID": "organizationName",
+            "label": "Järjestön nimi",
+            "value": "Suomen toiminta mesta",
+            "valueType": "string"
+		  },
+		  {
+			"ID": "fee",
+            "label": "Jäsenmaksu",
+            "value": "200.00",
+            "valueType": "double" 
+		  }
+		],
+		[
+		  {
+		    "ID": "organizationName",
+            "label": "Järjestön nimi",
+            "value": "Jäsenmaksu järjestö",
+            "valueType": "string"
+		  },
+		  {
+			"ID": "fee",
+            "label": "Jäsenmaksu",
+            "value": "500.00",
+            "valueType": "double" 
+		  }
+		]
+	  ],
+	  "membershipsInfoArray": [
+	    {
+		  "ID": "membershipsFeesTotal",
+          "label": "Jäsenmaksut yhteensä",
+          "value": "700.00",
+          "valueType": "double"
+		},
+		{
+		  "ID": "descriptionOnYoungPeopleParticipation",
+          "label": "Kuvaus nuorten osallistumisesta suunnitteluun ja päätöksentekoon",
+          "value": "Nuoret tekevät paljon päätöksiä.",
+          "valueType": "string" 
+		}
+	  ]
+	},
+	"hiredOfficialsInfo": [
+	  {
+		 "ID": "amountOfHiredOfficials",
+          "label": "Kuinka monta päätoimista palkattua työntekijää yhdistyksessä työskentelee?",
+          "value": "14",
+          "valueType": "int" 
+	  }
+	],
+	"budgetInfo": {
+		"budgetInfoArray": [
+			{
+				"ID": "employeeSalaries",
+				"label": "Palkkauskulut",
+				"value": "25000.00",
+				"valueType": "double"
+			},
+			{
+				"ID": "mandatoryAndOptionalPersonelCosts",
+				"label": "Sosiaalikulut ja avustukset",
+				"value": "1500.00",
+				"valueType": "double"
+			},
+			{
+				"ID": "travelAndTrainingCosts",
+				"label": "Matkustus ja koulutus kulut",
+				"value": "5000.00",
+				"valueType": "double"
+			}
+		]
+	},
+	"rentsInfo": {
+	  "rentedPremisesArray": [
+	    [
+		  {
+		    "ID": "premiseAddress",
+			"label": "Osoite",
+			"value": "TilanOsoite katu 1",
+			"valueType": "string"
+		  },
+		  {
+		    "ID": "premisePostalCode",
+			"label": "Postinumero",
+			"value": "23422",
+			"valueType": "string"
+		  },
+		  {
+		    "ID": "premisePostOffice",
+			"label": "Postitoimipaikka",
+			"value": "Kaupunki",
+			"valueType": "string"
+		  },
+		  {
+		    "ID": "rentSum",
+			"label": "Vuokra",
+			"value": "500.00",
+			"valueType": "double"
+		  },
+		  {
+		    "ID": "usage",
+			"label": "Käyttö",
+			"value": "Tilaa käytetään toimintaan",
+			"valueType": "string"
+		  },
+		  {
+		    "ID": "daysPerWeek",
+			"label": "Päiviä viikossa",
+			"value": "4",
+			"valueType": "int"
+		  },
+		  {
+		    "ID": "hoursPerDay",
+			"label": "Tunteja päivässä",
+			"value": "5",
+			"valueType": "int"
+		  },
+		  {
+		    "ID": "lessorName",
+			"label": "Nimi",
+			"value": "Erkki Vuokraaja",
+			"valueType": "string"
+		  },
+		  {
+		    "ID": "lessorPhoneOrEmail",
+			"label": "Puhelin tai sähköposti",
+			"value": "joku@jossain.jotain",
+			"valueType": "string"
+		  },
+		  {
+		    "ID": "lessorAddress",
+			"label": "Osoite",
+			"value": "Vuokraajan katu 1",
+			"valueType": "string"
+		  },
+		  {
+		    "ID": "lessorPostalCode",
+			"label": "Postinumero",
+			"value": "11142",
+			"valueType": "string"
+		  },
+		  {
+		    "ID": "lessorPostOffice",
+			"label": "Postitoimipaikka",
+			"value": "VuokraKaupunki",
+			"valueType": "string"
+		  }
+		]
+	  ],
+	  "rentsSummaryArray": [
+	    {
+		  "ID": "rentsInformation",
+		  "label": "Lisätiedot",
+		  "value": "Lisätietoja tähän lisätään pitkä pätkä.",
+		  "valueType": "string"	
+		},
+		{
+		  "ID": "extraQuestion",
+		  "label": "Lisäkysymyksen otsikko",
+		  "value": "Lisäkysymyksen vastaus",
+		  "valueType": "string"	
+		}
+	  ]
+	},
+    "additionalInformation": "Tällä kertaa ei ole muuta ilmoitettavaa tähän hakemukseen",
+    "senderInfoArray": [
+      {
+        "ID": "firstname",
+        "label": "Etunimi",
+        "value": "Testaaja",
+        "valueType": "string"
+      },
+      {
+        "ID": "lastname",
+        "label": "Sukunimi",
+        "value": "Tiina",
+        "valueType": "string"
+      },
+      {
+        "ID": "personID",
+        "label": "Henkilötunnus",
+        "value": "171756-1234",
+        "valueType": "string"
+      },
+      {
+        "ID": "userID",
+        "label": "Käyttäjätunnus",
+        "value": "testatii",
+        "valueType": "string"
+      },
+      {
+        "ID": "email",
+        "label": "Sähköposti",
+        "value": "tiina.testaaja@testiyhdistys.fi",
+        "valueType": "string"
+      }
+    ]
+  },
+  "attachmentsInfo": {
+    "attachmentsArray": [
+      [
+        {
+          "ID": "description",
+          "value": "Vuosikokouksen pöytäkirja",
+          "valueType": "string"
+        },
+        {
+          "ID": "fileType",
+          "value": "1",
+          "valueType": "int"
+        },
+        {
+          "ID": "isDeliveredLater",
+          "value": "false",
+          "valueType": "bool"
+        },
+        {
+          "ID": "isIncludedInOtherFile",
+          "value": "true",
+          "valueType": "bool"
+        }
+      ],
+      [
+        {
+          "ID": "description",
+          "value": "Muu liite",
+          "valueType": "string"
+        },
+        {
+          "ID": "fileType",
+          "value": "1",
+          "valueType": "int"
+        },
+        {
+          "ID": "isDeliveredLater",
+          "value": "true",
+          "valueType": "bool"
+        },
+        {
+          "ID": "isIncludedInOtherFile",
+          "value": "false",
+          "valueType": "bool"
+        }
+      ]
+    ],
+    "generalInfoArray": [
+      {
+        "ID": "extraInfo",
+        "label": "Lisäselvitys liitteistä",
+        "value": "Tässä voi olla joku kaikkia liitteitä yhteisesti koskeva selvitys",
+        "valueType": "string"
+      }
+    ]
+  },
+  "formUpdate": false
+}

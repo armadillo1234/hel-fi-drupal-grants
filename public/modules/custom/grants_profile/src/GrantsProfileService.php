@@ -422,9 +422,6 @@ class GrantsProfileService {
     if (!isset($profileContent['companyHomePage'])) {
       $profileContent['companyHomePage'] = NULL;
     }
-    if (!isset($profileContent['companyEmail'])) {
-      $profileContent['companyEmail'] = NULL;
-    }
     if (!isset($profileContent['businessPurpose'])) {
       $profileContent['businessPurpose'] = NULL;
     }

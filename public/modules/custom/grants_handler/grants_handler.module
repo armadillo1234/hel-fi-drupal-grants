@@ -418,8 +418,7 @@ function grants_handler_webform_element_alter(array &$element, FormStateInterfac
 
         $formSelection = $formValues['community_street'] . ', ' .
           $formValues['community_post_code'] . ', ' .
-          $formValues['community_city'] . ', ' .
-          $formValues['community_country'];
+          $formValues['community_city'];
 
         // Set initial defaultvalue to false to avoid unwanted selections
         // in unfilled form.
@@ -429,7 +428,7 @@ function grants_handler_webform_element_alter(array &$element, FormStateInterfac
         foreach ($profileData['addresses'] as $delta => $address) {
           $deltaString = $address["address_id"];
           $optionSelection = $address['street'] . ', ' . $address['postCode'] .
-            ', ' . $address['city'] . ', ' . $address['country'];
+            ', ' . $address['city'];
 
           // If this value is same than the one on form, then set default value.
           if ($formSelection == $optionSelection) {

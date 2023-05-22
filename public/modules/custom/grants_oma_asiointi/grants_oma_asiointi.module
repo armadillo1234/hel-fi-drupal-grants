@@ -50,10 +50,18 @@ function grants_oma_asiointi_theme() {
     'render element' => 'build',
     'variables' => [
       'title' => NULL,
+      'infoboxes' => NULL,
       'drafts' => NULL,
       'others' => NULL,
       'unread' => NULL,
       'link' => NULL,
+    ],
+  ];
+
+  $theme['grants_oma_asiointi_infoboxes'] = [
+    'render element' => 'build',
+    'variables' => [
+      'profileNotice' => NULL,
     ],
   ];
 

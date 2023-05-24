@@ -50,6 +50,15 @@ class GrantsBudgetCostStatic extends WebformCompositeBase {
     $element = parent::processWebformComposite($element, $form_state, $complete_form);
     $dataForElement = $element['#value'];
 
+    $fieldKeys = array_keys(self::getFieldNames());
+
+    foreach ($fieldKeys as $fieldKey) {
+      $keyToCheck = '#' . $fieldKey . '__access';
+      if (isset($element[$keyToCheck]) && $element[$keyToCheck] === FALSE) {
+        unset($element[$fieldKey]);
+      }
+    }
+
     if (isset($dataForElement['costGroupName'])) {
       $element['costGroupName']['#value'] = $dataForElement['costGroupName'];
     }

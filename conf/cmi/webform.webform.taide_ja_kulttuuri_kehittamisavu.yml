@@ -510,25 +510,23 @@ elements: |-
             - webform--large
         '#title': 'Festivaalin tai tapahtuman kohdalla tapahtuman päivämäärät'
       hanke_alkaa:
-        '#type': datetime
+        '#type': date
         '#title': 'Hanke alkaa'
-        '#date_date_element': datepicker
+        '#required': true
+        '#datepicker': true
         '#date_date_format': d.m.Y
+        '#date_date_element': datepicker
         '#date_year_range': '2023:2050'
         '#date_time_element': none
-        '#attributes':
-          class:
-            - webform--small
       hanke_loppuu:
-        '#type': datetime
+        '#type': date
         '#title': 'Hanke loppuu'
-        '#date_date_element': datepicker
+        '#required': true
+        '#datepicker': true
         '#date_date_format': d.m.Y
-        '#date_year_range': '2023:2050'
+        '#date_date_element': datepicker
+        '#date_year_range': '2023:2030'
         '#date_time_element': none
-        '#attributes':
-          class:
-            - webform--small
     hankekuvaus:
       '#type': webform_section
       '#title': Hankekuvaus

@@ -31,6 +31,82 @@ title: 'Taide- ja kulttuuriavustukset, toiminta-avustus'
 description: KUVATOIM
 category: ''
 elements: |-
+  avustukset_summa:
+    '#type': grants_webform_summation_field
+    '#title': 'Avustukset summa'
+    '#title_display': none
+    '#collect_field':
+      subventions%%amount: subventions%%amount
+      applicant_type: 0
+      application_number: 0
+      status: 0
+      hakijan_tiedot: 0
+      email: 0
+      contact_person: 0
+      contact_person_phone_number: 0
+      community_address: 0
+      bank_account: 0
+      community_officials: 0
+      acting_year: 0
+      subventions%%subventionTypeTitle: 0
+      subventions%%subventionType: 0
+      ensisijainen_taiteen_ala: 0
+      hankkeen_nimi: 0
+      kyseessa_on_festivaali_tai_tapahtuma: 0
+      hankkeen_tai_toiminnan_lyhyt_esittelyteksti: 0
+      olemme_saaneet_muita_avustuksia: 0
+      myonnetty_avustus: 0
+      members_applicant_person_global: 0
+      members_applicant_person_local: 0
+      members_applicant_community_global: 0
+      members_applicant_community_local: 0
+      kokoaikainen_henkilosto: 0
+      kokoaikainen_henkilotyovuosia: 0
+      osa_aikainen_henkilosto: 0
+      osa_aikainen_henkilotyovuosia: 0
+      vapaaehtoinen_henkilosto: 0
+      tapahtuma_tai_esityspaivien_maara_helsingissa: 0
+      esitykset_maara_helsingissa: 0
+      nayttelyt_maara_helsingissa: 0
+      tyopaja_maara_helsingissa: 0
+      esitykset_maara_kaikkiaan: 0
+      nayttelyt_maara_kaikkiaan: 0
+      tyopaja_maara_kaikkiaan: 0
+      esitykset_kavijamaara_helsingissa: 0
+      nayttelyt_kavijamaara_helsingissa: 0
+      tyopaja_kavijamaara_helsingissa: 0
+      esitykset_kavijamaara_kaikkiaan: 0
+      nayttelyt_kavijamaara_kaikkiaan: 0
+      tyopaja_kavijamaara_kaikkiaan: 0
+      kantaesitysten_maara: 0
+      ensi_iltojen_maara_helsingissa: 0
+      ensimmainen_yleisolle_avoimen_tilaisuuden_paikka_helsingissa: 0
+      postinumero: 0
+      kyseessa_on_kaupungin_omistama_tila: 0
+      tila: 0
+      ensimmaisen_yleisolle_avoimen_tilaisuuden_paivamaara: 0
+      festivaalin_tai_tapahtuman_kohdalla_tapahtuman_paivamaarat: 0
+      hanke_alkaa: 0
+      hanke_loppuu: 0
+      laajempi_hankekuvaus: 0
+      toiminta_taiteelliset_lahtokohdat: 0
+      toiminta_tasa_arvo: 0
+      toiminta_saavutettavuus: 0
+      toiminta_yhteisollisyys: 0
+      toiminta_kohderyhmat: 0
+      toiminta_ammattimaisuus: 0
+      toiminta_ekologisuus: 0
+      toiminta_yhteistyokumppanit: 0
+      organisaatio_kuuluu_valtionosuusjarjestelmaan_vos_: 0
+      budget_static_income: 0
+      budget_static_cost: 0
+      budget_other_cost: 0
+      muu_huomioitava_panostus: 0
+      additional_information: 0
+      extra_info: 0
+      muu_liite: 0
+    '#data_type': euro
+    '#form_item': hidden
   applicant_type:
     '#type': hidden
     '#title': 'Hakijan tyyppi'
@@ -146,6 +222,18 @@ elements: |-
         '#options':
           2024: '2024'
         '#required': true
+      info_subvention_summa:
+        '#type': processed_text
+        '#text': |
+          <div class="hds-notification hds-notification--info">
+            <div class="hds-notification__content">
+              <div class="hds-notification__label" role="heading" aria-level="2">
+                <span class="hel-icon hel-icon--alert-circle-fill" aria-hidden="true"></span>
+                <span>Yli 5000€ avustusten syöttäminen avaa joukon lisäkysymyksiä.</span>
+              </div>
+            </div>
+          </div>
+        '#format': full_html
       subventions:
         '#type': grants_compensations
         '#title': Avustukset
@@ -169,6 +257,11 @@ elements: |-
         '#subvention_amount__title': 'Avustuksen summa'
       info_monivuotinen:
         '#type': processed_text
+        '#states':
+          visible:
+            ':input[name="avustukset_summa"]':
+              value:
+                greater_equal: '5000'
         '#text': |
           <div class="hds-notification hds-notification--info">
             <div class="hds-notification__content">
@@ -183,6 +276,11 @@ elements: |-
         '#type': radios
         '#title': 'Kyseessä on monivuotinen avustus'
         '#required': true
+        '#states':
+          visible:
+            ':input[name="avustukset_summa"]':
+              value:
+                greater_equal: '5000'
         '#description': 'Nelivuotiskaudella 2023-2026 monivuotisia toiminta-avustuksia voidaan my&ouml;nt&auml;&auml; helsinkil&auml;isille rekister&ouml;ityneille esitt&auml;v&auml;n taiteen ja musiikin valtionosuusj&auml;rjestelm&auml;n piiriss&auml; oleville taide- ja kulttuuriyhteis&ouml;ille. Tuen saajat on p&auml;&auml;tetty vuoden 2022 lopulla.'
         '#options':
           1: Kyllä
@@ -202,9 +300,15 @@ elements: |-
           visible:
             ':input[name="kyseessa_on_monivuotinen_avustus"]':
               value: '1'
+            ':input[name="avustukset_summa"]':
+              value:
+                greater_equal: '5000'
           required:
             ':input[name="kyseessa_on_monivuotinen_avustus"]':
               value: '1'
+            ':input[name="avustukset_summa"]':
+              value:
+                greater_equal: '5000'
       erittely_kullekin_vuodelle_haettavasta_avustussummasta_:
         '#type': textfield
         '#title': 'Erittely kullekin vuodelle haettavasta avustussummasta.'
@@ -459,6 +563,18 @@ elements: |-
     taiteellisen_toiminnan_tilat:
       '#type': webform_section
       '#title': 'Taiteellisen toiminnan tilat'
+      info_taiteellisen_toiminnan_tilat:
+        '#type': processed_text
+        '#text': |
+          <div class="hds-notification hds-notification--info">
+            <div class="hds-notification__content">
+              <div class="hds-notification__label" role="heading" aria-level="2">
+                <span class="hel-icon hel-icon--alert-circle-fill" aria-hidden="true"></span>
+                <span>Myöntävä vastaus avaa lisäkysymyksen</span>
+              </div>
+            </div>
+          </div>
+        '#format': full_html
       taiteellisen_toiminnan_tilaa_omistuksessa_tai_ymparivuotisesti_p:
         '#type': radios
         '#title': 'Taiteellisen toiminnan tilaa omistuksessa tai ympärivuotisesti päävuokralaisena'
@@ -480,6 +596,7 @@ elements: |-
         '#multiple__sorting': false
         '#multiple__add': false
         '#multiple__add_more_input': false
+        '#premiseType__access': false
         '#premiseAddress__access': false
         '#location__access': false
         '#streetAddress__access': false
@@ -493,8 +610,8 @@ elements: |-
         '#rentTimeBegin__access': false
         '#rentTimeEnd__access': false
         '#free__access': false
-        '#isOthersUse__title': 'Tilaa tarjotaan muiden käyttöön (ilmaiseksi tai vuokralla)'
-        '#isOwnedByApplicant__title': 'Tila on omassa omistuksessa'
+        '#isOthersUse__access': false
+        '#isOwnedByApplicant__access': false
         '#states':
           visible:
             ':input[name="taiteellisen_toiminnan_tilaa_omistuksessa_tai_ymparivuotisesti_p"]':
@@ -682,74 +799,50 @@ elements: |-
           '#attributes':
             class:
               - webform--small
-      kavijamaara_helsingissa_toteutuneet_fieldset:
+      maarat_fieldset:
         '#type': fieldset
-        '#title': 'Kävijämäärä Helsingissä'
+        '#title': Kävijämääristä
         '#attributes':
           class:
             - grants-fieldset
-        '#help': '&Auml;l&auml; t&auml;yt&auml; samoja k&auml;vij&ouml;it&auml; kahteen kertaan, esim. n&auml;yttelytilassa j&auml;rjestetty&auml; ty&ouml;pajaa sek&auml; n&auml;yttelyihin ett&auml; ty&ouml;pajoihin.'
-        esitykset_kavijamaara_helsingissa_toteutuneet:
+        maara_helsingissa_toteutuneet:
           '#type': number
-          '#title': Esitykset
+          '#title': 'Kävijämäärä Helsingissä'
+          '#help': 'Älä täytä samoja kävijöitä kahteen kertaan, esim. näyttelytilassa järjestettyä työpajaa sekä näyttelyihin että työpajoihin.'
           '#attributes':
             class:
               - webform--small
-        nayttelyt_kavijamaara_helsingissa_toteutuneet:
+        maara_kaikkiaan_toteutuneet:
           '#type': number
-          '#title': Näyttelyt
+          '#title': 'Kävijämäärä kaikkiaan'
+          '#help': 'Määrä kaikkiaan -kohdassa täytä luvut sisältäen toiminnan kokonaisuudessaan sekä Suomessa että mahdollisesti ulkomailla.'
           '#attributes':
             class:
               - webform--small
-        tyopaja_kavijamaara_helsingissa_toteutuneet:
-          '#type': number
-          '#title': 'Työpaja tai muu osallistava toimintamuoto'
-          '#attributes':
-            class:
-              - webform--small
-      kavijamaara_kaikkiaan_toteutuneet_fieldset:
+      toteutuneet_esitysista_fieldset:
         '#type': fieldset
-        '#title': 'Kävijämäärä kaikkiaan'
+        '#title': Esityksistä
         '#attributes':
           class:
             - grants-fieldset
-        '#help': '&Auml;l&auml; t&auml;yt&auml; samoja k&auml;vij&ouml;it&auml; kahteen kertaan, esim. n&auml;yttelytilassa j&auml;rjestetty&auml; ty&ouml;pajaa sek&auml; n&auml;yttelyihin ett&auml; ty&ouml;pajoihin. T&auml;yt&auml; luvut sis&auml;lt&auml;en toiminnan kokonaisuudessaan sek&auml; Suomessa ett&auml; mahdollisesti ulkomailla.'
-        esitykset_kavijamaara_kaikkiaan_toteutuneet:
+        toteutuneet_kantaesitysten_maara:
           '#type': number
-          '#title': Esitykset
+          '#title': 'Kantaesitysten määrä'
+          '#help': 'Kantaesityksell&auml; tarkoitetaan ennen esitt&auml;m&auml;t&ouml;nt&auml;, t&auml;ysin uutta teosta. Esimerkiksi uusinta-ensi-ilta ei ole kantaesitys.'
           '#attributes':
             class:
               - webform--small
-        nayttelyt_kavijamaara_kaikkiaan_toteutuneet:
+        toeutuneet_ensi_iltojen_maara_helsingissa:
           '#type': number
-          '#title': Näyttelyt
+          '#title': 'Ensi-iltojen määrä Helsingissä'
+          '#help': 'Ensi-illalla tarkoitetaan tuotannon ensimmäistä esitystä. Täytä tähän ne ensi-illat, jotka tapahtuvat Helsingissä.'
           '#attributes':
             class:
               - webform--small
-        tyopaja_kavijamaara_kaikkiaan_toteutuneet:
-          '#type': number
-          '#title': 'Työpaja tai muu osallistava toimintamuoto'
-          '#attributes':
-            class:
-              - webform--small
-      esityksista_toteutuneet_markup:
+      arvio_maarasta_markup:
         '#type': webform_markup
         '#markup': |-
-          <h3>
-            Esityksistä
-          </h3>
-      toteutuneet_kantaesitysten_maara:
-        '#type': number
-        '#title': 'Kantaesitysten määrä'
-        '#attributes':
-          class:
-            - webform--small
-      toeutuneet_ensi_iltojen_maara_helsingissa:
-        '#type': number
-        '#title': 'Ensi-iltojen määrä Helsingissä'
-        '#attributes':
-          class:
-            - webform--small
+          <h3>Helsingissä järjestettävä yleisölle avoin toiminta toteutettiin</h3>
       toteutuneet_tila:
         '#type': premises_composite
         '#title': Tila
@@ -782,6 +875,11 @@ elements: |-
     toiminnan_sisallot:
       '#type': webform_section
       '#title': 'Toiminnan sisällöt'
+      '#states':
+        visible:
+          ':input[name="avustukset_summa"]':
+            value:
+              greater_equal: '5000'
       toiminta_taiteelliset_lahtokohdat:
         '#type': textarea
         '#title': 'Kuvaa toiminnan taiteellisia lähtökohtia ja tavoitteita, taiteellista ammattimaisuutta sekä asemaa taiteen kentällä.'
@@ -793,6 +891,11 @@ elements: |-
           class:
             - webform--large
         '#counter_maximum_message': '%d/1000 merkkiä jäljellä'
+        '#states':
+          visible:
+            ':input[name="avustukset_summa"]':
+              value:
+                greater_equal: '5000'
       toiminta_tasa_arvo:
         '#type': textarea
         '#title': 'Miten monimuotoisuus ja tasa-arvo toteutuu ja näkyy toiminnan järjestäjissä ja organisaatioissa sekä toiminnan sisällöissä? Minkälaisia toimenpiteitä, resursseja ja osaamista on asian edistämiseksi?'
@@ -803,6 +906,11 @@ elements: |-
           class:
             - webform--large
         '#counter_maximum_message': '%d/1000 merkkiä jäljellä'
+        '#states':
+          visible:
+            ':input[name="avustukset_summa"]':
+              value:
+                greater_equal: '5000'
     toiminnan_tavoittavuus:
       '#type': webform_section
       '#title': 'Toiminnan tavoittavuus'
@@ -812,6 +920,11 @@ elements: |-
         '#maxlength': 1000
         '#counter_type': character
         '#counter_maximum': 1000
+        '#states':
+          visible:
+            ':input[name="avustukset_summa"]':
+              value:
+                greater_equal: '5000'
         '#attributes':
           class:
             - webform--large
@@ -822,6 +935,11 @@ elements: |-
         '#maxlength': 1000
         '#counter_type': character
         '#counter_maximum': 1000
+        '#states':
+          visible:
+            ':input[name="avustukset_summa"]':
+              value:
+                greater_equal: '5000'
         '#attributes':
           class:
             - webform--large
@@ -843,6 +961,11 @@ elements: |-
         '#type': textarea
         '#title': 'Kuvaa toiminnan järjestämisen ammattimaisuutta ja organisoimista'
         '#maxlength': 1000
+        '#states':
+          visible:
+            ':input[name="avustukset_summa"]':
+              value:
+                greater_equal: '5000'
         '#attributes':
           class:
             - webform--large
@@ -851,6 +974,11 @@ elements: |-
         '#counter_maximum_message': '%d/1000 merkkiä jäljellä'
       toiminta_ekologisuus:
         '#type': textarea
+        '#states':
+          visible:
+            ':input[name="avustukset_summa"]':
+              value:
+                greater_equal: '5000'
         '#title': 'Miten ekologisuus huomioidaan toiminnan järjestämisessä? Minkälaisia toimenpiteitä, resursseja ja osaamista on asian edistämiseksi?'
         '#maxlength': 1000
         '#counter_type': character
@@ -913,6 +1041,7 @@ elements: |-
       '#title': Talousarvio
       organisaatio_kuuluu_valtionosuusjarjestelmaan_vos_:
         '#type': radios
+        '#required': true
         '#title': 'Organisaatio kuuluu valtionosuusjärjestelmään (VOS)'
         '#options':
           1: Kyllä
@@ -1016,6 +1145,7 @@ elements: |-
       '#title': 'Toteutuneet tulot ja menot'
       organisaatio_kuului_valtionosuusjarjestelmaan_vos_:
         '#type': radios
+        '#required': true
         '#title': 'Organisaatio kuului valtionosuusjärjestelmään (VOS)'
         '#options':
           1: Kyllä

@@ -253,7 +253,11 @@ fieldset.webform-composite-hidden-title {
 
     @include pseudo-icon('alert-circle-fill');
     background-color: var(--color-error);
-    content: '';
+    content: ' ';
     display: inline-block;
   }
+}
+
+input[type=radio] + label.form-required::after {
+  content: '';
 }

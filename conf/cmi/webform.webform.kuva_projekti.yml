@@ -36,7 +36,6 @@ elements: |-
   avustukset_summa:
     '#type': grants_webform_summation_field
     '#title': 'Avustukset summa'
-    '#title_display': none
     '#collect_field':
       subventions%%amount: subventions%%amount
       applicant_type: 0

@@ -359,7 +359,7 @@ elements: |-
               value: '1'
           required:
             ':input[name="olemme_hakeneet_avustuksia_muualta_kuin_helsingin_kaupungilta"]':
-              value: '0'
+              value: '1'
         '#multiple__header': false
         '#multiple__item_label': 'haettu avustus'
         '#multiple__no_items_message': 'Ei sy&ouml;tettyj&auml; arvoja. Lis&auml;&auml; uusi haettu avustus alta.'

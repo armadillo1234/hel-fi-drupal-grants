@@ -149,6 +149,18 @@ class PremisesComposite extends WebformCompositeBase {
       '#title' => t('City owns the property', [], $tOpts),
     ];
 
+    /* Remove all elements from elements that are not explicitly selected
+    for this form. Hopefully this fixes issues with data fields. */
+    foreach ($element as $fieldName => $value) {
+      if (str_contains($fieldName, '__access')) {
+        $fName = str_replace('__access', '', $fieldName);
+        $fName = str_replace('#', '', $fName);
+        if ($value === FALSE && isset($elements[$fName])) {
+          unset($elements[$fName]);
+        }
+      }
+    }
+
     return $elements;
   }
 
@@ -160,24 +172,24 @@ class PremisesComposite extends WebformCompositeBase {
 
     $elementValue = $element['#value'];
 
-    if ($elementValue["isOwnedByCity"] === "false") {
+    if (isset($element["isOwnedByCity"]) && $elementValue["isOwnedByCity"] === "false") {
       $element["isOwnedByCity"]["#default_value"] = 0;
     }
-    if ($elementValue["isOwnedByCity"] === "true") {
+    if (isset($element["isOwnedByCity"]) && $elementValue["isOwnedByCity"] === "true") {
       $element["isOwnedByCity"]["#default_value"] = 1;
     }
 
-    if ($elementValue["isOthersUse"] === "false") {
+    if (isset($element["isOthersUse"]) && $elementValue["isOthersUse"] === "false") {
       $element["isOthersUse"]["#default_value"] = 0;
     }
-    if ($elementValue["isOthersUse"] === "true") {
+    if (isset($element["isOthersUse"]) && $elementValue["isOthersUse"] === "true") {
       $element["isOthersUse"]["#default_value"] = 1;
     }
 
-    if ($elementValue["isOwnedByApplicant"] === "false") {
+    if (isset($element["isOwnedByApplicant"]) && $elementValue["isOwnedByApplicant"] === "false") {
       $element["isOwnedByApplicant"]["#default_value"] = 0;
     }
-    if ($elementValue["isOwnedByApplicant"] === "true") {
+    if (isset($element["isOwnedByApplicant"]) && $elementValue["isOwnedByApplicant"] === "true") {
       $element["isOwnedByApplicant"]["#default_value"] = 1;
     }
 

@@ -84,10 +84,7 @@ class KuvaKehaDefinition extends ComplexDataDefinitionBase {
           '\Drupal\grants_handler\Plugin\WebformHandler\GrantsHandler',
           'convertToInt',
         ])
-        ->setSetting('typeOverride', [
-          'dataType' => 'string',
-          'jsonType' => 'int',
-        ])->setSetting('valueCallback', [
+        ->setSetting('valueCallback', [
           '\Drupal\grants_handler\Plugin\WebformHandler\GrantsHandler',
           'convertToInt',
         ])
@@ -107,10 +104,7 @@ class KuvaKehaDefinition extends ComplexDataDefinitionBase {
           '\Drupal\grants_handler\Plugin\WebformHandler\GrantsHandler',
           'convertToInt',
         ])
-        ->setSetting('typeOverride', [
-          'dataType' => 'string',
-          'jsonType' => 'int',
-        ])->setSetting('valueCallback', [
+        ->setSetting('valueCallback', [
           '\Drupal\grants_handler\Plugin\WebformHandler\GrantsHandler',
           'convertToInt',
         ])
@@ -407,9 +401,8 @@ class KuvaKehaDefinition extends ComplexDataDefinitionBase {
         'breakdownOfYearlySums',
       ]);
 
-    $info['members_applicant_person_global'] = DataDefinition::create('string')
+    $info['members_applicant_person_global'] = DataDefinition::create('integer')
       ->setLabel('Henkilöjäsenet')
-      ->setSetting('defaultValue', "")
       ->setSetting('jsonPath', [
         'compensation',
         'communityInfo',
@@ -424,9 +417,8 @@ class KuvaKehaDefinition extends ComplexDataDefinitionBase {
         'jsonType' => 'int',
       ]);
 
-    $info['members_applicant_person_local'] = DataDefinition::create('string')
+    $info['members_applicant_person_local'] = DataDefinition::create('integer')
       ->setLabel('Näistä helsinkiläisiä')
-      ->setSetting('defaultValue', "")
       ->setSetting('jsonPath', [
         'compensation',
         'communityInfo',
@@ -441,7 +433,7 @@ class KuvaKehaDefinition extends ComplexDataDefinitionBase {
         'jsonType' => 'int',
       ]);
 
-    $info['members_applicant_community_global'] = DataDefinition::create('string')
+    $info['members_applicant_community_global'] = DataDefinition::create('integer')
       ->setLabel('Yhteisöjäsenet')
       ->setSetting('jsonPath', [
         'compensation',
@@ -457,9 +449,8 @@ class KuvaKehaDefinition extends ComplexDataDefinitionBase {
         'jsonType' => 'int',
       ]);
 
-    $info['members_applicant_community_local'] = DataDefinition::create('string')
+    $info['members_applicant_community_local'] = DataDefinition::create('integer')
       ->setLabel('Näistä helsinkiläisiä')
-      ->setSetting('defaultValue', "")
       ->setSetting('jsonPath', [
         'compensation',
         'communityInfo',

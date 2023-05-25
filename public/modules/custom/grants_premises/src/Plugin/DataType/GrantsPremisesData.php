@@ -28,34 +28,34 @@ class GrantsPremisesData extends Map {
    */
   public function setValue($values, $notify = TRUE) {
 
-    if ($values["isOwnedByCity"] === "false") {
+    if (isset($values["isOwnedByCity"]) && $values["isOwnedByCity"] === "false") {
       $values["isOwnedByCity"] = 0;
     }
-    if ($values["isOwnedByCity"] === "true") {
+    if (isset($values["isOwnedByCity"]) && $values["isOwnedByCity"] === "true") {
       $values["isOwnedByCity"] = 1;
     }
 
-    if ($values["isOthersUse"] === "false") {
+    if (isset($values["isOthersUse"]) && $values["isOthersUse"] === "false") {
       $values["isOthersUse"] = 0;
     }
-    if ($values["isOthersUse"] === "true") {
+    if (isset($values["isOthersUse"]) && $values["isOthersUse"] === "true") {
       $values["isOthersUse"] = 1;
     }
 
-    if ($values["isOwnedByApplicant"] === "false") {
+    if (isset($values["isOwnedByApplicant"]) && $values["isOwnedByApplicant"] === "false") {
       $values["isOwnedByApplicant"] = 0;
     }
-    if ($values["isOwnedByApplicant"] === "true") {
+    if (isset($values["isOwnedByApplicant"]) && $values["isOwnedByApplicant"] === "true") {
       $values["isOwnedByApplicant"] = 1;
     }
 
-    if ($values["free"] === "false") {
+    if (isset($values["free"]) && $values["free"] === "false") {
       $values["free"] = 0;
     }
-    if ($values["free"] === "true") {
+    if (isset($values["free"]) && $values["free"] === "true") {
       $values["free"] = 1;
     }
-    if ($values["free"] === "") {
+    if (isset($values["free"]) && $values["free"] === "") {
       unset($values["free"]);
     }
 

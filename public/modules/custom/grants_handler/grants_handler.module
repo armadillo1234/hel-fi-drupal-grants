@@ -23,6 +23,7 @@ use Drupal\grants_handler\Event\UserLogoutEvent;
 use Drupal\grants_handler\Form\CopyApplicationModalForm;
 use Drupal\grants_handler\Plugin\WebformElement\CompensationsComposite;
 use Drupal\grants_handler\EventsService;
+use Drupal\grants_handler\Processor\NumberProcessor;
 use Drupal\webform\WebformInterface;
 use Drupal\webform\WebformSubmissionStorageInterface;
 
@@ -567,6 +568,25 @@ function _grants_handler_missing_data(
 }
 
 /**
+ * Recursively alter number fields to allow decimals and commas.
+ */
+function _grants_handler_alter_number_fields(&$element) {
+  if (is_array($element)) {
+    // Check if the element is a number field.
+    if (isset($element['#type']) && $element['#type'] === 'number') {
+      $element['#process'][] = [
+        NumberProcessor::class, 'process',
+      ];
+    }
+
+    // Recursively traverse the sub-elements.
+    foreach ($element as &$sub_element) {
+      _grants_handler_alter_number_fields($sub_element);
+    }
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function grants_handler_webform_submission_form_alter(&$form, FormStateInterface $form_state, $form_id) {
@@ -579,6 +599,8 @@ function grants_handler_webform_submission_form_alter(&$form, FormStateInterface
   }
 
   $form['actions']['wizard_next']['#validate'][] = '::noValidate';
+
+  _grants_handler_alter_number_fields($form);
 
   $grants_formnavigation_helper = \Drupal::service('grants_handler.navigation_helper');
   if (isset($form['#webform_submission']) && $form['#webform_submission']) {

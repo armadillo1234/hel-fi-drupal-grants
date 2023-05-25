@@ -169,18 +169,25 @@ $breakpoint-xl: 1248px;
 }
 
 form .hds-text-input__input-wrapper, .hds-text-input__input-wrapper  {
+  flex-flow: row wrap;
+  .text-count-wrapper {
+    flex-basis: 100%;
+  }
   input, textarea,  {
     &.webform--small {
+      min-width: var(--webform-element-width--input-small);
       max-width: var(--webform-element-width--input-small);
       width: 100vw;
     }
 
     &.webform--medium {
+      min-width: var(--webform-element-width--input-small);
       max-width: var(--webform-element-width--input-medium);
       width: 100vw;
     }
 
     &.webform--large {
+      min-width: var(--webform-element-width--input-small);
       max-width: var(--webform-element-width--input-large);
       width: 100vw;
     }
@@ -188,14 +195,17 @@ form .hds-text-input__input-wrapper, .hds-text-input__input-wrapper  {
 }
   .webform--small div.grant-applications--select-wrapper {
     max-width: var(--webform-element-width--input-small);
+    min-width: var(--webform-element-width--input-small);
     width: 100%;
   }
   .webform--medium div.grant-applications--select-wrapper {
     max-width: var(--webform-element-width--input-medium);
+    min-width: var(--webform-element-width--input-small);
     width: 100%;
   }
   .webform--large div.grant-applications--select-wrapper {
     max-width: var(--webform-element-width--input-medium);
+    min-width: var(--webform-element-width--input-small);
     width: 100%;
   }
 form .hds-checkbox {

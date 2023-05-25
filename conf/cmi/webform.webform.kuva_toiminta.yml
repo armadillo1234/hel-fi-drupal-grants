@@ -144,8 +144,6 @@ elements: |-
         '#type': select
         '#title': 'Vuosi, jolle haen avustusta'
         '#options':
-          2022: '2022'
-          2023: '2023'
           2024: '2024'
         '#required': true
       subventions:
@@ -1134,7 +1132,7 @@ elements: |-
           <strong>Helsingin kaupungille aiemmin toimitetut liitteet</strong><br>
           Jos vaaditut liitteet on jo toimitettu toisen Helsingin kaupungille osoitetun avustushakemuksen liitteenä, samoja liitteitä ei tarvitse toimittaa uudelleen. Merkitse tällöin toimitettujen liitteiden kohdalla ”Liite on toimitettu yhtenä tiedostona tai toisen hakemuksen yhteydessä”. Yhteisön vahvistettu tilinpäätös, toimintakertomus, toimintasuunnitelma ja talousarvio eivät voi olla erilaisia eri hakemusten liitteenä.
           <br><br>
-          <h3>Monivuotiset toiminta-avustukset</h3>:
+          <h3>Monivuotiset toiminta-avustukset</h3>
           <br><br>
           Avustushakemuksen käsittelyä varten tulee toimittaa kaikki alla luetellut liitteet. Avustushakemus voidaan hylätä, jos liitteitä ei ole toimitettu. Mikäli joku liitteistä puuttuu, kerro siitä hakemuksen Lisäselvitys liitteistä -kohdassa.
           <br><br>

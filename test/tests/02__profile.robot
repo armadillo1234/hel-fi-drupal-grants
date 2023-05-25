@@ -45,7 +45,7 @@ Update Unregistered Company Bank Account
     Do Unregistered Community Login Process With Tunnistamo
     Go To Profile Page
     Open Edit Form
-    Add New Bank Account
+    Add New Bank Account For Unregistered Community
     Open Edit Form
     Remove New Bank Account
     [Teardown]    Close Browser

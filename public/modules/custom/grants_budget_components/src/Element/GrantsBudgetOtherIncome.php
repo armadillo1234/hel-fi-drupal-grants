@@ -4,6 +4,7 @@ namespace Drupal\grants_budget_components\Element;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\grants_budget_components\Validator\LabelValueValidator;
+use Drupal\grants_handler\Processor\NumberProcessor;
 use Drupal\webform\Element\WebformCompositeBase;
 
 /**
@@ -85,6 +86,9 @@ class GrantsBudgetOtherIncome extends WebformCompositeBase {
       '#step' => '.01',
       '#element_validate' => [
         [LabelValueValidator::class, 'validate'],
+      ],
+      '#process' => [
+        [NumberProcessor::class, 'process'],
       ],
     ];
 

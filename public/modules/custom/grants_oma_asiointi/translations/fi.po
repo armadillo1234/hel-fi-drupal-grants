@@ -101,3 +101,9 @@ msgstr "Käy tutustumassa ohjeistukseen jossa kerrotaan tarkemmin avustuksen hak
 
 msgid "Instructions for applicants"
 msgstr "Ohjeita hakijalle"
+
+msgid "Please remember to fill in your information"
+msgstr "Muistathan täyttää omat tiedot"
+
+msgid "We noticed that there is no information about you or your communities yet in the grants service. You must fill in your personal information before proceeding to the application. When you have filled in the information for the first time, it will be used for all applications and when you apply for grant again."
+msgstr "Huomasimme, että sinuun tai yhteisöihisi liittyen ei löydy vielä tietoja avustusasiointi-palvelussa. Omat tiedot on täytettävä ennen hakemukselle siirtymistä. Kun olet täyttänyt tiedot ensimmäisen kerran, ovat ne käytössä kaikilla hakemuksilla ja hakiessanne uudelleen avustusta."

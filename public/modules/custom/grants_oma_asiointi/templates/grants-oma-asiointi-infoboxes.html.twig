@@ -1,0 +1,35 @@
+{% if (profileNotice == TRUE) %}
+<div class="container">
+  <div class="hds-notification hds-notification--info">
+    <div class="hds-notification__content">
+      <div class="hds-notification__label" role="heading" aria-level="2">
+        <span class="hel-icon hel-icon--alert-circle-fill" aria-hidden="true"></span>
+        <span>{{ "Please remember to fill in your information"|t }}</span>
+      </div>
+      <div class="hds-notification__body">
+        {{ "We noticed that there is no information about you or your communities yet in the grants service. You must fill in your personal information before proceeding to the application. When you have filled in the information for the first time, it will be used for all applications and when you apply for grant again."|t }}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="container oma-asiointi-infoboxes-container">
+  <h2>{{ "Information about grants and instructions for the applicant"|t }}</h2>
+  <div class="oma-asiointi-infoboxes">
+    <div class="oma-asiointi-infobox">
+      <h3>{{ "Find your grant"|t }}</h3>
+      <p>{{ "Go to view different grants and find yours. <strong>Please remember to check your information before proceeding to the application.</strong>"|t }}</p>
+      <div class="oma-asiointi-infobox--link">
+        <a href="node/47">{{ "Information about grants"|t }}</a> <span class="hel-icon hel-icon--arrow-right hel-icon--size-m" aria-hidden="true"></span>
+      </div>
+    </div>
+    <div class="oma-asiointi-infobox">
+      <h3>{{ "Check out the general instructions"|t }}</h3>
+      <p>{{ "Take a look at the instructions, which tell you in more detail about the things to consider when applying for a grant."|t }}</p>
+      <div class="oma-asiointi-infobox--link">
+        <a href="node/20">{{ "Instructions for applicants"|t }}</a> <span class="hel-icon hel-icon--arrow-right hel-icon--size-m" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+</div>

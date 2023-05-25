@@ -64,6 +64,8 @@ class GrantsWebformSummationField extends FormElement {
       $formItem = $element['#form_item'];
     }
     if ($formItem === 'hidden') {
+      $element['#title_display'] = 'none';
+      $element['#description_display'] = 'none';
       $element['#attributes']['readonly'] = 'readonly';
       $element['#attributes']['style'] = 'display:none;';
     }

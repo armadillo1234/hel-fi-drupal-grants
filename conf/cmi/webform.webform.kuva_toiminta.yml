@@ -170,7 +170,6 @@ elements: |-
       info_monivuotinen:
         '#type': processed_text
         '#text': |
-          Ilmoita t&auml;h&auml;n ainoastaan avustukset, jotka on my&ouml;nnetty muualta kuin Helsingin kaupungilta kuluvana tai kahtena edellisen&auml; verovuotena.
           <div class="hds-notification hds-notification--info">
             <div class="hds-notification__content">
               <div class="hds-notification__label" role="heading" aria-level="2">
@@ -183,13 +182,18 @@ elements: |-
       kyseessa_on_monivuotinen_avustus:
         '#type': radios
         '#title': 'Kyseessä on monivuotinen avustus'
+        '#required': true
         '#description': 'Nelivuotiskaudella 2023-2026 monivuotisia toiminta-avustuksia voidaan my&ouml;nt&auml;&auml; helsinkil&auml;isille rekister&ouml;ityneille esitt&auml;v&auml;n taiteen ja musiikin valtionosuusj&auml;rjestelm&auml;n piiriss&auml; oleville taide- ja kulttuuriyhteis&ouml;ille. Tuen saajat on p&auml;&auml;tetty vuoden 2022 lopulla.'
         '#options':
           1: Kyllä
           0: Ei
       tulevat_vuodet_joiden_ajalle_monivuotista_avustusta_on_haettu_ta:
-        '#type': textarea
+        '#type': textfield
         '#title': 'Tulevat vuodet joiden ajalle monivuotista avustusta on haettu tai myönnetty'
+        '#maxlength': 100
+        '#counter_type': character
+        '#counter_maximum': 100
+        '#counter_maximum_message': '%d/100 merkkiä jäljellä'
         '#help': 'T&auml;yt&auml; vuodet vain t&auml;st&auml; eteenp&auml;in haettavan avustuskauden osalta. &Auml;l&auml; kirjaa saman tai aikaisemman avustuskauden aikaisempia vuosia.'
         '#attributes':
           class:
@@ -198,15 +202,25 @@ elements: |-
           visible:
             ':input[name="kyseessa_on_monivuotinen_avustus"]':
               value: '1'
+          required:
+            ':input[name="kyseessa_on_monivuotinen_avustus"]':
+              value: '1'
       erittely_kullekin_vuodelle_haettavasta_avustussummasta_:
-        '#type': textarea
+        '#type': textfield
         '#title': 'Erittely kullekin vuodelle haettavasta avustussummasta.'
         '#help': 'Kirjoita vuosikohtaisesti muotoon: vuosi: avustussumma.'
+        '#maxlength': 100
+        '#counter_type': character
+        '#counter_maximum': 100
+        '#counter_maximum_message': '%d/100 merkkiä jäljellä'
         '#attributes':
           class:
             - webform--large
         '#states':
           visible:
+            ':input[name="kyseessa_on_monivuotinen_avustus"]':
+              value: '1'
+          required:
             ':input[name="kyseessa_on_monivuotinen_avustus"]':
               value: '1'
       ensisijainen_taiteen_ala:
@@ -272,6 +286,7 @@ elements: |-
       olemme_saaneet_muita_avustuksia:
         '#type': radios
         '#title': 'Olemme saaneet muita avustuksia'
+        '#required': true
         '#description_display': before
         '#options':
           1: Kyllä
@@ -290,7 +305,7 @@ elements: |-
         '#multiple__header': false
         '#multiple__item_label': 'myönnetty avustus'
         '#multiple__no_items_message': 'Ei sy&ouml;tettyj&auml; arvoja. Lis&auml;&auml; uusi my&ouml;nnetty avustus alta.'
-        '#multiple__min_items': 0
+        '#multiple__min_items': 1
         '#multiple__empty_items': 0
         '#multiple__sorting': false
         '#multiple__add': false
@@ -480,6 +495,13 @@ elements: |-
         '#free__access': false
         '#isOthersUse__title': 'Tilaa tarjotaan muiden käyttöön (ilmaiseksi tai vuokralla)'
         '#isOwnedByApplicant__title': 'Tila on omassa omistuksessa'
+        '#states':
+          visible:
+            ':input[name="taiteellisen_toiminnan_tilaa_omistuksessa_tai_ymparivuotisesti_p"]':
+              value: '1'
+          required:
+            ':input[name="taiteellisen_toiminnan_tilaa_omistuksessa_tai_ymparivuotisesti_p"]':
+              value: '1'
   4_toiminta:
     '#type': webform_wizard_page
     '#title': '4. Toiminta'
@@ -550,20 +572,6 @@ elements: |-
           '#attributes':
             class:
               - webform--small
-      maara_helsingissa:
-        '#type': number
-        '#title': 'Kävijämäärä Helsingissä'
-        '#help': 'Älä täytä samoja kävijöitä kahteen kertaan, esim. näyttelytilassa järjestettyä työpajaa sekä näyttelyihin että työpajoihin.'
-        '#attributes':
-          class:
-            - webform--small
-      maara_kaikkiaan:
-        '#type': number
-        '#title': 'Kävijämäärä kaikkiaan'
-        '#help': 'Määrä kaikkiaan -kohdassa täytä luvut sisältäen toiminnan kokonaisuudessaan sekä Suomessa että mahdollisesti ulkomailla.'
-        '#attributes':
-          class:
-            - webform--small
       esitysista_fieldset:
         '#type': fieldset
         '#title': Esityksistä
@@ -584,19 +592,27 @@ elements: |-
             class:
               - webform--small
           '#help': 'Ensi-illalla tarkoitetaan tuotannon ensimmäistä esitystä. Täytä tähän ne ensi-illat, jotka tapahtuvat Helsingissä.'
+      festivaali_paivanmaarat_maarasta_markup:
+        '#type': webform_markup
+        '#markup': |-
+          <h3>Tapahtuman tai festivaalin päivämäärät</h3>
       festivaalin_tai_tapahtuman_kohdalla_tapahtuman_paivamaarat:
         '#type': textarea
         '#attributes':
           class:
             - webform--large
         '#title': 'Tapahtuman tai festivaalin päivämäärät'
+      toimintamuodot_markup:
+        '#type': webform_markup
+        '#markup': |-
+          <h3>Muut keskeiset toimintamuodot</h3>
+          <p>Jos toiminta sis&auml;lt&auml;&auml; yleis&ouml;lle avointen esitysten, n&auml;yttelyiden ja ty&ouml;pajojen tai muiden osallistavien toimintamuotojen lis&auml;ksi muita keskeisi&auml; muotoja, listaa ne t&auml;h&auml;n.</p>
       muut_keskeiset_toimintamuodot:
         '#type': textarea
         '#title': 'Muut keskeiset toimintamuodot'
         '#attributes':
           class:
             - webform--large
-        '#description': 'Jos toiminta sis&auml;lt&auml;&auml; yleis&ouml;lle avointen esitysten, n&auml;yttelyiden ja ty&ouml;pajojen tai muiden osallistavien toimintamuotojen lis&auml;ksi muita keskeisi&auml; muotoja, listaa ne t&auml;h&auml;n.'
     toteutunut_toiminta:
       '#type': webform_section
       '#title': 'Toteutunut toiminta'
@@ -619,7 +635,7 @@ elements: |-
           <p>Sy&ouml;t&auml; tiedot koskien omaa toimintaa edellisen&auml; p&auml;&auml;ttyneen&auml; vuonna. Sy&ouml;t&auml; tiedot vain fyysisten esitysten, n&auml;yttelyiden ja ty&ouml;pajojen osalta, &auml;l&auml; laske mukaan pelk&auml;st&auml;&auml;n digitaalisina toteutettuja ohjelmasis&auml;lt&ouml;j&auml;.</p>
       esityspaivien_maara_helsingissa_toteutuneet_fieldset:
         '#type': fieldset
-        '#title': 'Esityspäivien määrä Helsingissä'
+        '#title': 'Määrä Helsingissä'
         '#attributes':
           class:
             - grants-fieldset
@@ -643,7 +659,7 @@ elements: |-
               - webform--small
       esityspaivien_maara_kaikkiaan_toteutuneet_fieldset:
         '#type': fieldset
-        '#title': 'Esityspäivien määrä kaikkiaan'
+        '#title': 'Määrä kaikkiaan'
         '#attributes':
           class:
             - grants-fieldset

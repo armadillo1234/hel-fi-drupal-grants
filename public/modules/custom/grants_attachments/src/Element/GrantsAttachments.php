@@ -251,7 +251,7 @@ class GrantsAttachments extends WebformCompositeBase {
     ];
     $elements['isDeliveredLater'] = [
       '#type' => 'checkbox',
-      '#title' => t('Attachment will delivered at later time'),
+      '#title' => t('Attachment will be delivered at later time'),
       '#element_validate' => ['\Drupal\grants_attachments\Element\GrantsAttachments::validateDeliveredLaterCheckbox'],
       '#attributes' => [
         'data-webform-composite-attachment-isDeliveredLater' => $uniqId,

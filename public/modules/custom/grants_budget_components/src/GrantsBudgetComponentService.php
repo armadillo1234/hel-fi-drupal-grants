@@ -293,7 +293,7 @@ class GrantsBudgetComponentService {
       $valueCallback = $pDef->getSetting('fullItemValueCallback');
       $itemTypes = AtvSchema::getJsonTypeForDataType($pDef);
       $itemValue = AtvSchema::getItemValue($itemTypes, $property, $defaultValue, $valueCallback);
-
+      $processedValues = [];
       if (isset($arguments['webform'])) {
         $processedValues = self::processMetaFields(
           $property,

@@ -253,16 +253,25 @@ function grants_metadata_form_alter(&$form, FormStateInterface $form_state, $for
       '#multiple' => TRUE,
     ];
 
+    $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+
     // Load the taxonomy terms.
     $terms = \Drupal::entityTypeManager()
       ->getStorage('taxonomy_term')
       ->loadByProperties([
         'vid' => 'avustuslaji',
       ]);
+
     // Build options list.
     $termOptions = [];
     foreach ($terms as $term) {
-      $termOptions[$term->id()] = $term->label();
+      if ($term->hasTranslation($language)) {
+        $translated_term = \Drupal::service('entity.repository')->getTranslationFromContext($term, $language);
+        $termOptions[$term->id()] = $translated_term->label();
+      }
+      else {
+        $termOptions[$term->id()] = $term->label();
+      }
     }
 
     $form['third_party_settings']['grants_metadata']['applicationTypeTerms'] = [
@@ -280,10 +289,17 @@ function grants_metadata_form_alter(&$form, FormStateInterface $form_state, $for
       ->loadByProperties([
         'vid' => 'target_group',
       ]);
+
     // Build options list.
     $termOptions = [];
     foreach ($terms as $term) {
-      $termOptions[$term->id()] = $term->label();
+      if ($term->hasTranslation($language)) {
+        $translated_term = \Drupal::service('entity.repository')->getTranslationFromContext($term, $language);
+        $termOptions[$term->id()] = $translated_term->label();
+      }
+      else {
+        $termOptions[$term->id()] = $term->label();
+      }
     }
 
     $form['third_party_settings']['grants_metadata']['applicationTargetGroup'] = [

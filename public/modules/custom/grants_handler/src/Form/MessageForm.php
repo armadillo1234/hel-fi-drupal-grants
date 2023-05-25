@@ -282,7 +282,7 @@ rtf, txt, xls, xlsx, zip.'),
 
     $nextMessageId = Uuid::uuid4()->toString();
 
-    $attachment = $storage['messageAttachment'];
+    $attachment = $storage['messageAttachment'] ?? [];
     $data = [
       'body' => Xss::filter($form_state->getValue('message')),
       'messageId' => $nextMessageId,

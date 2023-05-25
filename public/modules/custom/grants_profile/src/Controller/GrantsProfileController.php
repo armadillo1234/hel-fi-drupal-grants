@@ -148,22 +148,18 @@ class GrantsProfileController extends ControllerBase {
     $formObject = NULL;
 
     if ($selectedRoleData['type'] == 'private_person') {
-      $formObject = \Drupal::formBuilder()
-        ->getForm('\Drupal\grants_profile\Form\GrantsProfileFormPrivatePerson');
+      $formObject = $this->formBuilder->getForm('\Drupal\grants_profile\Form\GrantsProfileFormPrivatePerson');
     }
 
     if ($selectedRoleData['type'] == 'registered_community') {
-      $formObject = \Drupal::formBuilder()
-        ->getForm('\Drupal\grants_profile\Form\GrantsProfileFormRegisteredCommunity');
+      $formObject = $this->formBuilder->getForm('\Drupal\grants_profile\Form\GrantsProfileFormRegisteredCommunity');
     }
 
     if ($selectedRoleData['type'] == 'unregistered_community') {
-      $formObject = \Drupal::formBuilder()
-        ->getForm('\Drupal\grants_profile\Form\GrantsProfileFormUnregisteredCommunity');
+      $formObject = $this->formBuilder->getForm('\Drupal\grants_profile\Form\GrantsProfileFormUnregisteredCommunity');
     }
 
     $build['#profileForm'] = $formObject;
-
     return $build;
 
   }

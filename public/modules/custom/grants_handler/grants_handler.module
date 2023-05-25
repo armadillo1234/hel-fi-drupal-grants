@@ -23,6 +23,7 @@ use Drupal\grants_handler\Event\UserLogoutEvent;
 use Drupal\grants_handler\Form\CopyApplicationModalForm;
 use Drupal\grants_handler\Plugin\WebformElement\CompensationsComposite;
 use Drupal\grants_handler\EventsService;
+use Drupal\grants_handler\Processor\NumberProcessor;
 use Drupal\webform\WebformInterface;
 use Drupal\webform\WebformSubmissionStorageInterface;
 
@@ -418,8 +419,7 @@ function grants_handler_webform_element_alter(array &$element, FormStateInterfac
 
         $formSelection = $formValues['community_street'] . ', ' .
           $formValues['community_post_code'] . ', ' .
-          $formValues['community_city'] . ', ' .
-          $formValues['community_country'];
+          $formValues['community_city'];
 
         // Set initial defaultvalue to false to avoid unwanted selections
         // in unfilled form.
@@ -429,7 +429,7 @@ function grants_handler_webform_element_alter(array &$element, FormStateInterfac
         foreach ($profileData['addresses'] as $delta => $address) {
           $deltaString = $address["address_id"];
           $optionSelection = $address['street'] . ', ' . $address['postCode'] .
-            ', ' . $address['city'] . ', ' . $address['country'];
+            ', ' . $address['city'];
 
           // If this value is same than the one on form, then set default value.
           if ($formSelection == $optionSelection) {
@@ -568,6 +568,25 @@ function _grants_handler_missing_data(
 }
 
 /**
+ * Recursively alter number fields to allow decimals and commas.
+ */
+function _grants_handler_alter_number_fields(&$element) {
+  if (is_array($element)) {
+    // Check if the element is a number field.
+    if (isset($element['#type']) && $element['#type'] === 'number') {
+      $element['#process'][] = [
+        NumberProcessor::class, 'process',
+      ];
+    }
+
+    // Recursively traverse the sub-elements.
+    foreach ($element as &$sub_element) {
+      _grants_handler_alter_number_fields($sub_element);
+    }
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function grants_handler_webform_submission_form_alter(&$form, FormStateInterface $form_state, $form_id) {
@@ -580,6 +599,8 @@ function grants_handler_webform_submission_form_alter(&$form, FormStateInterface
   }
 
   $form['actions']['wizard_next']['#validate'][] = '::noValidate';
+
+  _grants_handler_alter_number_fields($form);
 
   $grants_formnavigation_helper = \Drupal::service('grants_handler.navigation_helper');
   if (isset($form['#webform_submission']) && $form['#webform_submission']) {
@@ -642,15 +663,6 @@ function grants_handler_webform_submission_form_alter(&$form, FormStateInterface
     $form['#attached']['drupalSettings']['grants_handler']['selectedCompany'] = $selectedCompany;
     $form['#attached']['drupalSettings']['grants_handler']['formData'] = $formData;
     $form['#attached']['drupalSettings']['grants_handler']['submissionId'] = $formData["application_number"] ?? '';
-
-    if (isset($grantsProfile["businessPurpose"]) && $grantsProfile["businessPurpose"]) {
-      _grants_handler_imported_handler($form["elements"]["3_yhteison_tiedot"]["business_info"]["business_purpose"], $grantsProfile["businessPurpose"], FALSE);
-    }
-    else {
-      _grants_handler_missing_data($form["elements"]["3_yhteison_tiedot"]["business_info"]["business_purpose"],
-        t('You need a description of the community purpose for the application.'), t('Add description of purpose'),
-        t('to My Services > My Information so it can be used on the application.'));
-    }
 
     if (isset($form["elements"]["1_hakijan_tiedot"]["tilinumero"]["account_number"]["#default_value"])) {
       $form["elements"]["1_hakijan_tiedot"]["tilinumero"]["account_number_select"]["#default_value"] = $form["elements"]["1_hakijan_tiedot"]["tilinumero"]["account_number"]["#default_value"];

@@ -4,6 +4,7 @@ namespace Drupal\grants_handler\Plugin\WebformHandler;
 
 use Drupal\Component\Utility\NestedArray;
 use Drupal\grants_handler\ApplicationException;
+use Drupal\grants_handler\GrantsException;
 use Drupal\webform\Utility\WebformArrayHelper;
 use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Datetime\DrupalDateTime;
@@ -227,10 +228,13 @@ class GrantsHandler extends WebformHandlerBase {
    * @param string|null $value
    *   Value to be converted.
    *
-   * @return float
+   * @return float|null
    *   Floated value.
    */
-  public static function convertToInt(?string $value = ''): float {
+  public static function convertToInt(?string $value = ''): ?float {
+    if (is_null($value)) {
+      return NULL;
+    }
     $value = str_replace(['€', ',', ' ', '_'], ['', '.', '', ''], $value);
     $value = (int) $value;
     return $value;
@@ -305,6 +309,11 @@ class GrantsHandler extends WebformHandlerBase {
    */
   protected function massageFormValuesFromWebform(WebformSubmission $webform_submission): mixed {
     $values = $webform_submission->getData();
+
+    if (isset($this->formStateTemp)) {
+      $formValues = $this->formStateTemp->getValues();
+    }
+
     $this->setFromThirdPartySettings($webform_submission->getWebform());
 
     if (isset($this->applicationType) && $this->applicationType != '') {
@@ -315,9 +324,22 @@ class GrantsHandler extends WebformHandlerBase {
     }
 
     if (isset($values['community_address']) && $values['community_address'] !== NULL) {
-      $values += $values['community_address'];
+
+      // $values += $values['community_address'];
       unset($values['community_address']);
       unset($values['community_address_select']);
+
+      if (isset($formValues["community_address"]["community_street"]) && !empty($formValues["community_address"]["community_street"])) {
+        $values["community_street"] = $formValues["community_address"]["community_street"];
+      }
+      if (isset($formValues["community_address"]["community_city"]) && !empty($formValues["community_address"]["community_city"])) {
+        $values["community_city"] = $formValues["community_address"]["community_city"];
+      }
+      if (isset($formValues["community_address"]["community_post_code"]) && !empty($formValues["community_address"]["community_post_code"])) {
+        $values["community_post_code"] = $formValues["community_address"]["community_post_code"];
+      }
+      $values["community_country"] = 'Suomi';
+
     }
 
     if (isset($values['bank_account']) && $values['bank_account'] !== NULL) {
@@ -960,6 +982,8 @@ class GrantsHandler extends WebformHandlerBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\grants_handler\GrantsException
    */
   public function preSave(WebformSubmissionInterface $webform_submission) {
 
@@ -979,6 +1003,30 @@ class GrantsHandler extends WebformHandlerBase {
       $this->submittedFormData['applicant_type'] = $this->grantsProfileService->getApplicantType();
     }
 
+    if (!isset($this->applicationNumber) || $this->applicationNumber == '') {
+      // We are getting custom serialized settings from notes field here
+      // as we need to check if we actually use the serial number of submission
+      // or figure out new application number.
+      // submissionObjectFromApplicationNumber@ApplicationHandler sets already
+      // a correct serial id from ATV document. But
+      // initApplication@ApplicationHandler needs a new unused application id.
+      // @todo notes field handling to separate service etc.
+      $notes = $webform_submission->get('notes')->value;
+      $customSettings = @unserialize($notes);
+
+      if (isset($customSettings['skip_available_number_check']) &&
+      $customSettings['skip_available_number_check'] === TRUE) {
+        $this->applicationNumber = ApplicationHandler::createApplicationNumber($webform_submission);
+      }
+      else {
+        try {
+          $this->applicationNumber = ApplicationHandler::getAvailableApplicationNumber($webform_submission);
+        }
+        catch (\Throwable $e) {
+          throw new GrantsException('Getting application number failed.');
+        }
+      }
+    }
   }
 
   /**

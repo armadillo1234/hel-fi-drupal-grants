@@ -93,3 +93,9 @@ services:
     arguments: ['@messenger']
     tags:
       - { name: event_subscriber }
+
+  grants_handler.general_exception:
+    class: Drupal\grants_handler\EventSubscriber\GrantsExceptionSubscriber
+    arguments: ['@messenger', '@logger.factory',]
+    tags:
+      - { name: event_subscriber }

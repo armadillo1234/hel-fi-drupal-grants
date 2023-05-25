@@ -12,7 +12,12 @@
           $('.tabledrag-toggle-weight-wrapper').remove();
           $('.tabledrag-handle').remove();
           $(row).children('td.webform-multiple-table--handle').remove();
-          removebutton.appendTo($(row).children('td')[0]);
+          if ($(row).find('fieldset').length > 0) {
+            removebutton.appendTo($(row).find('fieldset')[0]);
+          }
+          else {
+            removebutton.appendTo($(row).find('td')[0]);
+          }
           $(row).children('td.webform-multiple-table--operations').remove();
         })
       })

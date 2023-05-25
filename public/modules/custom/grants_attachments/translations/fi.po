@@ -19,7 +19,7 @@ msgstr "Liitetiedosto"
 msgid "Attachment description"
 msgstr "Liitteen kuvaus"
 
-msgid "Attachment will delivered at later time"
+msgid "Attachment will be delivered at later time"
 msgstr "Liite toimitetaan myöhemmin"
 
 msgid "Attachment already delivered"

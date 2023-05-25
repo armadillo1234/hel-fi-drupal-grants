@@ -2,7 +2,6 @@
 
 namespace Drupal\grants_profile\Form;
 
-use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\TypedData\TypedDataManager;
@@ -12,14 +11,13 @@ use Drupal\helfi_helsinki_profiili\HelsinkiProfiiliUserData;
 use Drupal\helfi_atv\AtvDocumentNotFoundException;
 use Drupal\helfi_atv\AtvFailedToConnectException;
 use GuzzleHttp\Exception\GuzzleException;
-use PHP_IBAN\IBAN;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a Grants Profile form.
  */
-class GrantsProfileFormPrivatePerson extends FormBase {
+class GrantsProfileFormPrivatePerson extends GrantsProfileFormBase {
 
   use StringTranslationTrait;
 
@@ -242,57 +240,23 @@ class GrantsProfileFormPrivatePerson extends FormBase {
 
     $fieldValue = $formState->getValue($fieldName);
 
-    if ($fieldName == 'bankAccountWrapper') {
+    if ($fieldName == 'bankAccountWrapper' && $fieldValue[$deltaToRemove]['bank']['confirmationFileName']) {
       $attachmentDeleteResults = self::deleteAttachmentFile($fieldValue[$deltaToRemove]['bank'], $formState);
 
       if ($attachmentDeleteResults) {
         \Drupal::messenger()
           ->addStatus('Bank account & verification attachment deleted.');
-
-        // Remove item from items.
-        unset($fieldValue[$deltaToRemove]);
-        $formState->setValue($fieldName, $fieldValue);
-        $formState->setRebuild();
       }
       else {
         \Drupal::messenger()
           ->addError('Attachment deletion failed, error has been logged. Please contact customer support');
-
-        // Remove item from items.
-        unset($fieldValue[$deltaToRemove]);
-        $formState->setValue($fieldName, $fieldValue);
-        $formState->setRebuild();
-
       }
     }
-    else {
-      // Remove item from items.
-      unset($fieldValue[$deltaToRemove]);
-      $formState->setValue($fieldName, $fieldValue);
-      $formState->setRebuild();
-    }
+    // Remove item from items.
+    unset($fieldValue[$deltaToRemove]);
+    $formState->setValue($fieldName, $fieldValue);
+    $formState->setRebuild();
 
-  }
-
-  /**
-   * Ajax callback.
-   *
-   * @param array $form
-   *   The form.
-   * @param \Drupal\Core\Form\FormStateInterface $formState
-   *   Forms state.
-   *
-   * @return mixed
-   *   Form element for replacing.
-   */
-  public static function addmoreCallback(array &$form, FormStateInterface $formState): mixed {
-
-    $triggeringElement = $formState->getTriggeringElement();
-    [
-      $fieldName,
-    ] = explode('--', $triggeringElement['#name']);
-
-    return $form[$fieldName];
   }
 
   /**
@@ -401,6 +365,7 @@ class GrantsProfileFormPrivatePerson extends FormBase {
     }
 
     if (array_key_exists('bankAccountWrapper', $input)) {
+      $bankAccountArrayKeys = array_keys($input["bankAccountWrapper"]);
       $values["bankAccountWrapper"] = $input["bankAccountWrapper"];
     }
 
@@ -461,7 +426,7 @@ class GrantsProfileFormPrivatePerson extends FormBase {
             $errorMesg = 'You must add one bank account';
           }
           else {
-            $propertyPath = 'bankAccountWrapper][' . $propertyPathArray[1] . '][bank][' . $propertyPathArray[2];
+            $propertyPath = 'bankAccountWrapper][' . $bankAccountArrayKeys[$propertyPathArray[1]] . '][bank][' . $propertyPathArray[2];
           }
 
         }
@@ -564,18 +529,29 @@ class GrantsProfileFormPrivatePerson extends FormBase {
     $uploadLocation = 'private://grants_profile/' . $sessionHash;
 
     $bankAccountValues = $formState->getValue('bankAccountWrapper') ?? $bankAccounts;
-
     unset($bankAccountValues['actions']);
     foreach ($bankAccountValues as $delta => $bankAccount) {
       if (array_key_exists('bank', $bankAccount) && !empty($bankAccount['bank'])) {
         $temp = $bankAccount['bank'];
         unset($bankAccountValues[$delta]['bank']);
         $bankAccountValues[$delta] = array_merge($bankAccountValues[$delta], $temp);
+        $bankAccount = $bankAccount['bank'];
       }
 
       // Make sure we have proper UUID as address id.
       if (!$this->grantsProfileService->isValidUuid($bankAccount['bank_account_id'])) {
         $bankAccount['bank_account_id'] = Uuid::uuid4()->toString();
+      }
+      $nonEditable = FALSE;
+      foreach ($bankAccounts as $profileAccount) {
+        if ($bankAccount['bankAccount'] && self::accountsAreEqual($bankAccount['bankAccount'], $profileAccount['bankAccount'])) {
+          $nonEditable = TRUE;
+          break;
+        }
+      }
+      $attributes = [];
+      if ($nonEditable) {
+        $attributes['readonly'] = 'readonly';
       }
 
       $confFilename = $bankAccount['confirmationFileName'] ?? $bankAccount['confirmationFile'];
@@ -588,10 +564,8 @@ class GrantsProfileFormPrivatePerson extends FormBase {
           '#type' => 'textfield',
           '#title' => $this->t('Finnish bank account number in IBAN format'),
           '#default_value' => $bankAccount['bankAccount'],
-          '#readonly' => TRUE,
-          '#attributes' => [
-            'readonly' => 'readonly',
-          ],
+          '#readonly' => $nonEditable,
+          '#attributes' => $attributes,
         ],
         'confirmationFileName' => [
           '#title' => $this->t('Confirmation file'),
@@ -769,170 +743,6 @@ rtf, txt, xls, xlsx, zip.'),
     }
     unset($values['actions']);
     return $values;
-  }
-
-  /**
-   * Validate bank accounts.
-   *
-   * To reduce complexity.
-   *
-   * @param array $values
-   *   Form values.
-   * @param \Drupal\Core\Form\FormStateInterface $formState
-   *   Form state.
-   */
-  public function validateBankAccounts(array $values, FormStateInterface $formState): void {
-    if (array_key_exists('bankAccountWrapper', $values)) {
-
-      if (empty($values["bankAccountWrapper"])) {
-        $elementName = 'bankAccountWrapper]';
-        $formState->setErrorByName($elementName, $this->t('You must add one bank account'));
-        return;
-      }
-
-      foreach ($values["bankAccountWrapper"] as $key => $accountData) {
-
-        if (!empty($accountData['bankAccount'])) {
-          $myIban = new IBAN($accountData['bankAccount']);
-          $ibanValid = FALSE;
-
-          if ($myIban->Verify()) {
-            // Get the country part from an IBAN.
-            $iban_country = $myIban->Country();
-            // Only allow Finnish IBAN account numbers..
-            if ($iban_country == 'FI') {
-              // If so, return true.
-              $ibanValid = TRUE;
-            }
-          }
-          if (!$ibanValid) {
-            $elementName = 'bankAccountWrapper][' . $key . '][bank][bankAccount';
-            $formState->setErrorByName($elementName, $this->t('Not valid Finnish IBAN: @iban', ['@iban' => $accountData["bankAccount"]]));
-          }
-        }
-        else {
-          $elementName = 'bankAccountWrapper][' . $key . '][bank][bankAccount';
-          $formState->setErrorByName($elementName, $this->t('You must enter valid Finnish iban'));
-        }
-        if ((empty($accountData["confirmationFileName"]) && empty($accountData["confirmationFile"]['fids']))) {
-          $elementName = 'bankAccountWrapper][' . $key . '][bank][confirmationFile';
-          $formState->setErrorByName($elementName, $this->t('You must add confirmation file for account: @iban', ['@iban' => $accountData["bankAccount"]]));
-        }
-      }
-    }
-  }
-
-  /**
-   * Delete given attachment from ATV.
-   *
-   * @param array $fieldValue
-   *   Field contents.
-   * @param \Drupal\Core\Form\FormStateInterface $formState
-   *   Form state object.
-   *
-   * @return bool
-   *   Result of deletion.
-   */
-  public static function deleteAttachmentFile(array $fieldValue, FormStateInterface $formState): bool {
-    $fieldToRemove = $fieldValue;
-
-    $storage = $formState->getStorage();
-    /** @var \Drupal\helfi_atv\AtvDocument $grantsProfileDocument */
-    $grantsProfileDocument = $storage['profileDocument'];
-
-    // Try to look for a attachment from document.
-    $attachmentToDelete = array_filter(
-      $grantsProfileDocument->getAttachments(),
-      function ($item) use ($fieldToRemove) {
-        if ($item['filename'] == $fieldToRemove['confirmationFileName']) {
-          return TRUE;
-        }
-        return FALSE;
-      });
-
-    $attachmentToDelete = reset($attachmentToDelete);
-    $hrefToDelete = NULL;
-
-    // If attachment is found.
-    if ($attachmentToDelete) {
-      // Get href for deletion.
-      $hrefToDelete = $attachmentToDelete['href'];
-    }
-    else {
-      // Attachment not found, so we must have just added one.
-      $triggeringElement = $formState->getTriggeringElement();
-      // Get delta for deleting.
-      [$fieldName, $delta] = explode('--', $triggeringElement["#name"]);
-      // Upload function has added the attachment information earlier.
-      if ($justAddedElement = $storage["confirmationFiles"][(int) $delta]) {
-        // So we can just grab that href and delete it from ATV.
-        $hrefToDelete = $justAddedElement["href"];
-      }
-    }
-
-    if (!$hrefToDelete) {
-      return FALSE;
-    }
-
-    /** @var \Drupal\helfi_atv\AtvService $atvService */
-    $atvService = \Drupal::service('helfi_atv.atv_service');
-    /** @var \Drupal\helfi_audit_log\AuditLogService $auditLogService */
-    $auditLogService = \Drupal::service('helfi_audit_log.audit_log');
-
-    try {
-      // Delete attachment by href.
-      $deleteResult = $atvService->deleteAttachmentByUrl($hrefToDelete);
-
-      $message = [
-        "operation" => "GRANTS_APPLICATION_ATTACHMENT_DELETE",
-        "status" => "SUCCESS",
-        "target" => [
-          "id" => $grantsProfileDocument->getId(),
-          "type" => $grantsProfileDocument->getType(),
-          "name" => $grantsProfileDocument->getTransactionId(),
-        ],
-      ];
-      $auditLogService->dispatchEvent($message);
-
-    }
-    catch (\Throwable $e) {
-
-      $deleteResult = FALSE;
-
-      $message = [
-        "operation" => "GRANTS_APPLICATION_ATTACHMENT_DELETE",
-        "status" => "FAILURE",
-        "target" => [
-          "id" => $grantsProfileDocument->getId(),
-          "type" => $grantsProfileDocument->getType(),
-          "name" => $grantsProfileDocument->getTransactionId(),
-        ],
-      ];
-      $auditLogService->dispatchEvent($message);
-
-      \Drupal::logger('grants_profile')
-        ->error('Attachment deletion failed, @error', ['@error' => $e->getMessage()]);
-    }
-
-    return $deleteResult;
-  }
-
-  /**
-   * Handle possible errors after form is built.
-   *
-   * @param array $form
-   *   Form.
-   * @param \Drupal\Core\Form\FormStateInterface $formState
-   *   Form state.
-   *
-   * @return array
-   *   Updated form.
-   */
-  public static function afterBuild(array $form, FormStateInterface &$formState): array {
-
-    $formErrors = $formState->getErrors();
-
-    return $form;
   }
 
 }

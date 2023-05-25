@@ -211,7 +211,7 @@ trait ApplicationDefinitionTrait {
       ]);
     $info['acting_year'] = DataDefinition::create('string')
       ->setLabel('Vuosi, jolle haen avustusta')
-      ->setSetting('defaultValue', "")
+    // ->setSetting('defaultValue', "")
       ->setSetting('jsonPath', [
         'compensation',
         'applicationInfoArray',
@@ -277,7 +277,7 @@ trait ApplicationDefinitionTrait {
 
     $info['myonnetty_avustus_total'] = DataDefinition::create('float')
       ->setLabel('Myönnetty avustus total')
-      ->setSetting('defaultValue', 0)
+    // ->setSetting('defaultValue', 0)
       ->setSetting('typeOverride', [
         'dataType' => 'string',
         'jsonType' => 'double',
@@ -296,7 +296,7 @@ trait ApplicationDefinitionTrait {
 
     $info['haettu_avustus_tieto_total'] = DataDefinition::create('float')
       ->setLabel('Haettu avustus total')
-      ->setSetting('defaultValue', 0)
+    // ->setSetting('defaultValue', 0)
       ->setSetting('typeOverride', [
         'dataType' => 'string',
         'jsonType' => 'double',
@@ -315,7 +315,7 @@ trait ApplicationDefinitionTrait {
 
     $info['benefits_loans'] = DataDefinition::create('string')
       ->setLabel('Loans')
-      ->setSetting('defaultValue', "")
+    // ->setSetting('defaultValue', "")
       ->setSetting('jsonPath', [
         'compensation',
         'benefitsInfoArray',
@@ -324,38 +324,12 @@ trait ApplicationDefinitionTrait {
 
     $info['benefits_premises'] = DataDefinition::create('string')
       ->setLabel('Premises')
-      ->setSetting('defaultValue', "")
+    // ->setSetting('defaultValue', "")
       ->setSetting('jsonPath', [
         'compensation',
         'benefitsInfoArray',
         'premises',
       ]);
-
-    $info['fee_person'] = DataDefinition::create('string')
-      ->setLabel('Fee Person')
-      ->setSetting('jsonPath', [
-        'compensation',
-        'activitiesInfoArray',
-        'feePerson',
-      ])
-      ->setSetting('valueCallback', [
-        '\Drupal\grants_handler\Plugin\WebformHandler\GrantsHandler',
-        'convertToFloat',
-      ])
-      ->addConstraint('NotBlank');
-
-    $info['fee_community'] = DataDefinition::create('string')
-      ->setLabel('Fee Community')
-      ->setSetting('jsonPath', [
-        'compensation',
-        'activitiesInfoArray',
-        'feeCommunity',
-      ])
-      ->setSetting('valueCallback', [
-        '\Drupal\grants_handler\Plugin\WebformHandler\GrantsHandler',
-        'convertToFloat',
-      ])
-      ->addConstraint('NotBlank');
 
     $info['business_purpose'] = DataDefinition::create('string')
       ->setLabel('businessPurpose')
@@ -363,12 +337,10 @@ trait ApplicationDefinitionTrait {
         'compensation',
         'activitiesInfoArray',
         'businessPurpose',
-      ])
-      ->setSetting('defaultValue', '');
-
+      ]);
+    // ->setSetting('defaultValue', '')
     $info['community_practices_business'] = DataDefinition::create('string')
       ->setLabel('communityPracticesBusiness')
-      ->setSetting('defaultValue', FALSE)
       ->setSetting('jsonPath', [
         'compensation',
         'activitiesInfoArray',
@@ -377,14 +349,12 @@ trait ApplicationDefinitionTrait {
       ->setSetting('typeOverride', [
         'dataType' => 'string',
         'jsonType' => 'bool',
-      ])
-      ->setSetting('defaultValue', FALSE);
-
+      ]);
+    // ->setSetting('defaultValue', FALSE)
     $info['additional_information'] = DataDefinition::create('string')
       ->setLabel('additionalInformation')
-      ->setSetting('jsonPath', ['compensation', 'additionalInformation'])
-      ->setSetting('defaultValue', "");
-
+      ->setSetting('jsonPath', ['compensation', 'additionalInformation']);
+    // ->setSetting('defaultValue', "")
     // Sender details.
     // @todo Maybe move sender info to custom definition?
     $info['sender_firstname'] = DataDefinition::create('string')

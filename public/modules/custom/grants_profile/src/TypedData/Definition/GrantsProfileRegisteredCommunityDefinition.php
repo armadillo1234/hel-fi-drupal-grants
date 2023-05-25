@@ -52,14 +52,6 @@ class GrantsProfileRegisteredCommunityDefinition extends ComplexDataDefinitionBa
           'companyHomePage',
         ]);
 
-      $info['companyEmail'] = DataDefinition::create('string')
-        ->setLabel('companyEmail')
-        ->setSetting('jsonPath', [
-          'grantsProfile',
-          'profileInfoArray',
-          'companyEmail',
-        ]);
-
       $info['companyStatus'] = DataDefinition::create('string')
         ->setLabel('companyStatus')
         ->setReadOnly(TRUE)

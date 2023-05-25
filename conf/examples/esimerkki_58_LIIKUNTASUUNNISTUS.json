@@ -1,0 +1,330 @@
+{
+  "compensation": {
+    "applicationInfoArray": [
+      {
+        "ID": "applicationType",
+        "label": "Hakemustyyppi",
+        "value": "LIIKUNTASUUNNISTUS",
+        "valueType": "string"
+      },
+      {
+        "ID": "applicationTypeID",
+        "label": "Hakemustyypin numero",
+        "value": "58",
+        "valueType": "int"
+      },
+      {
+        "ID": "formTimeStamp",
+        "label": "Hakemuksen/sanoman lähetyshetki",
+        "value": "2022-02-13T13:12:21.000",
+        "valueType": "datetime"
+      },
+      {
+        "ID": "applicationNumber",
+        "label": "Hakemusnumero",
+        "value": "J-SUUNNISTUS-TEST-1",
+        "valueType": "string"
+      },
+      {
+        "ID": "status",
+        "label": "Tila",
+        "value": "Vastaanotettu",
+        "valueType": "string"
+      },
+      {
+        "ID": "actingYear",
+        "label": "Hakemusvuosi",
+        "value": "2023",
+        "valueType": "int"
+      }
+    ],
+    "currentAddressInfoArray": [
+      {
+        "ID": "contactPerson",
+        "label": "Yhteyshenkilö",
+        "value": "Teemu Testaushenkilö",
+        "valueType": "string"
+      },
+      {
+        "ID": "phoneNumber",
+        "label": "Puhelinnumero",
+        "value": "+358404040404",
+        "valueType": "string"
+      },
+      {
+        "ID": "street",
+        "label": "Katuosoite",
+        "value": "Annankatu 18 Ö 905",
+        "valueType": "string"
+      },
+      {
+        "ID": "city",
+        "label": "Postitoimipaikka",
+        "value": "Helsinki",
+        "valueType": "string"
+      },
+      {
+        "ID": "postCode",
+        "label": "Postinumero",
+        "value": "00120",
+        "valueType": "string"
+      },
+      {
+        "ID": "country",
+        "label": "Maa",
+        "value": "Suomi",
+        "valueType": "string"
+      }
+    ],
+    "applicantInfoArray": [
+ {
+        "ID": "applicantType",
+        "label": "Hakijan tyyppi",
+        "value": "2",
+        "valueType": "string"
+      },
+      {
+        "ID": "companyNumber",
+        "label": "Y-Tunnus",
+        "value": "2188282-3",
+        "valueType": "string"
+      },
+      {
+        "ID": "communityOfficialName",
+        "label": "Yhteisön nimi",
+        "value": "J Testi testaus",
+        "valueType": "string"
+      },
+      {
+        "ID": "communityOfficialNameShort",
+        "label": "Yhteisön lyhenne",
+        "value": "JTT ry",
+        "valueType": "string"
+      },
+      {
+        "ID": "registrationDate",
+        "label": "Rekisteröimispäivä",
+        "value": "2023-01-01T00:00:00.000",
+        "valueType": "datetime"
+      },
+      {
+        "ID": "foundingYear",
+        "label": "Perustamisvuosi",
+        "value": "2023",
+        "valueType": "int"
+      },
+      {
+        "ID": "home",
+        "label": "Kotipaikka",
+        "value": "Tampere",
+        "valueType": "string"
+      },
+      {
+        "ID": "homePage",
+        "label": "www-sivut",
+        "value": "www.eioooooooeiooooo.ei",
+        "valueType": "string"
+      },
+      {
+        "ID": "email",
+        "label": "Sähköpostiosoite",
+        "value": "not@gonnahappen.noway",
+        "valueType": "string"
+      }
+    ],
+    "applicantOfficialsArray": [
+      [
+        {
+          "ID": "email",
+          "label": "Sähköposti",
+          "value": "teemu@ttry.fi",
+          "valueType": "string"
+        },
+        {
+          "ID": "role",
+          "label": "Rooli",
+          "value": "1",
+          "valueType": "string"
+        },
+        {
+          "ID": "name",
+          "label": "Nimi",
+          "value": "Teemu Testaushenkilö",
+          "valueType": "string"
+        },
+        {
+          "ID": "phone",
+          "label": "Puhelinnumero",
+          "value": "09-616527788",
+          "valueType": "string"
+        }
+      ]
+    ],
+    "bankAccountArray": [
+      {
+        "ID": "accountNumber",
+        "label": "Tilinumero",
+        "value": "FI9640231442000454",
+        "valueType": "string"
+      }
+    ],
+    "compensationInfo": {
+      "compensationArray": [
+        [
+          {
+            "ID": "subventionType",
+            "label": "Avustuslaji",
+            "value": "15",
+            "valueType": "string"
+          }
+        ]
+      ]
+    },
+	"orienteeringMapInfo": {
+	  "orienteeringMapsArray": [
+	    [
+			{
+			  "ID": "mapName",
+			  "label": "Kartan nimi",
+			  "value": "Tampere",
+			  "valueType": "string"
+			},
+			{
+			  "ID": "size",
+			  "label": "Koko",
+			  "value": "5.45",
+			  "valueType": "double"
+			},
+			{
+			  "ID": "voluntaryHours",
+			  "label": "Talkootyö",
+			  "value": "50",
+			  "valueType": "int"
+			},
+			{
+			  "ID": "cost",
+			  "label": "Kustannukset",
+			  "value": "400.00",
+			  "valueType": "double"
+			},
+			{
+			  "ID": "otherCompensations",
+			  "label": "Muilta saadut avustukset",
+			  "value": "200.00",
+			  "valueType": "double"
+			}
+		],
+		[
+			{
+			  "ID": "mapName",
+			  "label": "Kartan nimi",
+			  "value": "Helsinki",
+			  "valueType": "string"
+			},
+			{
+			  "ID": "size",
+			  "label": "Koko",
+			  "value": "7.45",
+			  "valueType": "double"
+			},
+			{
+			  "ID": "voluntaryHours",
+			  "label": "Talkootyö",
+			  "value": "50",
+			  "valueType": "int"
+			},
+			{
+			  "ID": "cost",
+			  "label": "Kustannukset",
+			  "value": "600.00",
+			  "valueType": "double"
+			},
+			{
+			  "ID": "otherCompensations",
+			  "label": "Muilta saadut avustukset",
+			  "value": "500.00",
+			  "valueType": "double"
+			}
+		]
+	  ]
+	},
+    "additionalInformation": "Tällä kertaa ei ole muuta ilmoitettavaa tähän hakemukseen",
+    "senderInfoArray": [
+      {
+        "ID": "firstname",
+        "label": "Etunimi",
+        "value": "Testaaja",
+        "valueType": "string"
+      },
+      {
+        "ID": "lastname",
+        "label": "Sukunimi",
+        "value": "Tiina",
+        "valueType": "string"
+      },
+      {
+        "ID": "personID",
+        "label": "Henkilötunnus",
+        "value": "171756-1234",
+        "valueType": "string"
+      },
+      {
+        "ID": "userID",
+        "label": "Käyttäjätunnus",
+        "value": "testatii",
+        "valueType": "string"
+      },
+      {
+        "ID": "email",
+        "label": "Sähköposti",
+        "value": "tiina.testaaja@testiyhdistys.fi",
+        "valueType": "string"
+      }
+    ]
+  },
+  "attachmentsInfo": {
+    "attachmentsArray": [
+      [
+        {
+          "ID": "description",
+          "value": "Pankin ilmoitus tilinomistajasta tai tiliotekopio (uusilta hakijoilta tai pankkiyhteystiedot muuttuneet) *",
+          "valueType": "string"
+        },
+        {
+          "ID": "fileName",
+          "value": "01_pankin_ilmoitus_tilinomistajast_.docx",
+          "valueType": "string"
+        },
+        {
+          "ID": "fileType",
+          "value": "1",
+          "valueType": "int"
+        },
+        {
+          "ID": "isDeliveredLater",
+          "value": "true",
+          "valueType": "bool"
+        },
+        {
+          "ID": "isIncludedInOtherFile",
+          "value": "false",
+          "valueType": "bool"
+        },
+        {
+          "ID": "isNewAttachment",
+          "value": "false",
+          "valueType": "bool"
+        }
+      ]
+    ],
+    "generalInfoArray": [
+      {
+        "ID": "extraInfo",
+        "label": "Lisäselvitys liitteistä",
+        "value": "Tässä voi olla joku kaikkia liitteitä yhteisesti koskeva selvitys",
+        "valueType": "string"
+      }
+    ]
+  },
+  "formUpdate": false
+}

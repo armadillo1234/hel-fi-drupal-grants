@@ -24,14 +24,14 @@ statusStrings:
     DONE: Käsitelty
     REJECTED: Hylätty
     DELETED: Poistettu
-    CANCELED: Keskeytetty
-    CANCELLED: Keskeytetty
-    CLOSED: Suljettu
+    CANCELED: Peruttu
+    CANCELLED: Peruttu
+    CLOSED: Ratkaistu
   sv:
     DRAFT: Draft
     SENT: Sent
     SUBMITTED: Submitted
-    RECEIVED: Received
+    RECEIVED: Mottagits
     PENDING: Pending
     PROCESSING: Processing
     READY: Ready
